@@ -6,14 +6,12 @@ using System.Threading.Tasks;
 
 namespace tp_final.Models
 {
-    public class User
+    public class Users
     {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
         public string Username { get; set; }
-
-        public string FullName { get => $"{LastName}, {FirstName}"; }
-
-        public override string ToString() => FullName;        
+        public string Pwd { get; set; }
+        public string Email { get; set; }
+        public int Isadmin { get; set; }
+        
     }
 }
