@@ -12,24 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using tp_final.ViewModels;
 
-namespace tp_final
+namespace tp_final.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Logique d'interaction pour LoginView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class LoginView : UserControl
     {
-        MainViewModel va;
-        public MainWindow()
+        public LoginView()
         {
             InitializeComponent();
-
-            va = new MainViewModel();
-
-            DataContext = va;
-           
         }
     }
 }
