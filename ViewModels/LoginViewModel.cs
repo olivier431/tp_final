@@ -8,5 +8,6 @@ namespace tp_final.ViewModels
 {
     internal class LoginViewModel : BaseViewModel
     {
+        public BaseViewModel CurrentViewModel { get; set; }
     }
 }
