@@ -13,6 +13,6 @@
         </Grid.RowDefinitions>
 
         <Label Grid.Row="0">Welcome to music application create by : Olivier Lefebvre, Félix Carignan, Samuel Cossette et keven kègle</Label>
-        <Button Grid.Row="1" x:Name="Login" Content="Go to Login" />
+        <Button Grid.Row="1" x:Name="Login" Content="Go to Login" Command="{Binding GoToLoginCommand}" />
     </Grid>
 </UserControl>

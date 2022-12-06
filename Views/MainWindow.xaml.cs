@@ -21,14 +21,10 @@ namespace tp_final
     /// </summary>
     public partial class MainWindow : Window
     {
-        MainViewModel va;
+       
         public MainWindow()
         {
             InitializeComponent();
-
-            va = new MainViewModel();
-
-            DataContext = va;
            
         }
     }
