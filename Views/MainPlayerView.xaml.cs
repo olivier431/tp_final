@@ -18,7 +18,7 @@ namespace tp_final.Views
     /// <summary>
     /// Logique d'interaction pour MainPlayerView.xaml
     /// </summary>
-    public partial class MainPlayerView : Page
+    public partial class MainPlayerView : UserControl
     {
         public MainPlayerView()
         {
