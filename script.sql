@@ -246,6 +246,6 @@ INSERT INTO users(isAdmin, username, pwd, email) VALUES
 	(TRUE, 'Felix',		SHA2('OVERkumoko4116',	256), 'carife2002@gmail.com'), 
 	(TRUE, 'Olivier',	SHA2('123456789',		256), 'email@email.com'), 
 	(TRUE, 'Samuel',	SHA2('12345678',		256), '1@1.com'); 
-#	(TRUE, 'nom',		SHA2('pwd',			256), 'email');
+#	(TRUE, 'Keven',		SHA2('741852963',			256), 'kev@email.com');
 
 INSERT INTO playlists(title) VALUES ('Unknown Album');

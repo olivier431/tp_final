@@ -1,0 +1,87 @@
+﻿<Page x:Class="tp_final.Views.MainPlayerView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:tp_final.Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="MainPlayerView">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Menu VerticalAlignment="Top" Height="20">
+            <Separator/>
+            <MenuItem Header="Playlist"/>
+            <Separator/>
+            <MenuItem Header="Morceaux"/>
+            <Separator/>
+            <MenuItem Header="Album"/>
+            <Separator/>
+            <MenuItem Header="Utilisateurs"/>
+            <Separator/>
+            <Separator/>
+            <Separator/>
+            <Separator/>
+            <Separator/>
+            <Separator/>
+            <Separator/>
+            <Separator/>
+            <Separator/>
+            <Separator/>
+            <Separator/>
+            <Separator/>
+            <MenuItem Header="Logout" HorizontalAlignment="Right"/>
+        </Menu>
+        <Grid Name="PlayerView" Height="430" VerticalAlignment="Bottom" Width="800" ShowGridLines="False">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid x:Name="PlaylistSongGrid">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <ListBox x:Name="PlaylistListBox" Grid.Column="0" Margin="10,10,10,10" Height="370" Width="200" HorizontalAlignment="Stretch" VerticalAlignment="Top"/>
+                <Button x:Name="PlaylistButton" Grid.Column="0" Margin="10,10,10,10" Height="30" VerticalAlignment="Bottom" Content="Go"/>
+                <ListBox x:Name="SongListBox" Grid.Column="1" Margin="10,10,10,10" Height="370" Width="200" HorizontalAlignment="Stretch" VerticalAlignment="Top"/>
+                <Button x:Name="AddSongButton" Grid.Column="1" Margin="10,10,10,10" Height="30" VerticalAlignment="Bottom" Content="Add a song"/>
+            </Grid>
+            <Grid x:Name="CurrentSongPlayingGrid" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Label x:Name="SongTitle" Grid.Row="0" Content="Title" Foreground="White"/>
+                <Label x:Name="SongGroup" Grid.Row="1" Content="Group" Foreground="White"/>
+                <Label x:Name="SongDuration" Grid.Row="2" Content="Duration" Foreground="White"/>
+                <Label x:Name="SongYear" Grid.Row="3" Content="Year" Foreground="White"/>
+                <TextBox x:Name="SongTitleBox" Grid.Row="0" Width="330" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Text="Song Title"/>
+                <TextBox x:Name="SongGroupBox" Grid.Row="1" Width="330" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Text="Song Group"/>
+                <TextBox x:Name="SongDurationBox" Grid.Row="2" Width="330" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Text="Song Duration"/>
+                <TextBox x:Name="SongYearBox" Grid.Row="3" Width="330" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Text="Song Year"/>
+                <ProgressBar x:Name="SongProgress" Grid.Row="5" Width="400" IsIndeterminate="True"/>
+                <Menu x:Name="SongButtonsMenu" Grid.Row="6">
+                    <Button x:Name="ShuffleButton" Content="Shuffle" Height="40" Width="45" Margin="0,5,5,0"/>
+                    <Button x:Name="PlayButton" Content="Play" Height="40" Width="45" Margin="0,5,5,0"/>
+                    <Button x:Name="PauseButton" Content="Pause" Height="40" Width="50" Margin="0,5,5,0"/>
+                    <Button x:Name="NextButton" Content="Next" Height="40" Width="50" Margin="0,5,5,0"/>
+                    <Button x:Name="PreviousButton" Content="Previous" Height="40" Width="50" Margin="0,5,5,0"/>
+                    <Button x:Name="LikeButton" Content="Like" Height="40" Width="45" Margin="0,5,5,0"/>
+                </Menu>
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>
