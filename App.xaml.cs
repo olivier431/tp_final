@@ -22,7 +22,7 @@ namespace tp_final
 
             navigationStore.CurrentViewModel = new WelcomeViewModel(navigationStore);
 
-            MainWindow window = new MainWindow() {
+           MainWindow window = new MainWindow() {
                 DataContext = new MainViewModel(navigationStore)
             };
             window.Show();
