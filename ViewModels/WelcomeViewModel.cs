@@ -20,7 +20,7 @@ namespace tp_final.ViewModels
         }
 
         public void GoToLogin() {
-            navigationStore.CurrentViewModel = new WelcomeViewModel(navigationStore);
+            navigationStore.CurrentViewModel = new LoginViewModel(navigationStore);
         }
 
     }
