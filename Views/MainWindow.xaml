@@ -19,6 +19,9 @@
             <DataTemplate DataType="{x:Type viewModels:RegisterViewModel}">
                 <views:RegisterView/>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModels:AdminUserViewModel}">
+                <views:AdminUserView/>
+            </DataTemplate>
         </ContentControl.Resources>
     </ContentControl>
 </Window>
