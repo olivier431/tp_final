@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace tp_final.Services
 {
-    internal class MarthaService
+    public class MarthaResponse
     {
-
+        public bool Success { get; set; }
+        public IList<object> Data { get; set; }
     }
 }
