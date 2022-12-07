@@ -23,7 +23,7 @@
             <MenuItem Header="Utilisateurs"/>
             <Separator/>
             <Separator/>
-            <Separator/>
+            <MenuItem Header="Admin"/>
             <Separator/>
             <Separator/>
             <Separator/>
