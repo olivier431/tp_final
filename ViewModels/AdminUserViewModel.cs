@@ -27,7 +27,7 @@ namespace tp_final.ViewModels
             set
             {
                 userViewSource = value;
-
+                OnPropertyChanged();
             }
         }
     }
