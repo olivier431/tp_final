@@ -12,14 +12,21 @@ namespace tp_final.ViewModels
     {
         private readonly NavigationStore navigationStore;
         public DelegateCommand GoToRegisterCommand { get; set; }
+        public DelegateCommand LoginCommand { get; set; }
         public LoginViewModel(NavigationStore _navigationStore) {
             navigationStore = _navigationStore;
             GoToRegisterCommand = new DelegateCommand(GoToRegister);
+            LoginCommand = new DelegateCommand(Login);
         }
 
         public void GoToRegister()
         {
             navigationStore.CurrentViewModel = new RegisterViewModel(navigationStore);
+        }
+
+        public void Login()
+        {
+            navigationStore.CurrentViewModel = new MainPlayerViewModel(navigationStore);
         }
     }
 }
