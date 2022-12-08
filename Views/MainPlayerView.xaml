@@ -18,10 +18,10 @@
             <Separator/>
             <MenuItem Header="Album"/>
             <Separator/>
-            <MenuItem Header="Utilisateurs"/>
-            <Separator/>
             <Separator/>
             <MenuItem Header="Admin"/>
+            <Separator/>
+            <Separator/>
             <Separator/>
             <Separator/>
             <Separator/>
@@ -64,10 +64,10 @@
                 <Label x:Name="SongGroup" Grid.Row="1" Content="Group" Foreground="Black"/>
                 <Label x:Name="SongDuration" Grid.Row="2" Content="Duration" Foreground="Black"/>
                 <Label x:Name="SongYear" Grid.Row="3" Content="Year" Foreground="Black"/>
-                <TextBox x:Name="SongTitleBox" Grid.Row="0" Width="330" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Text="Song Title"/>
-                <TextBox x:Name="SongGroupBox" Grid.Row="1" Width="330" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Text="Song Group"/>
-                <TextBox x:Name="SongDurationBox" Grid.Row="2" Width="330" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Text="Song Duration"/>
-                <TextBox x:Name="SongYearBox" Grid.Row="3" Width="330" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Text="Song Year"/>
+                <Label x:Name="SongTitleLabel" Grid.Row="0" Width="330" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Content="Song Title" Foreground="Black"/>
+                <Label x:Name="SongGroupLabel" Grid.Row="1" Width="330" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Content="Song Group" Foreground="Black"/>
+                <Label x:Name="SongDurationLabel" Grid.Row="2" Width="330" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Content="Song Duration" Foreground="Black"/>
+                <Label x:Name="SongYearLabel" Grid.Row="3" Width="330" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Content="Song Year" Foreground="Black"/>
                 <ProgressBar x:Name="SongProgress" Grid.Row="5" Width="400" IsIndeterminate="True"/>
                 <Menu x:Name="SongButtonsMenu" Grid.Row="6">
                     <Button x:Name="ShuffleButton" Content="Shuffle" Height="40" Width="45" Margin="0,5,5,0"/>
