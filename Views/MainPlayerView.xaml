@@ -8,7 +8,7 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Menu VerticalAlignment="Top" Height="20">
             <Separator/>
@@ -29,16 +29,14 @@
             <Separator/>
             <Separator/>
             <Separator/>
-            <Separator/>
-            <Separator/>
             <MenuItem Header="Logout" HorizontalAlignment="Right"/>
         </Menu>
-        <Grid Name="PlayerView" Height="430" VerticalAlignment="Bottom" Width="800" ShowGridLines="False">
+        <Grid Name="PlayerView" Height="Auto" Width="Auto" ShowGridLines="False" VerticalAlignment="Bottom">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Grid x:Name="PlaylistSongGrid">
+            <Grid x:Name="PlaylistSongGrid" Height="Auto" Width="Auto">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
@@ -48,7 +46,7 @@
                 <ListBox x:Name="SongListBox" Grid.Column="1" Margin="10,10,10,10" Height="370" Width="200" HorizontalAlignment="Stretch" VerticalAlignment="Top"/>
                 <Button x:Name="AddSongButton" Grid.Column="1" Margin="10,10,10,10" Height="30" VerticalAlignment="Bottom" Content="Add a song"/>
             </Grid>
-            <Grid x:Name="CurrentSongPlayingGrid" Grid.Column="1">
+            <Grid x:Name="CurrentSongPlayingGrid" Grid.Column="1" VerticalAlignment="Stretch">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
@@ -62,10 +60,10 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Label x:Name="SongTitle" Grid.Row="0" Content="Title" Foreground="White"/>
-                <Label x:Name="SongGroup" Grid.Row="1" Content="Group" Foreground="White"/>
-                <Label x:Name="SongDuration" Grid.Row="2" Content="Duration" Foreground="White"/>
-                <Label x:Name="SongYear" Grid.Row="3" Content="Year" Foreground="White"/>
+                <Label x:Name="SongTitle" Grid.Row="0" Content="Title" Foreground="Black"/>
+                <Label x:Name="SongGroup" Grid.Row="1" Content="Group" Foreground="Black"/>
+                <Label x:Name="SongDuration" Grid.Row="2" Content="Duration" Foreground="Black"/>
+                <Label x:Name="SongYear" Grid.Row="3" Content="Year" Foreground="Black"/>
                 <TextBox x:Name="SongTitleBox" Grid.Row="0" Width="330" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Text="Song Title"/>
                 <TextBox x:Name="SongGroupBox" Grid.Row="1" Width="330" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Text="Song Group"/>
                 <TextBox x:Name="SongDurationBox" Grid.Row="2" Width="330" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Text="Song Duration"/>
