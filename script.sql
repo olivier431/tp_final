@@ -3,11 +3,11 @@ DROP TABLE IF EXISTS playlists_tunes, tunes, stats_playlists, playlists, users;
 
 # ------------------------ CREATE TABLE ------------------------
 CREATE TABLE IF NOT EXISTS users (
-	id			INT PRIMARY KEY AUTO_INCREMENT,
-	isAdmin			BOOLEAN NOT NULL DEFAULT FALSE,
-	username		VARCHAR(45) NOT NULL UNIQUE CHECK(LENGTH(username) >= 3),
-	pwd			VARCHAR(64) NOT NULL,
-	email			VARCHAR(60) CHECK(email REGEXP '^[\\w-]*+@([\\w-]+[.])+[\\w-]{2,4}$'), 
+	id		INT PRIMARY KEY AUTO_INCREMENT,
+	isAdmin		BOOLEAN NOT NULL DEFAULT FALSE,
+	username	VARCHAR(45) NOT NULL UNIQUE CHECK(LENGTH(username) >= 3),
+	pwd		VARCHAR(64) NOT NULL,
+	email		VARCHAR(60) CHECK(email REGEXP '^[\\w-]*+@([\\w-]+[.])+[\\w-]{2,4}$'), 
 	lastConnection	DATETIME
 );
 
@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS stats_playlists (
 	playlist_id	INT KEY REFERENCES playlists(id) ON DELETE CASCADE,
 	`count`		INT NOT NULL DEFAULT 0,
 	length		INT NOT NULL DEFAULT 0,
-	isAlbum		BOOLEAN #NOT NULL DEFAULT FALSE
+	isAlbum		BOOLEAN 
 );
 
 CREATE TABLE IF NOT EXISTS tunes (
@@ -112,15 +112,24 @@ END;
 # ------------------------ PROCEDURE ------------------------
 CREATE OR REPLACE PROCEDURE refresh_playlist(IN pl_id INT) 
 BEGIN
-	SELECT 
-		MAX(GREATEST(ord, album_ord)), 
-		COUNT(tunes.id), 
-		IFNULL(SUM(length), 0), 
-		album_id = pl_id 
-	INTO @MAX, @COUNT, @LENGTH, @isAlbum 
-	FROM playlists_tunes 
-	RIGHT JOIN tunes ON tune_id = tunes.id 
-	WHERE pl_id IN(album_id, playlist_id);
+	SELECT TRUE, MAX(album_ord), COUNT(id), IFNULL(SUM(length), 0) 
+	INTO @isAlbum, @MAX, @COUNT, @LENGTH FROM tunes WHERE album_id = pl_id;
+	
+	IF(@COUNT = 0) THEN
+		SELECT FALSE, MAX(ord), COUNT(id), 
+		IFNULL(SUM((SELECT length FROM tunes WHERE tunes.id = tune_id)), 0)
+		INTO @isAlbum, @MAX, @COUNT, @LENGTH
+		FROM playlists_tunes WHERE playlist_id = pl_id;
+	END IF;
+    
+#	SELECT 
+#		MAX(IF(album_id = pl_id, album_ord, ord)),
+#		COUNT(tunes.id), 
+#		IFNULL(SUM(length), 0)
+#	INTO @MAX, @COUNT, @LENGTH, @isAlbum 
+#	FROM playlists_tunes 
+#	RIGHT JOIN tunes ON tune_id = tunes.id 
+#	WHERE pl_id IN(album_id, playlist_id);
 
 	IF(@MAX != @COUNT) THEN
 		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'ord ERROR';
@@ -246,6 +255,6 @@ INSERT INTO users(isAdmin, username, pwd, email) VALUES
 	(TRUE, 'Felix',		SHA2('OVERkumoko4116',	256), 'carife2002@gmail.com'), 
 	(TRUE, 'Olivier',	SHA2('123456789',		256), 'email@email.com'), 
 	(TRUE, 'Samuel',	SHA2('12345678',		256), '1@1.com'); 
-#	(TRUE, 'Keven',		SHA2('741852963',			256), 'kev@email.com');
+#	(TRUE, 'nom',		SHA2('pwd',			256), 'email');
 
 INSERT INTO playlists(title) VALUES ('Unknown Album');
