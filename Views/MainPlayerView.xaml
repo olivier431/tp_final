@@ -16,10 +16,10 @@
             <Separator/>
             <MenuItem Header="Morceaux"/>
             <Separator/>
-            <MenuItem Header="Album"/>
+            <MenuItem Header="Album" Command="{Binding GoToAlbumCommand}"/>
             <Separator/>
             <Separator/>
-            <MenuItem Header="Admin"/>
+            <MenuItem Header="Admin" Command="{Binding GoToAdminCommand}"/>
             <Separator/>
             <Separator/>
             <Separator/>

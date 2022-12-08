@@ -25,6 +25,9 @@
             <DataTemplate DataType="{x:Type viewModels:MainPlayerViewModel}">
                 <views:MainPlayerView/>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModels:AlbumViewModel}">
+                <views:AlbumView/>
+            </DataTemplate>
         </ContentControl.Resources>
     </ContentControl>
 </Window>
