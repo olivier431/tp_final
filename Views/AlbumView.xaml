@@ -20,7 +20,7 @@
             <MenuItem Header="Album"/>
             <Separator/>
             <Separator/>
-            <MenuItem Header="Admin"/>
+            <MenuItem Header="Admin" Command="{Binding GoToAdminCommand}"/>
             <Separator/>
             <Separator/>
             <Separator/>
