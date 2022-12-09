@@ -18,16 +18,8 @@ namespace tp_final.Services
 
         IConfiguration Configuration;
 
-        static MarthaProcessor()
-        {
-
-        }
-
-        private MarthaProcessor()
-        {
-            doConfig();
-
-        }
+        static MarthaProcessor() {}
+        private MarthaProcessor() => doConfig();
 
         /// GetInstance
         public static MarthaProcessor Instance => instance;
@@ -90,15 +82,12 @@ namespace tp_final.Services
                     var result = JsonSerializer.Deserialize<MarthaResponse>(stringContent, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 
                     return result;
-
                 }
                 else
                 {
                     throw new Exception(response.ReasonPhrase);
                 }
             }
-
-
         }
     }
 }
