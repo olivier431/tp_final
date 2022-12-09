@@ -16,15 +16,22 @@ namespace tp_final.ViewModels
         ICollectionView tuneViewSource;
         ICollectionView playlistViewSource;
 
+        public DelegateCommand GoToAdminCommand { get; set; }
+
         TestDataServices testDataServices = new TestDataServices();
         private readonly NavigationStore navigationStore;
-        public DelegateCommand GoToAdminCommand { get; set; }
         
         public AlbumViewModel(NavigationStore _navigationStore) {
+
             TuneViewSource = CollectionViewSource.GetDefaultView(testDataServices.LesTunes);
             PlaylistViewSource = CollectionViewSource.GetDefaultView(testDataServices.LesPlaylists);
+
             navigationStore = _navigationStore;
             GoToAdminCommand = new DelegateCommand(GoToAdmin);
+        }
+        public void GoToAdmin()
+        {
+            navigationStore.CurrentViewModel = new AdminUserViewModel(navigationStore);
         }
 
         public ICollectionView TuneViewSource
@@ -46,9 +53,5 @@ namespace tp_final.ViewModels
             }
         }
 
-        public void GoToAdmin()
-        {
-            navigationStore.CurrentViewModel = new AdminUserViewModel(navigationStore);
-        }
     }
 }
