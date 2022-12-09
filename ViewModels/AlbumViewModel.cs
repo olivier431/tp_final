@@ -10,7 +10,7 @@ using tp_final.Stores;
 
 namespace tp_final.ViewModels
 {
-    class AlbumViewModel : BaseViewModel
+    public class AlbumViewModel : BaseViewModel
     {
         ICollectionView tuneViewSource;
         ICollectionView playlistViewSource;

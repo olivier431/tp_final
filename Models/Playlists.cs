@@ -8,13 +8,13 @@ namespace tp_final.Models
 {
     public class Playlists
     {
-        string Artist { get; set; }
-        string Genre { get; set; }
-        string Title { get; set; }
-        int Year { get; set; }
-        int Is_public { get; set; }
-        int User_id { get; set; }
-        string Album_cover { get; set; }
+        public string Artist { get; set; }
+        public string Genre { get; set; }
+        public string Title { get; set; }
+        public int Year { get; set; }
+        public int Is_public { get; set; }
+        public int User_id { get; set; }
+        public string Album_cover { get; set; }
 
 
         public Playlists(string artist, string genre, string title, int year, int isPublic, int userId, string albumCover)

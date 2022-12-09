@@ -41,20 +41,20 @@
             <ListBox ItemsSource="{Binding PlaylistViewSource}" Margin="10,10,10,10" Height="Auto" Width="AUTO" HorizontalAlignment="Stretch" Grid.Column="0">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                       
-                            <TextBlock Text="{Binding Artist}" Margin="10,0,0,0"></TextBlock>
-                        
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Title}"></TextBlock>
+                        </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
             <StackPanel Grid.Column="1">
                 <StackPanel Orientation="Horizontal">
-                    <Label>Artiste</Label>
-                    <TextBox Width="147"></TextBox>
+                    <Label>Artist</Label>
+                    <TextBox Width="147" Margin="5,0,0,0"></TextBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label>Titre</Label>
-                    <TextBox Width="147" Margin="11,0,0,0"></TextBox>
+                    <TextBox Width="147" Margin="10,0,0,0"></TextBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label>Durée</Label>
@@ -105,7 +105,7 @@
                     <Label x:Name="SongYear" Content="Year: " Foreground="Black" Margin="150,0,0,0"/>
                     <Label x:Name="SongYearLabel" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Content="Song Year" Foreground="Black"/>
                 </StackPanel>
-                <ProgressBar x:Name="SongProgress" Height="10" IsIndeterminate="True"/>
+                <ProgressBar x:Name="SongProgress" Height="10" IsIndeterminate="False"/>
                 <Menu x:Name="SongButtonsMenu">
                     <Button x:Name="ShuffleButton" Content="Shuffle" Height="40" Width="45" Margin="0,5,5,0"/>
                     <Button x:Name="PlayButton" Content="Play" Height="40" Width="45" Margin="0,5,5,0"/>
