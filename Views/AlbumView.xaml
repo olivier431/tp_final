@@ -38,8 +38,15 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <ListBox Margin="10,10,10,10" Height="Auto" Width="AUTO" HorizontalAlignment="Stretch" Grid.Column="0"/>
-
+            <ListBox ItemsSource="{Binding PlaylistViewSource}" Margin="10,10,10,10" Height="Auto" Width="AUTO" HorizontalAlignment="Stretch" Grid.Column="0">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                       
+                            <TextBlock Text="{Binding Artist}" Margin="10,0,0,0"></TextBlock>
+                        
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
             <StackPanel Grid.Column="1">
                 <StackPanel Orientation="Horizontal">
                     <Label>Artiste</Label>
@@ -59,7 +66,7 @@
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label>Genre</Label>
-                    <TextBox Width="147" Margin="2,0,0,0"></TextBox>
+                    <TextBox Width="147" Margin="2,0,0,0" ></TextBox>
                 </StackPanel>
 
                 <ListBox ItemsSource="{Binding TuneViewSource}" Margin="10,10,10,10" Height="250" Width="Auto" HorizontalAlignment="Stretch">

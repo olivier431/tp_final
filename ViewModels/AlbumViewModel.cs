@@ -13,12 +13,14 @@ namespace tp_final.ViewModels
     class AlbumViewModel : BaseViewModel
     {
         ICollectionView tuneViewSource;
-        ICollectionView albumViewSource;
+        ICollectionView playlistViewSource;
+
         TestDataServices testDataServices = new TestDataServices();
         private readonly NavigationStore navigationStore;
 
         public AlbumViewModel(NavigationStore _navigationStore) {
             TuneViewSource = CollectionViewSource.GetDefaultView(testDataServices.LesTunes);
+            PlaylistViewSource = CollectionViewSource.GetDefaultView(testDataServices.LesPlaylists);
             navigationStore = _navigationStore;
         }
 
@@ -28,6 +30,15 @@ namespace tp_final.ViewModels
             set
             {
                 tuneViewSource = value;
+                OnPropertyChanged();
+            }
+        }
+        public ICollectionView PlaylistViewSource
+        {
+            get => playlistViewSource;
+            set
+            {
+                playlistViewSource = value;
                 OnPropertyChanged();
             }
         }
