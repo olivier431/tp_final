@@ -16,7 +16,7 @@ namespace tp_final.ViewModels
     {
         ICollectionView tuneViewSource;
         ICollectionView playlistViewSource;
-        private Tune tune = new Tune();
+        //private Tune tune = new Tune();
 
         public DelegateCommand GoToAdminCommand { get; set; }
         public DelegateCommand GoToMainPlayerCommand { get; set; }
