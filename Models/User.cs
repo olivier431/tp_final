@@ -1,9 +1,8 @@
-﻿using System;
-using System.Text.Json;
+﻿using System.Text.Json;
 using System.Text.Json.Serialization;
 using tp_final.Models;
 
-namespace tp_final.Models
+namespace testFelix.Models
 {
     public class User : Model
     {
@@ -35,7 +34,6 @@ namespace tp_final.Models
         )
         { }
 
-        //[JsonConstructor]
         User(
             int id,
             int isAdmin,
@@ -52,7 +50,6 @@ namespace tp_final.Models
             this.email = email;
             this.lastConnection = lastConnection;
         }
-
 
 
 

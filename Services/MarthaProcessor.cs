@@ -1,16 +1,15 @@
 ﻿using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Net.Http.Json;
+using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
+using System.Text.Json.Nodes;
+using tp_final.Services;
 
-namespace tp_final.Services
+namespace MarthaService
 {
+    // Singleton de MarthaProcessor qui est ThreadSafe
     public class MarthaProcessor
     {
         private static readonly MarthaProcessor instance = new MarthaProcessor();
@@ -18,8 +17,16 @@ namespace tp_final.Services
 
         IConfiguration Configuration;
 
-        static MarthaProcessor() {}
-        private MarthaProcessor() => doConfig();
+        static MarthaProcessor()
+        {
+
+        }
+
+        private MarthaProcessor()
+        {
+            doConfig();
+
+        }
 
         /// GetInstance
         public static MarthaProcessor Instance => instance;
@@ -67,13 +74,13 @@ namespace tp_final.Services
         /// <param name="param">Format JSON {"nomParam" : "valeurParam" [, ...]}</param>
         /// <returns>Une MarthaResponse</returns>
         /// <exception cref="Exception"></exception>
-        public async Task<MarthaResponse> ExecuteQuery(string queryName, string param = "{}")
+        public async Task<MarthaResponse> ExecuteQueryAsync(string queryName, string param = "{}")
         {
             var url = $"queries/{queryName}/execute";
-            var httpContent = new StringContent(param);
+            var httpContent = new StringContent(param, Encoding.UTF8, "application/json");
 
 
-            using (var response = await httpClient.PostAsJsonAsync(url, httpContent))
+            using (var response = await httpClient.PostAsync(url, httpContent))
             {
                 if (response.IsSuccessStatusCode)
                 {
@@ -82,6 +89,7 @@ namespace tp_final.Services
                     var result = JsonSerializer.Deserialize<MarthaResponse>(stringContent, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 
                     return result;
+
                 }
                 else
                 {
@@ -89,5 +97,14 @@ namespace tp_final.Services
                 }
             }
         }
+
+        /// <summary>
+        /// Execute a query
+        /// </summary>
+        /// <param name="queryName">Nom du Query sur Martha</param>
+        /// <param name="jso">Objet JSON {"nomParam" : "valeurParam" [, ...]}</param>
+        /// <returns>Une MarthaResponse</returns>
+        /// <exception cref="Exception"></exception>
+        public async Task<MarthaResponse> ExecuteQueryAsync(string queryName, JsonObject jso) => await ExecuteQueryAsync(queryName, jso.ToString());
     }
 }
