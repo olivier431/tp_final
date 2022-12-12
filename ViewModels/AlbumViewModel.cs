@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 using tp_final.Commands;
+using tp_final.Models;
 using tp_final.Services;
 using tp_final.Stores;
 
@@ -15,8 +16,12 @@ namespace tp_final.ViewModels
     {
         ICollectionView tuneViewSource;
         ICollectionView playlistViewSource;
+        private Tune tune = new Tune();
 
         public DelegateCommand GoToAdminCommand { get; set; }
+        public DelegateCommand GoToMainPlayerCommand { get; set; }
+        //public DelegateCommand GoToCommand { get; set; }
+        //public DelegateCommand GoToAdminCommand { get; set; }
 
         TestDataServices testDataServices = new TestDataServices();
         private readonly NavigationStore navigationStore;
@@ -26,14 +31,24 @@ namespace tp_final.ViewModels
             TuneViewSource = CollectionViewSource.GetDefaultView(testDataServices.LesTunes);
             PlaylistViewSource = CollectionViewSource.GetDefaultView(testDataServices.LesPlaylists);
 
+            //if (PlaylistViewSource.CurrentItem != null)
+            //{
+            //    Tune tune = (Tune)PlaylistViewSource.CurrentItem;
+            //}
+
             navigationStore = _navigationStore;
             GoToAdminCommand = new DelegateCommand(GoToAdmin);
+            GoToMainPlayerCommand = new DelegateCommand(GoToMainPlayer);
         }
         public void GoToAdmin()
         {
             navigationStore.CurrentViewModel = new AdminUserViewModel(navigationStore);
         }
 
+        public void GoToMainPlayer()
+        {
+            navigationStore.CurrentViewModel = new MainPlayerViewModel(navigationStore);
+        }
         public ICollectionView TuneViewSource
         {
             get => tuneViewSource;
