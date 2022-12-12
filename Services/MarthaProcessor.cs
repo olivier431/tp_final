@@ -1,13 +1,14 @@
 ﻿using Microsoft.Extensions.Configuration;
-using System.Net.Http.Headers;
-using System.Net.Http.Json;
-using System.Security.Cryptography;
+using RestSharp;
+using System;
+using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Nodes;
-using tp_final.Services;
+using System.Threading.Tasks;
 
-namespace MarthaService
+
+namespace tp_final.Services
 {
     // Singleton de MarthaProcessor qui est ThreadSafe
     public class MarthaProcessor
@@ -25,6 +26,8 @@ namespace MarthaService
         private MarthaProcessor()
         {
             doConfig();
+
+        }
 
         }
 
