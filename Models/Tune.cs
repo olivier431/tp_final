@@ -25,6 +25,7 @@ namespace tp_final.Models
         this(JsonSerializer.Deserialize<Tune>(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true })!)
         { }
 
+        public Tune() { }
         public Tune(Tune tune) : 
         this(
             tune.id,

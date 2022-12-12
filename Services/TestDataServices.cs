@@ -22,6 +22,8 @@ namespace tp_final.Services
             };
             LesTunes = new ObservableCollection<Tune>()
             {
+                new Tune(1, 1, 1, 1, "Tune1", "Bob", "Rock", "file", 4, 1999),
+                new Tune(1, 1, 1, 1, "Tune2", "Roger", "We", "test", 56, 2000)
                 //new Tune("Music", "Bob", "Pop", 5, 1999),
                 //new Tune("Chant", "Roger", "Rock", 73, 2010)
             };
