@@ -7,10 +7,11 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <Menu VerticalAlignment="Top" Height="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Menu VerticalAlignment="Top" Height="20" Grid.Row="0">
             <Separator/>
             <MenuItem Header="Playlist"/>
             <Separator/>
@@ -31,45 +32,54 @@
             <Separator/>
             <MenuItem Header="Logout" HorizontalAlignment="Right"/>
         </Menu>
-        <Grid Name="PlayerView" Height="Auto" Width="Auto" ShowGridLines="False" VerticalAlignment="Bottom">
+        <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <Grid x:Name="PlaylistSongGrid" Height="Auto" Width="Auto">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <ListBox x:Name="PlaylistListBox" Grid.Column="0" Margin="10,10,10,10" Height="370" Width="200" HorizontalAlignment="Stretch" VerticalAlignment="Top"/>
-                <Button x:Name="PlaylistButton" Grid.Column="0" Margin="10,10,10,10" Height="30" VerticalAlignment="Bottom" Content="Go"/>
-                <ListBox x:Name="SongListBox" Grid.Column="1" Margin="10,10,10,10" Height="370" Width="200" HorizontalAlignment="Stretch" VerticalAlignment="Top"/>
-                <Button x:Name="AddSongButton" Grid.Column="1" Margin="10,10,10,10" Height="30" VerticalAlignment="Bottom" Content="Add a song"/>
-            </Grid>
-            <Grid x:Name="CurrentSongPlayingGrid" Grid.Column="1" VerticalAlignment="Stretch">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <Label x:Name="SongTitle" Grid.Row="0" Content="Title" Foreground="Black"/>
-                <Label x:Name="SongGroup" Grid.Row="1" Content="Group" Foreground="Black"/>
-                <Label x:Name="SongDuration" Grid.Row="2" Content="Duration" Foreground="Black"/>
-                <Label x:Name="SongYear" Grid.Row="3" Content="Year" Foreground="Black"/>
-                <Label x:Name="SongTitleLabel" Grid.Row="0" Width="330" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Content="Song Title" Foreground="Black"/>
-                <Label x:Name="SongGroupLabel" Grid.Row="1" Width="330" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Content="Song Group" Foreground="Black"/>
-                <Label x:Name="SongDurationLabel" Grid.Row="2" Width="330" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Content="Song Duration" Foreground="Black"/>
-                <Label x:Name="SongYearLabel" Grid.Row="3" Width="330" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Content="Song Year" Foreground="Black"/>
-                <ProgressBar x:Name="SongProgress" Grid.Row="5" Width="400" IsIndeterminate="True"/>
-                <Menu x:Name="SongButtonsMenu" Grid.Row="6">
+            <ListBox ItemsSource="{Binding PlaylistViewSource}" Grid.Column="0" Margin="10,10,10,10" Height="Auto" Width="Auto">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Title}"></TextBlock>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <Button Grid.Column="0" Margin="10,10,10,10" Height="30" VerticalAlignment="Bottom" Content="Go" HorizontalAlignment="Stretch"/>
+            <ListBox ItemsSource="{Binding TuneViewSource}" Grid.Column="1" Margin="10,10,10,10" Height="Auto" Width="Auto">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <Button Grid.Column="1" Margin="10,10,10,10" Height="30" VerticalAlignment="Bottom" Content="Add a song"/>
+            <StackPanel Grid.Column="2">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" >
+                    <Image Source="https://images.alphacoders.com/100/thumb-1920-1008709.jpg" Width="200" Stretch="Fill" Margin="5,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label x:Name="SongTitle" Content="Title:" Foreground="Black" Margin="150,0,0,0"/>
+                    <Label x:Name="SongTitleLabel" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Content="Song Title" Foreground="Black" Margin="0,0,150,0"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label x:Name="SongGroup" Content="Group" Foreground="Black" Margin="150,0,0,0"/>
+                    <Label x:Name="SongGroupLabel" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Content="Song Group" Foreground="Black" Margin="0,0,150,0"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label x:Name="SongDuration" Content="Duration" Foreground="Black" Margin="150,0,0,0"/>
+                    <Label x:Name="SongDurationLabel" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Content="Song Duration" Foreground="Black" Margin="0,0,150,0"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label x:Name="SongYear" Content="Year" Foreground="Black" Margin="150,0,0,0"/>
+                    <Label x:Name="SongYearLabel" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Content="Song Year" Foreground="Black" Margin="0,0,150,0"/>
+                </StackPanel>
+                <ProgressBar x:Name="SongProgress" Height="15" IsIndeterminate="False"/>
+                <Menu x:Name="SongButtonsMenu">
                     <Button x:Name="ShuffleButton" Content="Shuffle" Height="40" Width="45" Margin="0,5,5,0"/>
                     <Button x:Name="PlayButton" Content="Play" Height="40" Width="45" Margin="0,5,5,0"/>
                     <Button x:Name="PauseButton" Content="Pause" Height="40" Width="50" Margin="0,5,5,0"/>
@@ -77,7 +87,7 @@
                     <Button x:Name="PreviousButton" Content="Previous" Height="40" Width="50" Margin="0,5,5,0"/>
                     <Button x:Name="LikeButton" Content="Like" Height="40" Width="45" Margin="0,5,5,0"/>
                 </Menu>
-            </Grid>
+            </StackPanel>
         </Grid>
     </Grid>
 </UserControl>
