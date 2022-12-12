@@ -1,7 +1,8 @@
 ﻿using System;
+using System.Linq;
 using System.Text.Json;
-using System.Text.Json.Serialization;
-using tp_final.Models;
+using System.Text.Json.Nodes;
+using System.Threading.Tasks;
 
 namespace tp_final.Models
 {
@@ -55,6 +56,18 @@ namespace tp_final.Models
 
 
         // --------------------- Methods ---------------------
+        public static async Task<User> getUserAsync(string username, string pwd)
+        {
+            JsonObject jsonParams = new JsonObject
+            {
+                { "username", username },
+                { "pwd", pwd }
+            };
+
+            var Result = await Martha.ExecuteQueryAsync("select-user", jsonParams);
+            return new(Result.Data.ToList().FirstOrDefault()!.ToString()!);
+        }
+
         public override string ToString() =>
             JsonSerializer.Serialize(this, new JsonSerializerOptions { WriteIndented = true });
     }

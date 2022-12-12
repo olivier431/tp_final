@@ -1,6 +1,5 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
-using tp_final.Services;
 
 namespace tp_final.Models
 {

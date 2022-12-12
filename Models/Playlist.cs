@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json;
+﻿using System.Text.Json;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
-using tp_final.Models;
 
-namespace testFelix.Models
+namespace tp_final.Models
 {
     internal class Playlist : Model
     {
