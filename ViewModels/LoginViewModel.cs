@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using tp_final.Commands;
+using tp_final.Models;
 using tp_final.Stores;
 using tp_final.Views;
 
@@ -46,6 +47,8 @@ namespace tp_final.ViewModels
             string username = Username;
             string password = Password;
             MessageBox.Show(Username + Password);
+
+            User.selectUser(Username, Password);
             navigationStore.CurrentViewModel = new MainPlayerViewModel(navigationStore);
         }
     }

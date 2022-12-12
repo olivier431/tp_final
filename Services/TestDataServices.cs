@@ -17,18 +17,18 @@ namespace tp_final.Services
 
         public TestDataServices() {
             lesusers = new ObservableCollection<User>() {
-                new User("test123", "123456789", "test@test.com", 0,DateTime.Now),
-                new User("test12356", "123456789", "test123@test.com", 0,DateTime.Now)
+                //new User("test123", "123456789", "test@test.com", 0,DateTime.Now),
+                //new User("test12356", "123456789", "test123@test.com", 0,DateTime.Now)
             };
             LesTunes = new ObservableCollection<Tune>()
             {
-                new Tune("Music", "Bob", "Pop", 5, 1999),
-                new Tune("Chant", "Roger", "Rock", 73, 2010)
+                //new Tune("Music", "Bob", "Pop", 5, 1999),
+                //new Tune("Chant", "Roger", "Rock", 73, 2010)
             };
             LesPlaylists = new ObservableCollection<Playlists>()
             {
-                new Playlists("George", "Pop", "TheTitle", 1800, 1, 1, "https://images.alphacoders.com/100/thumb-1920-1008709.jpg"),
-                new Playlists("bob", "Rock", "RockStar", 2000, 0, 4, "https://images3.alphacoders.com/165/thumb-1920-165265.jpg")
+                //new Playlists("George", "Pop", "TheTitle", 1800, 1, 1, "https://images.alphacoders.com/100/thumb-1920-1008709.jpg"),
+                //new Playlists("bob", "Rock", "RockStar", 2000, 0, 4, "https://images3.alphacoders.com/165/thumb-1920-165265.jpg")
             };
         }
 
