@@ -1,8 +1,9 @@
-﻿using System.Text.Json;
+﻿using System;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 using tp_final.Models;
 
-namespace testFelix.Models
+namespace tp_final.Models
 {
     public class User : Model
     {

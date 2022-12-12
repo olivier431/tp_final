@@ -48,7 +48,7 @@ namespace tp_final.ViewModels
             string password = Password;
             MessageBox.Show(Username + Password);
 
-            User.selectUser(Username, Password);
+            
             navigationStore.CurrentViewModel = new MainPlayerViewModel(navigationStore);
         }
     }
