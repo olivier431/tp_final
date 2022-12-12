@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using tp_final.Models;
@@ -57,5 +58,19 @@ namespace tp_final.Models
         // --------------------- Methods ---------------------
         public override string ToString() =>
             JsonSerializer.Serialize(this, new JsonSerializerOptions { WriteIndented = true });
+
+        public static async void selectUser(string username, string pwd)
+        {
+            string jsonParams = String.Format("{\"username\": \"{0}\", \"pwd\": \"{1}\"}", username, pwd);
+
+
+            Console.WriteLine(jsonParams);
+            var Result = await Martha.ExecuteQueryAsync("select-user", jsonParams);
+
+
+            Console.WriteLine(Result.Data.ToList().FirstOrDefault().ToString());
+
+            //{ "username": "admin", "pwd": "admin"}
+        }
     }
 }
