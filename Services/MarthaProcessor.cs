@@ -1,11 +1,9 @@
 ﻿using Microsoft.Extensions.Configuration;
 using System;
 using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Net.Http.Json;
-using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using tp_final.Services;
 
@@ -79,7 +77,7 @@ namespace MarthaService
         public async Task<MarthaResponse> ExecuteQueryAsync(string queryName, string param = "{}")
         {
             var url = $"queries/{queryName}/execute";
-            var httpContent = new StringContent(param, Encoding.UTF8, "application/json");
+            HttpContent httpContent = new StringContent(param, Encoding.UTF8, "application/json");
 
 
             using (var response = await httpClient.PostAsync(url, httpContent))
@@ -107,6 +105,6 @@ namespace MarthaService
         /// <param name="jso">Objet JSON {"nomParam" : "valeurParam" [, ...]}</param>
         /// <returns>Une MarthaResponse</returns>
         /// <exception cref="Exception"></exception>
-        public async Task<MarthaResponse> ExecuteQueryAsync(string queryName) => await ExecuteQueryAsync(queryName);
+        public async Task<MarthaResponse> ExecuteQueryAsync(string queryName, JsonObject jso) => await ExecuteQueryAsync(queryName, jso.ToString());
     }
 }

@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿using System;
+using System.Net.Http;
+using System.Text;
 
 namespace MarthaService
 {
@@ -13,6 +15,11 @@ namespace MarthaService
             this.param = param;
             this.uTF8 = uTF8;
             this.v = v;
+        }
+
+        public static implicit operator HttpContent(StringContent v)
+        {
+            throw new NotImplementedException();
         }
     }
 }
