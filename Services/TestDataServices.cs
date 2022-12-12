@@ -11,19 +11,19 @@ namespace tp_final.Services
 {
     public class TestDataServices
     {
-        private ObservableCollection<Users> lesusers;
-        private ObservableCollection<Tunes> lesTunes;
+        private ObservableCollection<User> lesusers;
+        private ObservableCollection<Tune> lesTunes;
         private ObservableCollection<Playlists> lesPlaylists;
 
         public TestDataServices() {
-            lesusers = new ObservableCollection<Users>() {
-                new Users("test123", "123456789", "test@test.com", 0,DateTime.Now),
-                new Users("test12356", "123456789", "test123@test.com", 0,DateTime.Now)
+            lesusers = new ObservableCollection<User>() {
+                new User("test123", "123456789", "test@test.com", 0,DateTime.Now),
+                new User("test12356", "123456789", "test123@test.com", 0,DateTime.Now)
             };
-            LesTunes = new ObservableCollection<Tunes>()
+            LesTunes = new ObservableCollection<Tune>()
             {
-                new Tunes("Music", "Bob", "Pop", 5, 1999),
-                new Tunes("Chant", "Roger", "Rock", 73, 2010)
+                new Tune("Music", "Bob", "Pop", 5, 1999),
+                new Tune("Chant", "Roger", "Rock", 73, 2010)
             };
             LesPlaylists = new ObservableCollection<Playlists>()
             {
@@ -32,11 +32,11 @@ namespace tp_final.Services
             };
         }
 
-        public ObservableCollection<Users> Lesusers {
+        public ObservableCollection<User> Lesusers {
             get => lesusers;
             set { lesusers = value; }
         }
-        public ObservableCollection<Tunes> LesTunes
+        public ObservableCollection<Tune> LesTunes
         {
             get => lesTunes;
             set { lesTunes = value; }
