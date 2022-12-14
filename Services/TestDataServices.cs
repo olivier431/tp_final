@@ -13,7 +13,7 @@ namespace tp_final.Services
     {
         private ObservableCollection<User> lesusers;
         private ObservableCollection<Tune> lesTunes;
-        private ObservableCollection<Playlists> lesPlaylists;
+        private ObservableCollection<Playlist> lesPlaylists;
 
         public TestDataServices() {
             lesusers = new ObservableCollection<User>() {
@@ -23,15 +23,26 @@ namespace tp_final.Services
             LesTunes = new ObservableCollection<Tune>()
             {
                 new Tune(1, 1, 1, 1, "Tune1", "Bob", "Rock", "file", 4, 1999),
-                new Tune(1, 1, 1, 1, "Tune2", "Roger", "We", "test", 56, 2000)
+                new Tune(2, 1, 1, 2, "Tune2", "Roger", "We", "test", 56, 2000),
+                new Tune(3, 1, 0, 1, "Tune3", "Roger", "We", "test", 56, 2000),
+                new Tune(4, 1, 0, 2, "Tune4", "Roger", "We", "test", 56, 2000),
+                new Tune(5, 1, 22, 1, "Tune5", "b", "We", "test", 56, 2000),
+                new Tune(6, 1, 22, 2, "Tune6", "b", "We", "test", 56, 2000)
                 //new Tune("Music", "Bob", "Pop", 5, 1999),
                 //new Tune("Chant", "Roger", "Rock", 73, 2010)
             };
-            LesPlaylists = new ObservableCollection<Playlists>()
+            LesPlaylists = new ObservableCollection<Playlist>()
             {
-                //new Playlists("George", "Pop", "TheTitle", 1800, 1, 1, "https://images.alphacoders.com/100/thumb-1920-1008709.jpg"),
-                //new Playlists("bob", "Rock", "RockStar", 2000, 0, 4, "https://images3.alphacoders.com/165/thumb-1920-165265.jpg")
+                new Playlist(0, 1, 0, "Unknown", 1, 1, 0,"", "", "", 54),
+                new Playlist(1, 1, 0, "Playlist1", 1, 1, 0,"", "", "", 54),
+                new Playlist(22, 1, 1, "Album22", 3, 6, 1, "Bob", "Rock", "", 1999)
             };
+
+            int id = 1;
+            foreach(var p in LesPlaylists)
+            {
+                p.MusicPlaylist.Add(new Tune(id, 1, p.id, id, "Tune1", "Bob", "Rock", "file", 4, 1999));
+            }
         }
 
         public ObservableCollection<User> Lesusers {
@@ -43,7 +54,7 @@ namespace tp_final.Services
             get => lesTunes;
             set { lesTunes = value; }
         }
-        public ObservableCollection<Playlists> LesPlaylists
+        public ObservableCollection<Playlist> LesPlaylists
         {
             get => lesPlaylists;
             set { lesPlaylists = value; }

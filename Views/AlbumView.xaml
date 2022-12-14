@@ -38,15 +38,49 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <ListBox ItemsSource="{Binding PlaylistViewSource}" Margin="10,10,10,10" Height="Auto" Width="AUTO" HorizontalAlignment="Stretch" Grid.Column="0">
+            <!--<ListBox ItemsSource="{Binding PlaylistViewSource}" Margin="10,10,10,10" Height="Auto" Width="AUTO" HorizontalAlignment="Stretch" Grid.Column="0">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding Title}"></TextBlock>
-                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">-->
+            <ListView Name="DisplayList" ItemsSource="{Binding TuneViewSource}" IsSynchronizedWithCurrentItem="True">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Title" Width="auto" DisplayMemberBinding="{Binding title}" />
+                        <GridViewColumn Header="Id" Width="auto" DisplayMemberBinding="{Binding id}" />
+                        <GridViewColumn Header="Id" Width="auto" DisplayMemberBinding="{Binding album_id}" />
+                        <GridViewColumn Header="Id" Width="auto" DisplayMemberBinding="{Binding length}" />
+                    </GridView>
+                </ListView.View>
+                <ListView.GroupStyle>
+                                    <GroupStyle>
+                                        <GroupStyle.ContainerStyle>
+                                            <Style TargetType="{x:Type GroupItem}">
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate>
+                                                            <Expander IsExpanded="True">
+                                                                <Expander.Header>
+                                                                    <StackPanel Orientation="Horizontal">
+                                                                        <TextBlock Text="{Binding title}" FontWeight="Bold" Foreground="Gray" FontSize="22" VerticalAlignment="Bottom" />
+                                                                        <TextBlock Text="{Binding id}" FontSize="22" Foreground="Green" FontWeight="Bold" FontStyle="Italic" Margin="10,0,0,0" VerticalAlignment="Bottom" />
+                                                                        <TextBlock Text=" item(s)" FontSize="22" Foreground="Silver" FontStyle="Italic" VerticalAlignment="Bottom" />
+                                                                    </StackPanel>
+                                                                </Expander.Header>
+                                                                <ItemsPresenter />
+                                                            </Expander>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style>
+                                        </GroupStyle.ContainerStyle>
+                                    </GroupStyle>
+                                </ListView.GroupStyle>
+                            </ListView>
+                            <!--<TextBlock Text="{Binding Title}"></TextBlock>-->
+                        <!--</StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
-            </ListBox>
+            </ListBox>-->
             <StackPanel Grid.Column="1">
                 <StackPanel Orientation="Horizontal">
                     <Label>Artist</Label>
@@ -54,7 +88,7 @@
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label>Titre</Label>
-                    <TextBox Width="147" Margin="10,0,0,0"></TextBox>
+                    <TextBox Width="147" Margin="10,0,0,0"  Text="{Binding TuneViewSource.CurrentItem.title}"></TextBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label>Durée</Label>
@@ -69,7 +103,7 @@
                     <TextBox Width="147" Margin="2,0,0,0" ></TextBox>
                 </StackPanel>
 
-                <ListBox ItemsSource="{Binding TuneViewSource}" Margin="10,10,10,10" Height="250" Width="Auto" HorizontalAlignment="Stretch">
+                <ListBox ItemsSource="{Binding tuneViewSource.CurrentItem.MusicPlaylist}" Margin="10,10,10,10" Height="250" Width="Auto" HorizontalAlignment="Stretch">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
@@ -111,12 +145,12 @@
                 </StackPanel>
                 <ProgressBar x:Name="SongProgress" Height="10" IsIndeterminate="False"/>
                 <Menu x:Name="SongButtonsMenu">
-                    <Button x:Name="ShuffleButton" Content="Shuffle" Height="40" Width="45" Margin="0,5,5,0"/>
-                    <Button x:Name="PlayButton" Content="Play" Height="40" Width="45" Margin="0,5,5,0"/>
-                    <Button x:Name="PauseButton" Content="Pause" Height="40" Width="50" Margin="0,5,5,0"/>
-                    <Button x:Name="NextButton" Content="Next" Height="40" Width="50" Margin="0,5,5,0"/>
-                    <Button x:Name="PreviousButton" Content="Previous" Height="40" Width="50" Margin="0,5,5,0"/>
-                    <Button x:Name="LikeButton" Content="Like" Height="40" Width="45" Margin="0,5,5,0"/>
+                    <Button x:Name="ShuffleButton" Content="Shuffle" Height="40" Width="45" Margin="0,5,5,0"  Command="{Binding ShuffleCommand}"/>
+                    <Button x:Name="PlayButton" Content="Play" Height="40" Width="45" Margin="0,5,5,0"  Command="{Binding PlayCommand}"/>
+                    <Button x:Name="PauseButton" Content="Pause" Height="40" Width="50" Margin="0,5,5,0"  Command="{Binding PauseCommand}"/>
+                    <Button x:Name="NextButton" Content="Next" Height="40" Width="50" Margin="0,5,5,0"  Command="{Binding NextCommand}"/>
+                    <Button x:Name="PreviousButton" Content="Previous" Height="40" Width="50" Margin="0,5,5,0"  Command="{Binding PreviousCommand}"/>
+                    <Button x:Name="LikeButton" Content="Like" Height="40" Width="45" Margin="0,5,5,0"  Command="{Binding LikeCommand}"/>
                 </Menu>
             </StackPanel>
         </Grid>

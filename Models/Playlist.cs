@@ -1,9 +1,10 @@
-﻿using System.Text.Json;
+﻿using System.Collections.ObjectModel;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace tp_final.Models
 {
-    internal class Playlist : Model
+    public class Playlist : Model
     {
         // --------------------- Properties ---------------------
         public int id { get; set; }
@@ -21,7 +22,10 @@ namespace tp_final.Models
 
 
         // --------------------- Constructors ---------------------
-        //public Playlist() { }
+        public Playlist() 
+        { 
+            
+        }
 
         public Playlist(string json) :
         this(JsonSerializer.Deserialize<Playlist>(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true })!)
@@ -76,5 +80,8 @@ namespace tp_final.Models
         // --------------------- Methods ---------------------
         public override string ToString() =>
             JsonSerializer.Serialize(this, new JsonSerializerOptions { WriteIndented = true });
+
+
+        public virtual ObservableCollection<Tune> MusicPlaylist { get; set; } = new ObservableCollection<Tune>();
     }
 }

@@ -18,8 +18,6 @@ namespace tp_final.ViewModels
         ICollectionView tuneViewSource;
         ICollectionView playlistViewSource;
 
-        //private Tune tune = new Tune();
-
         public DelegateCommand GoToAdminCommand { get; set; }
         public DelegateCommand GoToMainPlayerCommand { get; set; }
 
@@ -27,71 +25,114 @@ namespace tp_final.ViewModels
         public DelegateCommand DeleteAlbumCommand { get; private set; }
         public DelegateCommand AddTuneCommand { get; private set; }
         public DelegateCommand DeleteTuneCommand { get; private set; }
+        public DelegateCommand ShuffleCommand { get; private set; }
+        public DelegateCommand PlayCommand { get; private set; }
+        public DelegateCommand PauseCommand { get; private set; }
+        public DelegateCommand NextCommand { get; private set; }
+        public DelegateCommand PreviousCommand { get; private set; }
+        public DelegateCommand LikeCommand { get; private set; }
+
 
         TestDataServices testDataServices = new TestDataServices();
         private readonly NavigationStore navigationStore;
 
         public AlbumViewModel(NavigationStore _navigationStore) {
 
+            //CollectionView
             TuneViewSource = CollectionViewSource.GetDefaultView(testDataServices.LesTunes);
             PlaylistViewSource = CollectionViewSource.GetDefaultView(testDataServices.LesPlaylists);
 
+            //Add
             AddAlbumCommand = new DelegateCommand(AddAlbum);
-            DeleteAlbumCommand = new DelegateCommand(DeleteAlbum);
             AddTuneCommand = new DelegateCommand(AddTune);
+
+            //Delete
+            DeleteAlbumCommand = new DelegateCommand(DeleteAlbum);
             DeleteTuneCommand = new DelegateCommand(DeleteTune);
 
-            //if (PlaylistViewSource.CurrentItem != null)
-            //{
-            //    Tune tune = (Tune)PlaylistViewSource.CurrentItem;
-            //}
+            //CommandMusic
+            ShuffleCommand = new DelegateCommand(Shuffle);
+            PlayCommand = new DelegateCommand(Play);
+            PauseCommand = new DelegateCommand(Pause);
+            NextCommand = new DelegateCommand(Next);
+            PreviousCommand = new DelegateCommand(Previous);
+            LikeCommand = new DelegateCommand(Like);
 
+            //Navigation between page
             navigationStore = _navigationStore;
             GoToAdminCommand = new DelegateCommand(GoToAdmin);
             GoToMainPlayerCommand = new DelegateCommand(GoToMainPlayer);
         }
-
+        //TODO: Ajouter la bd dans mes delegates
         public void AddAlbum()
         {
-            //string messaBoxText = "Êtes-vous certain de vouloir supprimer ce user?";
-            //string caption = "Vous êtes sur le point de détruire un user";
-            //MessageBoxButton button = MessageBoxButton.OKCancel;
-            //MessageBoxImage icon = MessageBoxImage.Warning;
-            //MessageBoxResult result = MessageBox.Show(messaBoxText, caption, button, icon);
-            Playlists _newAlbum = new Playlists() { Title = "Test"};
+            Playlist _newAlbum = new Playlist() { };
             testDataServices.LesPlaylists.Add(_newAlbum);
 
         }
-
         public void DeleteAlbum()
         {
-            string messaBoxText = "Êtes-vous certain de vouloir supprimer cet album?";
-            string caption = "Vous êtes sur le point de détruire un album";
-            MessageBoxButton button = MessageBoxButton.OKCancel;
-            MessageBoxImage icon = MessageBoxImage.Warning;
-            MessageBoxResult result = MessageBox.Show(messaBoxText, caption, button, icon);
+            //TODO: Prendre le bon album pour delete
+            if (PlaylistViewSource.CurrentItem != null)
+            {
+                string messaBoxText = "Êtes-vous certain de vouloir supprimer cet album?";
+                string caption = "Vous êtes sur le point de détruire un album";
+                MessageBoxButton button = MessageBoxButton.OKCancel;
+                MessageBoxImage icon = MessageBoxImage.Warning;
+                MessageBoxResult result = MessageBox.Show(messaBoxText, caption, button, icon);
+                if (result == MessageBoxResult.OK)
+                {
+                  //  Playlists album = (Playlists)PlaylistViewSource.CurrentItem;
+                  //  testDataServices.LesPlaylists.Remove(album);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Voud devez sélectionner un album");
+            }
         }
         public void AddTune()
         {
-        
+          //   Tune _newTune = new Tune("add-tune-to-album") { };
+          //  testDataServices.LesTunes.Add(_newTune);
         }
         public void DeleteTune()
         {
-            string messaBoxText = "Êtes-vous certain de vouloir supprimer cette musique de l'album?";
-            string caption = "Vous êtes sur le point de détruire une musique de l'album";
-            MessageBoxButton button = MessageBoxButton.OKCancel;
-            MessageBoxImage icon = MessageBoxImage.Warning;
-            MessageBoxResult result = MessageBox.Show(messaBoxText, caption, button, icon);
+            //TODO: Arranger le delete sur la bonne tune
+            if (TuneViewSource.CurrentItem != null)
+            {
+                string messaBoxText = "Êtes-vous certain de vouloir supprimer cette musique de l'album?";
+                string caption = "Vous êtes sur le point de détruire une musique de l'album";
+                MessageBoxButton button = MessageBoxButton.OKCancel;
+                MessageBoxImage icon = MessageBoxImage.Warning;
+                MessageBoxResult result = MessageBox.Show(messaBoxText, caption, button, icon);
+                if (result == MessageBoxResult.OK)
+                {
+                    Tune tune = (Tune)TuneViewSource.CurrentItem;
+                    testDataServices.LesTunes.Remove(tune);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Voud devez sélectionner une tune");
+            }
         }
-
-
-
-
+        public void Shuffle() { }
+        public void Play() { }
+        public void Pause() { }
+        public void Next() { }
+        public void Previous() { }
+        public void Like() { }
         public void GoToAdmin()
         {
+            //User user = new User();
+            //if(user.isAdmin)
+            //{
             navigationStore.CurrentViewModel = new AdminUserViewModel(navigationStore);
-        }
+            //} else {
 
+            //}
+        }
         public void GoToMainPlayer()
         {
             navigationStore.CurrentViewModel = new MainPlayerViewModel(navigationStore);
