@@ -87,10 +87,10 @@
                 <StackPanel Orientation="Horizontal" >
                     <Image Source="https://images.alphacoders.com/100/thumb-1920-1008709.jpg" Width="200" Stretch="Fill" Margin="5,0,0,0"></Image>
                     <StackPanel Orientation="Vertical">
-                        <Button x:Name="AddTune" Content="Add Tune" Height="40" Width="75" Margin="75,10,0,0"></Button>
-                        <Button x:Name="DeleteTune" Content="Delete Tune" Height="40" Width="75" Margin="75,5,0,0"></Button>
-                        <Button x:Name="AddAlbum" Content="Add Album" Height="40" Width="75" Margin="75,5,0,0"></Button>
-                        <Button x:Name="DeleteAlbum" Content="Delete Album" Height="40" Width="75" Margin="75,5,0,0"></Button>
+                        <Button x:Name="AddTune" Content="Add Tune" Height="40" Width="75" Margin="75,10,0,0" Command="{Binding AddTuneCommand}"></Button>
+                        <Button x:Name="DeleteTune" Content="Delete Tune" Height="40" Width="75" Margin="75,5,0,0" Command="{Binding DeleteTuneCommand}"></Button>
+                        <Button x:Name="AddAlbum" Content="Add Album" Height="40" Width="75" Margin="75,5,0,0"  Command="{Binding AddAlbumCommand}"></Button>
+                        <Button x:Name="DeleteAlbum" Content="Delete Album" Height="40" Width="75" Margin="75,5,0,0" Command="{Binding DeleteAlbumCommand}"></Button>
                     </StackPanel>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
