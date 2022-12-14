@@ -10,7 +10,6 @@ using tp_final.Commands;
 using tp_final.Models;
 using tp_final.Services;
 using tp_final.Stores;
-using tp_final.ViewModels.Commands;
 
 namespace tp_final.ViewModels
 {
@@ -24,10 +23,10 @@ namespace tp_final.ViewModels
         public DelegateCommand GoToAdminCommand { get; set; }
         public DelegateCommand GoToMainPlayerCommand { get; set; }
 
-        public RelayCommand AddAlbumCommand { get; private set; }
-        public RelayCommand DeleteAlbumCommand { get; private set; }
-        public RelayCommand AddTuneCommand { get; private set; }
-        public RelayCommand DeleteTuneCommand { get; private set; }
+        public DelegateCommand AddAlbumCommand { get; private set; }
+        public DelegateCommand DeleteAlbumCommand { get; private set; }
+        public DelegateCommand AddTuneCommand { get; private set; }
+        public DelegateCommand DeleteTuneCommand { get; private set; }
 
         TestDataServices testDataServices = new TestDataServices();
         private readonly NavigationStore navigationStore;
@@ -37,10 +36,10 @@ namespace tp_final.ViewModels
             TuneViewSource = CollectionViewSource.GetDefaultView(testDataServices.LesTunes);
             PlaylistViewSource = CollectionViewSource.GetDefaultView(testDataServices.LesPlaylists);
 
-            AddAlbumCommand = new RelayCommand(AddAlbum);
-            DeleteAlbumCommand = new RelayCommand(DeleteAlbum);
-            AddTuneCommand = new RelayCommand(AddTune);
-            DeleteTuneCommand = new RelayCommand(DeleteTune);
+            AddAlbumCommand = new DelegateCommand(AddAlbum);
+            DeleteAlbumCommand = new DelegateCommand(DeleteAlbum);
+            AddTuneCommand = new DelegateCommand(AddTune);
+            DeleteTuneCommand = new DelegateCommand(DeleteTune);
 
             //if (PlaylistViewSource.CurrentItem != null)
             //{
@@ -52,7 +51,7 @@ namespace tp_final.ViewModels
             GoToMainPlayerCommand = new DelegateCommand(GoToMainPlayer);
         }
 
-        public void AddAlbum(object nothig)
+        public void AddAlbum()
         {
             //string messaBoxText = "Êtes-vous certain de vouloir supprimer ce user?";
             //string caption = "Vous êtes sur le point de détruire un user";
@@ -64,7 +63,7 @@ namespace tp_final.ViewModels
             
         }
 
-        public void DeleteAlbum(object nothig)
+        public void DeleteAlbum()
         {
             string messaBoxText = "Êtes-vous certain de vouloir supprimer cet album?";
             string caption = "Vous êtes sur le point de détruire un album";
@@ -72,11 +71,11 @@ namespace tp_final.ViewModels
             MessageBoxImage icon = MessageBoxImage.Warning;
             MessageBoxResult result = MessageBox.Show(messaBoxText, caption, button, icon);
         }
-        public void AddTune(object nothig)
+        public void AddTune()
         {
         
         }
-        public void DeleteTune(object nothig)
+        public void DeleteTune()
         {
             string messaBoxText = "Êtes-vous certain de vouloir supprimer cette musique de l'album?";
             string caption = "Vous êtes sur le point de détruire une musique de l'album";
