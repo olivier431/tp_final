@@ -59,8 +59,8 @@ namespace tp_final.ViewModels
             //MessageBoxImage icon = MessageBoxImage.Warning;
             //MessageBoxResult result = MessageBox.Show(messaBoxText, caption, button, icon);
             Playlists _newAlbum = new Playlists() { Title = "Test"};
-            //.Add(_newAlbum);
-            
+            testDataServices.LesPlaylists.Add(_newAlbum);
+
         }
 
         public void DeleteAlbum()
