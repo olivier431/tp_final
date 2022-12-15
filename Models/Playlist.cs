@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
@@ -13,7 +12,6 @@ namespace tp_final.Models
     {
         // --------------------- Properties ---------------------
         private bool isPlaylist;
-
 
         public int id { get; set; }
         public int user_id { get; set; }
@@ -31,7 +29,9 @@ namespace tp_final.Models
         public string? album_cover { get; set; }
         public int? year { get; set; }
 
-        public ObservableCollection<Tune> tunes { get; private set; }
+        public ObservableCollection<Tune> tunes { get; private set; } = new();
+
+
 
         // --------------------- Constructors ---------------------
         public Playlist(string json) :
@@ -81,13 +81,13 @@ namespace tp_final.Models
             this.album_cover = album_cover;
             this.year = year;
 
-            SetTuneListAsync();
+            //SetTunesAsync();
         }
 
 
 
         // --------------------- Methods ---------------------
-        private async void SetTuneListAsync()
+        public async void SetTunesAsync()
         {
             string type = isPlaylist ? "playlist" : "album";
             JsonObject jsonParams = new() { { nameof(id), id } };
