@@ -87,20 +87,7 @@ namespace tp_final.Models
 
 
         // --------------------- Methods ---------------------
-        public static async Task<Playlist?> getPlaylistByIdAsync(int id)
-        {
-            JsonObject jsonParams = new()
-            {{nameof(id),id}};
-
-            var Result = await Martha.ExecuteQueryAsync("select-playlist", jsonParams);
-
-            if (!Result.Success) throw new Exception();
-            if (!Result.Data.Any()) throw new Exception();
-
-            return new(Result.Data.FirstOrDefault()!.ToString()!);
-        }
-
-        public async void SetTuneListAsync()
+        private async void SetTuneListAsync()
         {
             string type = isPlaylist ? "playlist" : "album";
             JsonObject jsonParams = new() { { nameof(id), id } };
@@ -116,6 +103,19 @@ namespace tp_final.Models
             Result.Data.ToList().ForEach(json =>
                 tunes.Add(new Tune(json.ToString()!))
             );
+        }
+
+        public static async Task<Playlist?> getPlaylistByIdAsync(int id)
+        {
+            JsonObject jsonParams = new()
+            {{nameof(id),id}};
+
+            var Result = await Martha.ExecuteQueryAsync("select-playlist", jsonParams);
+
+            if (!Result.Success) throw new Exception();
+            if (!Result.Data.Any()) throw new Exception();
+
+            return new(Result.Data.FirstOrDefault()!.ToString()!);
         }
 
         public override string ToString() =>
