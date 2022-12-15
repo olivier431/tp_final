@@ -73,7 +73,7 @@ namespace tp_final.Models
 
 
         // --------------------- Methods ---------------------
-        public static async Task<ObservableCollection<Tune>?> getAllTuneAsync()
+        public static async Task<ObservableCollection<Tune>?> getAllTunesAsync()
         {
             var Result = await Martha.ExecuteQueryAsync("select-tunes");
 
