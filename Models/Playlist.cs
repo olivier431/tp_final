@@ -35,11 +35,6 @@ namespace tp_final.Models
 
 
         // --------------------- Constructors ---------------------
-        public Playlist() 
-        { 
-            
-        }
-
         public Playlist(string json) :
         this(JsonSerializer.Deserialize<Playlist>(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true })!)
         { }
@@ -93,20 +88,7 @@ namespace tp_final.Models
 
 
         // --------------------- Methods ---------------------
-        public static async Task<Playlist?> getPlaylistByIdAsync(int id)
-        {
-            JsonObject jsonParams = new()
-            {{nameof(id),id}};
-
-            var Result = await Martha.ExecuteQueryAsync("select-playlist", jsonParams);
-
-            if (!Result.Success) throw new Exception();
-            if (!Result.Data.Any()) throw new Exception();
-
-            return new(Result.Data.FirstOrDefault()!.ToString()!);
-        }
-
-        public async void SetTuneListAsync()
+        private async void SetTuneListAsync()
         {
             string type = isPlaylist ? "playlist" : "album";
             JsonObject jsonParams = new() { { nameof(id), id } };
@@ -124,10 +106,20 @@ namespace tp_final.Models
             );
         }
 
+        public static async Task<Playlist?> getPlaylistByIdAsync(int id)
+        {
+            JsonObject jsonParams = new()
+            {{nameof(id),id}};
+
+            var Result = await Martha.ExecuteQueryAsync("select-playlist", jsonParams);
+
+            if (!Result.Success) throw new Exception();
+            if (!Result.Data.Any()) throw new Exception();
+
+            return new(Result.Data.FirstOrDefault()!.ToString()!);
+        }
+
         public override string ToString() =>
             JsonSerializer.Serialize(this, new JsonSerializerOptions { WriteIndented = true });
-
-        //TODO a Sup
-        public virtual ObservableCollection<Tune> MusicPlaylist { get; set; } = new ObservableCollection<Tune>(); 
     }
 }

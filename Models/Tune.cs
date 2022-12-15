@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System.Collections.ObjectModel;
+using System;
+using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
@@ -23,8 +25,6 @@ namespace tp_final.Models
 
 
         // --------------------- Constructors ---------------------
-
-        public Tune() { }
         public Tune(string json) :
         this(JsonSerializer.Deserialize<Tune>(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true })!)
         { }
@@ -73,6 +73,25 @@ namespace tp_final.Models
 
 
         // --------------------- Methods ---------------------
+        public static async Task<ObservableCollection<Tune>?> getAllTunesAsync()
+        {
+            var response = Martha.ExecuteQueryAsync("select-tunes");
+
+            var Result = response.Result;
+            if (!Result.Success) throw new Exception();
+            if (!Result.Data.Any()) throw new Exception();
+            await response;
+
+            //if (!Result.Success || !Result.Data.Any()) return null; //erreur
+
+            ObservableCollection<Tune> tunes = new();
+            Result.Data.ToList().ForEach(json =>
+                tunes.Add(new Tune(json.ToString()!))
+            );
+
+            return tunes;
+        }
+
         public static async Task<User> getUserAsync(int id)
         {
             JsonObject jsonParams = new JsonObject
