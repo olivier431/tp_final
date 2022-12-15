@@ -39,9 +39,9 @@ namespace tp_final.ViewModels
         public AlbumViewModel(NavigationStore _navigationStore) {
 
             //CollectionView
-
-          //  TuneViewSource = CollectionViewSource.GetDefaultView(testDataServices.LesTunes);
-          //  PlaylistViewSource = CollectionViewSource.GetDefaultView(testDataServices.LesPlaylists);
+            SetTuneListAsync();
+            //  TuneViewSource = CollectionViewSource.GetDefaultView(testDataServices.LesTunes);
+            //  PlaylistViewSource = CollectionViewSource.GetDefaultView(testDataServices.LesPlaylists);
 
             //Add
             AddAlbumCommand = new DelegateCommand(AddAlbum);
@@ -156,6 +156,10 @@ namespace tp_final.ViewModels
                 OnPropertyChanged();
             }
         }
-
+        private async void SetTuneListAsync()
+        {
+            var tunes = await Tune.getAllTuneAsync();
+            TuneViewSource = CollectionViewSource.GetDefaultView(tunes);
+        }
     }
 }
