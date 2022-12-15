@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Nodes;
@@ -16,7 +17,7 @@ namespace tp_final.Models
         public string? email { get; set; }
         public DateTime? lastConnection { get; set; }
 
-
+       
 
         // --------------------- Constructors ---------------------
         public User() { }

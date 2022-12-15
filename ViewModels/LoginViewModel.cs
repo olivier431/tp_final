@@ -16,6 +16,7 @@ namespace tp_final.ViewModels
         private readonly NavigationStore navigationStore;
         private string username;
         private string password;
+        
         public DelegateCommand GoToRegisterCommand { get; set; }
         public DelegateCommand LoginCommand { get; set; }
         public LoginViewModel(NavigationStore _navigationStore) {
@@ -41,14 +42,20 @@ namespace tp_final.ViewModels
             navigationStore.CurrentViewModel = new RegisterViewModel(navigationStore);
         }
 
-        public void Login()
+        public async void Login()
         {
 
             string username = Username;
             string password = Password;
+            User user = await User.GetUserAsync(Username, Password);
+            
 
-            User.GetUserAsync(Username, Password);
-            navigationStore.CurrentViewModel = new MainPlayerViewModel(navigationStore);
+            if (user != null)
+            {
+                navigationStore.CurrentViewModel = new MainPlayerViewModel(navigationStore);
+               
+            }
+            
         }
     }
 }
