@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace tp_final.Models
 {
@@ -23,7 +24,7 @@ namespace tp_final.Models
         public string? email { get; set; }
         public DateTime? lastConnection { get; set; }
 
-        public ObservableCollection<Playlist> albums { get; private set; } = new();
+        public ObservableCollection<Playlist> albums { get; private set; }
 
 
 
@@ -61,7 +62,8 @@ namespace tp_final.Models
             this.email = email;
             this.lastConnection = lastConnection;
 
-            //SetAlbumsAsync();
+            albums = new();
+            SetAlbumsAsync();
         }
 
 
@@ -74,10 +76,10 @@ namespace tp_final.Models
 
             var response = Martha.ExecuteQueryAsync($"select{type}-albums", jsonParams);
 
+            await response;
             var Result = response.Result;
             if (!Result.Success) throw new Exception();
             if (!Result.Data.Any()) throw new Exception();
-            await response;
 
             albums = new();
             Result.Data.ToList().ForEach(json =>

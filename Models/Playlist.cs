@@ -29,7 +29,7 @@ namespace tp_final.Models
         public string? album_cover { get; set; }
         public int? year { get; set; }
 
-        public ObservableCollection<Tune> tunes { get; private set; } = new();
+        public ObservableCollection<Tune> tunes { get; private set; }
 
 
 
@@ -81,7 +81,8 @@ namespace tp_final.Models
             this.album_cover = album_cover;
             this.year = year;
 
-            //SetTunesAsync();
+            tunes = new();
+            SetTunesAsync();
         }
 
 
@@ -94,10 +95,10 @@ namespace tp_final.Models
 
             var response = Martha.ExecuteQueryAsync($"select-{type}-tunes", jsonParams);
 
+            await response;
             var Result = response.Result;
             if (!Result.Success) throw new Exception();
             if (!Result.Data.Any()) throw new Exception();
-            await response;
 
             tunes = new();
             Result.Data.ToList().ForEach(json =>
