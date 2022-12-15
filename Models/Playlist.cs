@@ -1,23 +1,36 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Text;
 using System.Text.Json;
+using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
+using System.Threading.Tasks;
 
 namespace tp_final.Models
 {
     public class Playlist : Model
     {
         // --------------------- Properties ---------------------
+        private bool isPlaylist;
+
         public int id { get; set; }
         public int user_id { get; set; }
         public int isPublic { get; set; }
         public string title { get; set; }
         public int count { get; set; }
         public int length { get; set; }
-        public int? isAlbum { get; set; }
+        public int isAlbum
+        {
+            get => (isPlaylist) ? 0 : 1;
+            set => isPlaylist = (value == 0);
+        }
         public string? artist { get; set; }
         public string? genre { get; set; }
         public string? album_cover { get; set; }
         public int? year { get; set; }
+
+        public ObservableCollection<Tune> tunes { get; private set; }
 
 
 
@@ -55,7 +68,7 @@ namespace tp_final.Models
             string title,
             int count,
             int length,
-            int? isAlbum,
+            int isAlbum,
             string? artist,
             string? genre,
             string? album_cover,
@@ -73,15 +86,48 @@ namespace tp_final.Models
             this.genre = genre;
             this.album_cover = album_cover;
             this.year = year;
+
+            SetTuneListAsync();
         }
 
 
 
         // --------------------- Methods ---------------------
+        public static async Task<Playlist?> getPlaylistByIdAsync(int id)
+        {
+            JsonObject jsonParams = new()
+            {{nameof(id),id}};
+
+            var Result = await Martha.ExecuteQueryAsync("select-playlist", jsonParams);
+
+            if (!Result.Success) throw new Exception();
+            if (!Result.Data.Any()) throw new Exception();
+
+            return new(Result.Data.FirstOrDefault()!.ToString()!);
+        }
+
+        public async void SetTuneListAsync()
+        {
+            string type = isPlaylist ? "playlist" : "album";
+            JsonObject jsonParams = new() { { nameof(id), id } };
+
+            var response = Martha.ExecuteQueryAsync($"select-{type}-tunes", jsonParams);
+
+            var Result = response.Result;
+            if (!Result.Success) throw new Exception();
+            if (!Result.Data.Any()) throw new Exception();
+            await response;
+
+            tunes = new();
+            Result.Data.ToList().ForEach(json =>
+                tunes.Add(new Tune(json.ToString()!))
+            );
+        }
+
         public override string ToString() =>
             JsonSerializer.Serialize(this, new JsonSerializerOptions { WriteIndented = true });
 
-
-        public virtual ObservableCollection<Tune> MusicPlaylist { get; set; } = new ObservableCollection<Tune>();
+        //TODO a Sup
+        public virtual ObservableCollection<Tune> MusicPlaylist { get; set; } = new ObservableCollection<Tune>(); 
     }
 }
