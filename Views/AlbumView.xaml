@@ -34,7 +34,7 @@
         </Menu>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
@@ -42,12 +42,12 @@
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">-->
-            <ListView Name="DisplayList" ItemsSource="{Binding TuneViewSource}" IsSynchronizedWithCurrentItem="True">
+            <ListView Name="DisplayList" ItemsSource="{Binding AlbumlistViewSource}" IsSynchronizedWithCurrentItem="True">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Title" Width="auto" DisplayMemberBinding="{Binding title}" />
                         <GridViewColumn Header="Id" Width="auto" DisplayMemberBinding="{Binding id}" />
-                        <GridViewColumn Header="Album_Id" Width="auto" DisplayMemberBinding="{Binding album_id}" />
+                        <GridViewColumn Header="Title" Width="auto" DisplayMemberBinding="{Binding title}" />
+                        <GridViewColumn Header="count" Width="auto" DisplayMemberBinding="{Binding count}" />
                         <GridViewColumn Header="Length" Width="auto" DisplayMemberBinding="{Binding length}" />
                     </GridView>
                 </ListView.View>
@@ -88,7 +88,7 @@
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label>Titre</Label>
-                    <TextBox Width="147" Margin="10,0,0,0"  Text="{Binding TuneViewSource.CurrentItem.title}"></TextBox>
+                    <TextBox Width="147" Margin="10,0,0,0"  Text="{Binding AlbumlistViewSource.CurrentItem.title}"></TextBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label>Durée</Label>
@@ -103,7 +103,7 @@
                     <TextBox Width="147" Margin="2,0,0,0" ></TextBox>
                 </StackPanel>
 
-                <ListBox ItemsSource="{Binding tuneViewSource.CurrentItem.MusicPlaylist}" Margin="10,10,10,10" Height="250" Width="Auto" HorizontalAlignment="Stretch">
+                <ListBox ItemsSource="{Binding TuneViewSource}" Margin="10,10,10,10" Height="250" Width="Auto" HorizontalAlignment="Stretch">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
