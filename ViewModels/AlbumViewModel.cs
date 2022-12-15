@@ -66,7 +66,7 @@ namespace tp_final.ViewModels
         //TODO: Ajouter la bd dans mes delegates
         public void AddAlbum()
         {
-            Playlist _newAlbum = new Playlist() { };
+            Playlist _newAlbum = new Playlist() { title = "Test" };
             testDataServices.LesPlaylists.Add(_newAlbum);
 
         }
@@ -93,8 +93,8 @@ namespace tp_final.ViewModels
         }
         public void AddTune()
         {
-          //   Tune _newTune = new Tune("add-tune-to-album") { };
-          //  testDataServices.LesTunes.Add(_newTune);
+             Tune _newTune = new Tune() { title = "Test" };
+            testDataServices.LesTunes.Add(_newTune);
         }
         public void DeleteTune()
         {
