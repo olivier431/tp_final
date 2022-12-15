@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Nodes;
@@ -8,6 +9,7 @@ namespace tp_final.Models
 {
     public class User : Model
     {
+        private static User currentUser;
         // --------------------- Properties ---------------------
         public int id { get; set; }
         public int isAdmin { get; set; }
@@ -16,7 +18,14 @@ namespace tp_final.Models
         public string? email { get; set; }
         public DateTime? lastConnection { get; set; }
 
+        public static void setCurrentUser(User user) {
+            currentUser = user;
+        }
 
+        public static User getCurrentUser(User user)
+        {
+            return currentUser;
+        }
 
         // --------------------- Constructors ---------------------
         public User() { }

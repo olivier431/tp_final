@@ -41,14 +41,19 @@ namespace tp_final.ViewModels
             navigationStore.CurrentViewModel = new RegisterViewModel(navigationStore);
         }
 
-        public void Login()
+        public async void Login()
         {
 
             string username = Username;
             string password = Password;
+            User user = await User.GetUserAsync(Username, Password);
+            User.setCurrentUser(user);
 
-            User.GetUserAsync(Username, Password);
-            navigationStore.CurrentViewModel = new MainPlayerViewModel(navigationStore);
+            if (user != null)
+            {
+                navigationStore.CurrentViewModel = new MainPlayerViewModel(navigationStore);
+            }
+            
         }
     }
 }
