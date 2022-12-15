@@ -44,7 +44,7 @@ namespace tp_final.ViewModels
             MessageBox.Show(temp.ToString());
 
             //CollectionView
-            SetTuneListAsync();
+            //SetTuneListAsync();
             SetAlbumListAsync();
             //  TuneViewSource = CollectionViewSource.GetDefaultView(testDataServices.LesTunes);
             //  PlaylistViewSource = CollectionViewSource.GetDefaultView(testDataServices.LesPlaylists);
@@ -173,10 +173,9 @@ namespace tp_final.ViewModels
             AlbumlistViewSource = CollectionViewSource.GetDefaultView(albums);
         }
 
-        private async void SetTuneListAsync()
-        {
-           // var tunes = await Tune.getAllTuneInAlbumsAsync();
-           // TuneViewSource = CollectionViewSource.GetDefaultView(tunes);
-        }
+        //private async void SetTuneListAsync()
+        //{
+           
+        //}
     }
 }
