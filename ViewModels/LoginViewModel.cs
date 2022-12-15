@@ -44,18 +44,16 @@ namespace tp_final.ViewModels
 
         public async void Login()
         {
-
-            string username = Username;
-            string password = Password;
             User user = await User.GetUserAsync(Username, Password);
-            
 
-            if (user != null)
+            if (user == null)
             {
-                navigationStore.CurrentViewModel = new MainPlayerViewModel(navigationStore);
-               
+                MessageBox.Show("Wrong username or password !");
+                return;
             }
-            
+
+            Application.Current.Properties["CurrentUser"] = user;
+            navigationStore.CurrentViewModel = new MainPlayerViewModel(navigationStore);
         }
     }
 }

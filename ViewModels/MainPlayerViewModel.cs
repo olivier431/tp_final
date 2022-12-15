@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Data;
 using tp_final.Commands;
 using tp_final.Services;
@@ -19,12 +20,13 @@ namespace tp_final.ViewModels
         public DelegateCommand GoToAdminCommand { get; set; }
         public DelegateCommand GoToAlbumCommand { get; set; }
 
-        TestDataServices testDataServices = new TestDataServices();
+        //TestDataServices testDataServices = new TestDataServices();
 
         public MainPlayerViewModel(NavigationStore _navigationStore)
         {
-            TuneViewSource = CollectionViewSource.GetDefaultView(testDataServices.LesTunes);
-            PlaylistViewSource = CollectionViewSource.GetDefaultView(testDataServices.LesPlaylists);
+            MessageBox.Show(Application.Current.Properties["CurrentUser"].ToString());
+            //TuneViewSource = CollectionViewSource.GetDefaultView(testDataServices.LesTunes);
+            //PlaylistViewSource = CollectionViewSource.GetDefaultView(testDataServices.LesPlaylists);
 
             navigationStore = _navigationStore;
             GoToAdminCommand = new DelegateCommand(GoToAdmin);
