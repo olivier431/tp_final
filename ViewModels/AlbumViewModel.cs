@@ -20,6 +20,7 @@ namespace tp_final.ViewModels
 
         public DelegateCommand GoToAdminCommand { get; set; }
         public DelegateCommand GoToMainPlayerCommand { get; set; }
+        public DelegateCommand GoToLogoutCommand { get; set; }
 
         public DelegateCommand AddAlbumCommand { get; private set; }
         public DelegateCommand DeleteAlbumCommand { get; private set; }
@@ -63,6 +64,7 @@ namespace tp_final.ViewModels
             navigationStore = _navigationStore;
             GoToAdminCommand = new DelegateCommand(GoToAdmin);
             GoToMainPlayerCommand = new DelegateCommand(GoToMainPlayer);
+            GoToLogoutCommand = new DelegateCommand(GoToLogout);
         }
         //TODO: Ajouter la bd dans mes delegates
         public void AddAlbum()
@@ -137,6 +139,10 @@ namespace tp_final.ViewModels
         public void GoToMainPlayer()
         {
             navigationStore.CurrentViewModel = new MainPlayerViewModel(navigationStore);
+        }
+        public void GoToLogout()
+        {
+            navigationStore.CurrentViewModel = new LoginViewModel(navigationStore);
         }
         public ICollectionView TuneViewSource
         {
