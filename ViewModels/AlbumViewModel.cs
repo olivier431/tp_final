@@ -33,14 +33,15 @@ namespace tp_final.ViewModels
         public DelegateCommand LikeCommand { get; private set; }
 
 
-        TestDataServices testDataServices = new TestDataServices();
+      //  TestDataServices testDataServices = new TestDataServices();
         private readonly NavigationStore navigationStore;
 
         public AlbumViewModel(NavigationStore _navigationStore) {
 
             //CollectionView
-            TuneViewSource = CollectionViewSource.GetDefaultView(testDataServices.LesTunes);
-            PlaylistViewSource = CollectionViewSource.GetDefaultView(testDataServices.LesPlaylists);
+
+          //  TuneViewSource = CollectionViewSource.GetDefaultView(testDataServices.LesTunes);
+          //  PlaylistViewSource = CollectionViewSource.GetDefaultView(testDataServices.LesPlaylists);
 
             //Add
             AddAlbumCommand = new DelegateCommand(AddAlbum);
@@ -66,8 +67,8 @@ namespace tp_final.ViewModels
         //TODO: Ajouter la bd dans mes delegates
         public void AddAlbum()
         {
-            Playlist _newAlbum = new Playlist() { title = "Test" };
-            testDataServices.LesPlaylists.Add(_newAlbum);
+           // Playlist _newAlbum = new Playlist() { title = "Test" };
+           // testDataServices.LesPlaylists.Add(_newAlbum);
 
         }
         public void DeleteAlbum()
@@ -93,8 +94,8 @@ namespace tp_final.ViewModels
         }
         public void AddTune()
         {
-             Tune _newTune = new Tune() { title = "Test" };
-            testDataServices.LesTunes.Add(_newTune);
+           //  Tune _newTune = new Tune() { title = "Test" };
+           // testDataServices.LesTunes.Add(_newTune);
         }
         public void DeleteTune()
         {
@@ -108,8 +109,8 @@ namespace tp_final.ViewModels
                 MessageBoxResult result = MessageBox.Show(messaBoxText, caption, button, icon);
                 if (result == MessageBoxResult.OK)
                 {
-                    Tune tune = (Tune)TuneViewSource.CurrentItem;
-                    testDataServices.LesTunes.Remove(tune);
+                   // Tune tune = (Tune)TuneViewSource.CurrentItem;
+                    //testDataServices.LesTunes.Remove(tune);
                 }
             }
             else

@@ -14,6 +14,7 @@ namespace tp_final.Models
         // --------------------- Properties ---------------------
         private bool isPlaylist;
 
+
         public int id { get; set; }
         public int user_id { get; set; }
         public int isPublic { get; set; }
@@ -32,14 +33,7 @@ namespace tp_final.Models
 
         public ObservableCollection<Tune> tunes { get; private set; }
 
-
-
         // --------------------- Constructors ---------------------
-        public Playlist() 
-        { 
-            
-        }
-
         public Playlist(string json) :
         this(JsonSerializer.Deserialize<Playlist>(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true })!)
         { }
@@ -126,8 +120,5 @@ namespace tp_final.Models
 
         public override string ToString() =>
             JsonSerializer.Serialize(this, new JsonSerializerOptions { WriteIndented = true });
-
-        //TODO a Sup
-        public virtual ObservableCollection<Tune> MusicPlaylist { get; set; } = new ObservableCollection<Tune>(); 
     }
 }

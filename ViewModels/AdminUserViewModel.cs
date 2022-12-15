@@ -14,12 +14,12 @@ namespace tp_final.ViewModels
     internal class AdminUserViewModel : BaseViewModel
     {
         ICollectionView userViewSource;
-        TestDataServices testDataServices = new TestDataServices();
+        //TestDataServices testDataServices = new TestDataServices();
         private readonly NavigationStore navigationStore;
 
         public DelegateCommand GoToAlbumCommand { get; set; }
         public AdminUserViewModel(NavigationStore _navigationStore) {
-            UserViewSource = CollectionViewSource.GetDefaultView(testDataServices.Lesusers);
+            //UserViewSource = CollectionViewSource.GetDefaultView(testDataServices.Lesusers);
             navigationStore = _navigationStore;
             GoToAlbumCommand = new DelegateCommand(GoToAlbum);
 
