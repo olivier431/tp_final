@@ -69,20 +69,20 @@ namespace tp_final.Models
 
 
         // --------------------- Methods ---------------------
-        public static async Task<ObservableCollection<Tune>?> getAllTunesAsync()
-        {
-            var Result = await Martha.ExecuteQueryAsync("select-tunes");
+        //public static async Task<ObservableCollection<Tune>?> getAllTuneInAlbumsAsync()
+        //{
+        //    var Result = await Martha.ExecuteQueryAsync("select-album-tunes");
 
-            if (!Result.Success) throw new Exception();
-            if (!Result.Data.Any()) throw new Exception();
+        //    if (!Result.Success) throw new Exception();
+        //    if (!Result.Data.Any()) throw new Exception();
 
-            ObservableCollection<Tune> tunes = new();
-            Result.Data.ToList().ForEach(json =>
-                tunes.Add(new Tune(json.ToString()!))
-            );
+        //    ObservableCollection<Tune> tunes = new();
+        //    Result.Data.ToList().ForEach(json =>
+        //        tunes.Add(new Tune(json.ToString()!))
+        //    );
 
-            return tunes;
-        }
+        //    return tunes;
+        //}
 
         public static async Task<Tune?> getTuneByIdAsync(int id)
         {

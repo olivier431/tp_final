@@ -16,7 +16,7 @@ namespace tp_final.ViewModels
     public class AlbumViewModel : BaseViewModel
     {
         ICollectionView tuneViewSource;
-        ICollectionView playlistViewSource;
+        ICollectionView albumlistViewSource;
 
         public DelegateCommand GoToAdminCommand { get; set; }
         public DelegateCommand GoToMainPlayerCommand { get; set; }
@@ -44,7 +44,8 @@ namespace tp_final.ViewModels
             MessageBox.Show(temp.ToString());
 
             //CollectionView
-            SetTuneListAsync();
+            //SetTuneListAsync();
+            SetAlbumListAsync();
             //  TuneViewSource = CollectionViewSource.GetDefaultView(testDataServices.LesTunes);
             //  PlaylistViewSource = CollectionViewSource.GetDefaultView(testDataServices.LesPlaylists);
 
@@ -80,7 +81,7 @@ namespace tp_final.ViewModels
         public void DeleteAlbum()
         {
             //TODO: Prendre le bon album pour delete
-            if (PlaylistViewSource.CurrentItem != null)
+            if (AlbumlistViewSource.CurrentItem != null)
             {
                 string messaBoxText = "Êtes-vous certain de vouloir supprimer cet album?";
                 string caption = "Vous êtes sur le point de détruire un album";
@@ -157,19 +158,24 @@ namespace tp_final.ViewModels
                 OnPropertyChanged();
             }
         }
-        public ICollectionView PlaylistViewSource
+        public ICollectionView AlbumlistViewSource
         {
-            get => playlistViewSource;
+            get => albumlistViewSource;
             set
             {
-                playlistViewSource = value;
+                albumlistViewSource = value;
                 OnPropertyChanged();
             }
         }
-        private async void SetTuneListAsync()
+        private async void SetAlbumListAsync()
         {
-            var tunes = await Tune.getAllTunesAsync();
-            TuneViewSource = CollectionViewSource.GetDefaultView(tunes);
+            var albums = await Playlist.getAllAlbumsAsync();
+            AlbumlistViewSource = CollectionViewSource.GetDefaultView(albums);
         }
+
+        //private async void SetTuneListAsync()
+        //{
+           
+        //}
     }
 }

@@ -105,6 +105,20 @@ namespace tp_final.Models
                 tunes.Add(new Tune(json.ToString()!))
             );
         }
+        public static async Task<ObservableCollection<Playlist>?> getAllAlbumsAsync()
+        {
+            var Result = await Martha.ExecuteQueryAsync("select-albums");
+
+            if (!Result.Success) throw new Exception();
+            if (!Result.Data.Any()) throw new Exception();
+
+            ObservableCollection<Playlist> albums = new();
+            Result.Data.ToList().ForEach(json =>
+                albums.Add(new Playlist(json.ToString()!))
+            );
+
+            return albums;
+        }
 
         public static async Task<Playlist?> getPlaylistByIdAsync(int id)
         {
