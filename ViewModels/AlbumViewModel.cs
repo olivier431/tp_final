@@ -39,6 +39,10 @@ namespace tp_final.ViewModels
 
         public AlbumViewModel(NavigationStore _navigationStore) {
 
+
+            var temp = Application.Current.Properties["CurrentUser"];
+            MessageBox.Show(temp.ToString());
+
             //CollectionView
             SetTuneListAsync();
             //  TuneViewSource = CollectionViewSource.GetDefaultView(testDataServices.LesTunes);

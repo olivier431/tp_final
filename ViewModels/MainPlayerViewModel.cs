@@ -24,13 +24,14 @@ namespace tp_final.ViewModels
 
         public MainPlayerViewModel(NavigationStore _navigationStore)
         {
-            MessageBox.Show(Application.Current.Properties["CurrentUser"].ToString());
             //TuneViewSource = CollectionViewSource.GetDefaultView(testDataServices.LesTunes);
             //PlaylistViewSource = CollectionViewSource.GetDefaultView(testDataServices.LesPlaylists);
 
             navigationStore = _navigationStore;
             GoToAdminCommand = new DelegateCommand(GoToAdmin);
             GoToAlbumCommand = new DelegateCommand(GoToAlbum);
+
+            //MessageBox.Show(Application.Current.Properties["CurrentUser"].ToString());
         }
 
         public void GoToAdmin()

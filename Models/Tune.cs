@@ -14,7 +14,6 @@ namespace tp_final.Models
         public int id { get; set; }
         public int user_id { get; set; }
         public int album_id { get; set; }
-        public int album_ord { get; set; }
         public string title { get; set; }
         public string artist { get; set; }
         public string? genre { get; set; }
@@ -29,12 +28,11 @@ namespace tp_final.Models
         this(JsonSerializer.Deserialize<Tune>(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true })!)
         { }
 
-        public Tune(Tune tune) : 
+        public Tune(Tune tune) :
         this(
             tune.id,
             tune.user_id,
             tune.album_id,
-            tune.album_ord,
             tune.title,
             tune.artist,
             tune.genre,
@@ -49,7 +47,6 @@ namespace tp_final.Models
             int id,
             int user_id,
             int album_id,
-            int album_ord,
             string title,
             string artist,
             string? genre,
@@ -61,7 +58,6 @@ namespace tp_final.Models
             this.id = id;
             this.user_id = user_id;
             this.album_id = album_id;
-            this.album_ord = album_ord;
             this.title = title;
             this.artist = artist;
             this.genre = genre;
@@ -88,16 +84,16 @@ namespace tp_final.Models
             return tunes;
         }
 
-        public static async Task<User> getUserAsync(int id)
+        public static async Task<Tune?> getTuneByIdAsync(int id)
         {
             JsonObject jsonParams = new JsonObject
             {
                 { nameof(id), id }
             };
 
-            var Result = await Martha.ExecuteQueryAsync("select-user", jsonParams);
+            var Result = await Martha.ExecuteQueryAsync("select-tune", jsonParams);
             if (!Result.Success || !Result.Data.Any()) return null; //erreur
-            return new(Result.Data.ToList().FirstOrDefault()!.ToString()!);
+            return new(Result.Data.FirstOrDefault()!.ToString()!);
         }
 
         public override string ToString() =>
