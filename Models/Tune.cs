@@ -23,6 +23,8 @@ namespace tp_final.Models
 
 
         // --------------------- Constructors ---------------------
+
+        public Tune() { }
         public Tune(string json) :
         this(JsonSerializer.Deserialize<Tune>(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true })!)
         { }

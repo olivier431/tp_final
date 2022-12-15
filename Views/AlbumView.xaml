@@ -47,8 +47,8 @@
                     <GridView>
                         <GridViewColumn Header="Title" Width="auto" DisplayMemberBinding="{Binding title}" />
                         <GridViewColumn Header="Id" Width="auto" DisplayMemberBinding="{Binding id}" />
-                        <GridViewColumn Header="Id" Width="auto" DisplayMemberBinding="{Binding album_id}" />
-                        <GridViewColumn Header="Id" Width="auto" DisplayMemberBinding="{Binding length}" />
+                        <GridViewColumn Header="Album_Id" Width="auto" DisplayMemberBinding="{Binding album_id}" />
+                        <GridViewColumn Header="Length" Width="auto" DisplayMemberBinding="{Binding length}" />
                     </GridView>
                 </ListView.View>
                 <ListView.GroupStyle>
