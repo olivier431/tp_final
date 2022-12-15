@@ -158,7 +158,7 @@ namespace tp_final.ViewModels
         }
         private async void SetTuneListAsync()
         {
-            var tunes = await Tune.getAllTuneAsync();
+            var tunes = await Tune.getAllTunesAsync();
             TuneViewSource = CollectionViewSource.GetDefaultView(tunes);
         }
     }
