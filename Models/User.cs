@@ -79,7 +79,7 @@ namespace tp_final.Models
             await response;
             var Result = response.Result;
             if (!Result.Success) throw new Exception();
-            if (!Result.Data.Any()) throw new Exception();
+            //if (!Result.Data.Any()) return;
 
             albums = new();
             Result.Data.ToList().ForEach(json =>
@@ -87,15 +87,44 @@ namespace tp_final.Models
             );
         }
 
+        public static async Task<ObservableCollection<User>?> GetAllUsersAsync()
+        {
+            var Result = await Martha.ExecuteQueryAsync("select-users");
+
+            if (!Result.Success) throw new Exception();
+            if (!Result.Data.Any()) throw new Exception();
+
+            ObservableCollection<User> users = new();
+            Result.Data.ToList().ForEach(json =>
+                users.Add(new User(json.ToString()!))
+            );
+
+            return users;
+        }
+
         public static async Task<User?> GetUserAsync(string username, string pwd)
         {
             JsonObject jsonParams = new()
             {
-                { "username", username },
-                { "pwd", pwd }
+                { nameof(username), username },
+                { nameof(pwd), pwd }
             };
 
             var Result = await Martha.ExecuteQueryAsync("select-user", jsonParams);
+            if (!Result.Success || !Result.Data.Any()) return null; //erreur
+            return new(Result.Data.ToList().FirstOrDefault()!.ToString()!);
+        }
+
+        public static async Task<User?> AddUserAsync(string username, string pwd, string email)
+        {
+            JsonObject jsonParams = new()
+            {
+                { nameof(username), username },
+                { nameof(pwd), pwd },
+                { nameof(email), email }
+            };
+
+            var Result = await Martha.ExecuteQueryAsync($"insert-user", jsonParams);
             if (!Result.Success || !Result.Data.Any()) return null; //erreur
             return new(Result.Data.ToList().FirstOrDefault()!.ToString()!);
         }
