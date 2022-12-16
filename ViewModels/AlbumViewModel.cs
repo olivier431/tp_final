@@ -44,8 +44,6 @@ namespace tp_final.ViewModels
             //CollectionView
             SetAlbumListAsync();
             
-            
-            
             //Add
             AddAlbumCommand = new DelegateCommand(AddAlbum);
             AddTuneCommand = new DelegateCommand(AddTune);
@@ -131,13 +129,13 @@ namespace tp_final.ViewModels
         public void Like() { }
         public void GoToAdmin()
         {
-            
-            if(Application.Current.Properties["CurrentUserAdmin"].ToString() == "1")
-            {
-                navigationStore.CurrentViewModel = new AdminUserViewModel(navigationStore);
-            } else {
-                MessageBox.Show("you are not an admin!");
-            }
+            //User user = new User();
+            //if(user.isAdmin)
+            //{
+            navigationStore.CurrentViewModel = new AdminUserViewModel(navigationStore);
+            //} else {
+
+            //}
         }
         public void GoToMainPlayer()
         {

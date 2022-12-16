@@ -35,7 +35,7 @@
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="200"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <!--<ListBox ItemsSource="{Binding PlaylistViewSource}" Margin="10,10,10,10" Height="Auto" Width="AUTO" HorizontalAlignment="Stretch" Grid.Column="0">
@@ -51,7 +51,7 @@
                         <GridViewColumn Header="Length" Width="auto" DisplayMemberBinding="{Binding length}" />
                     </GridView>
                 </ListView.View>
-                <ListView.GroupStyle>
+                <!--<ListView.GroupStyle>
                                     <GroupStyle>
                                         <GroupStyle.ContainerStyle>
                                             <Style TargetType="{x:Type GroupItem}">
@@ -74,44 +74,44 @@
                                             </Style>
                                         </GroupStyle.ContainerStyle>
                                     </GroupStyle>
-                                </ListView.GroupStyle>
+                                </ListView.GroupStyle>-->
                             </ListView>
                             <!--<TextBlock Text="{Binding Title}"></TextBlock>-->
                         <!--</StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>-->
-            <StackPanel Grid.Column="1">
+            <StackPanel Grid.Column="1" Width="auto">
                 <StackPanel Orientation="Horizontal">
                     <Label>Artist</Label>
-                    <TextBox Width="147" Margin="5,0,0,0"></TextBox>
+                    <TextBox Width="147" Margin="5,0,0,0" Text="{Binding AlbumlistViewSource.CurrentItem.tunes.CurrentItem.artist}"></TextBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label>Titre</Label>
-                    <TextBox Width="147" Margin="10,0,0,0"  Text="{Binding AlbumlistViewSource.CurrentItem.title}"></TextBox>
+                    <TextBox Width="147" Margin="10,0,0,0"  Text="{Binding AlbumlistViewSource.CurrentItem.tunes.CurrentItem.title}"></TextBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label>Durée</Label>
-                    <TextBox Width="147" Margin="2,0,0,0"></TextBox>
+                    <TextBox Width="147" Margin="2,0,0,0" Text="{Binding AlbumlistViewSource.CurrentItem.tunes.CurrentItem.length}"></TextBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label>Année</Label>
-                    <TextBox Width="147"></TextBox>
+                    <TextBox Width="147" Text="{Binding AlbumlistViewSource.CurrentItem.tunes.CurrentItem.year}"></TextBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label>Genre</Label>
-                    <TextBox Width="147" Margin="2,0,0,0" ></TextBox>
+                    <TextBox Width="147" Margin="2,0,0,0" Text="{Binding AlbumlistViewSource.CurrentItem.tunes.CurrentItem.genre}"></TextBox>
                 </StackPanel>
 
-                <ListBox ItemsSource="{Binding AlbumlistViewSource.CurrentItem.tunes}" Margin="10,10,10,10" Height="250" Width="Auto" HorizontalAlignment="Stretch">
+                <ListBox ItemsSource="{Binding AlbumlistViewSource.CurrentItem.tunes}" Margin="10,10,10,10" Height="250" Width="Auto" HorizontalAlignment="Stretch" IsSynchronizedWithCurrentItem="True">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="{Binding title}"></TextBlock>
-                                <TextBlock Text="{Binding artist}" Margin="10,0,0,0"></TextBlock>
+                                <!--<TextBlock Text="{Binding artist}" Margin="10,0,0,0"></TextBlock>
                                 <TextBlock Text="{Binding genre}" Margin="10,0,0,0"></TextBlock>
                                 <TextBlock Text="{Binding length}" Margin="10,0,0,0"></TextBlock>
-                                <TextBlock Text="{Binding year}" Margin="10,0,0,0"></TextBlock>
+                                <TextBlock Text="{Binding year}" Margin="10,0,0,0"></TextBlock>-->
                             </StackPanel>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
@@ -129,19 +129,19 @@
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label x:Name="SongTitle" Content="Title: " Foreground="Black" Margin="150,0,0,0"/>
-                    <Label x:Name="SongTitleLabel" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Content="{Binding TuneViewSource.CurrentItem.title, UpdateSourceTrigger=PropertyChanged}" Foreground="Black"/>
+                    <Label x:Name="SongTitleLabel" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Content="{Binding AlbumlistViewSource.CurrentItem.tunes.CurrentItem.title, UpdateSourceTrigger=PropertyChanged}" Foreground="Black"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label x:Name="SongGroup" Content="Group: " Foreground="Black" Margin="150,0,0,0"/>
-                    <Label x:Name="SongGroupLabel" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Content="{Binding TuneViewSource.CurrentItem.artist, UpdateSourceTrigger=PropertyChanged}" Foreground="Black"/>
+                    <Label x:Name="SongGroupLabel" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Content="{Binding AlbumlistViewSource.CurrentItem.tunes.CurrentItem.artist, UpdateSourceTrigger=PropertyChanged}" Foreground="Black"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label x:Name="SongDuration" Content="Duration: " Foreground="Black" Margin="150,0,0,0"/>
-                    <Label x:Name="SongDurationLabel" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Content="{Binding TuneViewSource.CurrentItem.length, UpdateSourceTrigger=PropertyChanged}" Foreground="Black"/>
+                    <Label x:Name="SongDurationLabel" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Content="{Binding AlbumlistViewSource.CurrentItem.tunes.CurrentItem.length, UpdateSourceTrigger=PropertyChanged}" Foreground="Black"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label x:Name="SongYear" Content="Year: " Foreground="Black" Margin="150,0,0,0"/>
-                    <Label x:Name="SongYearLabel" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Content="{Binding TuneViewSource.CurrentItem.year, UpdateSourceTrigger=PropertyChanged}" Foreground="Black"/>
+                    <Label x:Name="SongYearLabel" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Content="{Binding AlbumlistViewSource.CurrentItem.tunes.CurrentItem.year, UpdateSourceTrigger=PropertyChanged}" Foreground="Black"/>
                 </StackPanel>
                 <ProgressBar x:Name="SongProgress" Height="10" IsIndeterminate="False"/>
                 <Menu x:Name="SongButtonsMenu">
