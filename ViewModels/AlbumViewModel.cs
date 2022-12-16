@@ -17,7 +17,6 @@ namespace tp_final.ViewModels
     {
         ICollectionView tuneViewSource;
         ICollectionView albumlistViewSource;
-
         public DelegateCommand GoToAdminCommand { get; set; }
         public DelegateCommand GoToMainPlayerCommand { get; set; }
         public DelegateCommand GoToLogoutCommand { get; set; }
@@ -44,7 +43,8 @@ namespace tp_final.ViewModels
 
             //CollectionView
             SetAlbumListAsync();
-            SetTuneListAsync();
+            
+            
             
             //Add
             AddAlbumCommand = new DelegateCommand(AddAlbum);
@@ -71,8 +71,9 @@ namespace tp_final.ViewModels
 
         public void AddAlbum()
         {
-           // Playlist _newAlbum = new Playlist() { title = "Test" };
-           // testDataServices.LesPlaylists.Add(_newAlbum);
+            // Playlist _newAlbum = new Playlist() { title = "Test" };
+            // testDataServices.LesPlaylists.Add(_newAlbum);
+            
 
         }
         public void DeleteAlbum()
@@ -169,13 +170,5 @@ namespace tp_final.ViewModels
             var albums = await Playlist.getAllAlbumsAsync();
             AlbumlistViewSource = CollectionViewSource.GetDefaultView(albums);
         }
-
-        private async void SetTuneListAsync()
-        {
-           // int id = ;
-            //var tunes = await Playlist.getAllTuneAsync(id);
-           // TuneViewSource = CollectionViewSource.GetDefaultView(tunes);
-        }
-
     }
 }

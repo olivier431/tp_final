@@ -103,7 +103,7 @@
                     <TextBox Width="147" Margin="2,0,0,0" ></TextBox>
                 </StackPanel>
 
-                <ListBox ItemsSource="{Binding TuneViewSource}" Margin="10,10,10,10" Height="250" Width="Auto" HorizontalAlignment="Stretch">
+                <ListBox ItemsSource="{Binding AlbumlistViewSource.CurrentItem.tunes}" Margin="10,10,10,10" Height="250" Width="Auto" HorizontalAlignment="Stretch">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
