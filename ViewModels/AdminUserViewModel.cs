@@ -41,7 +41,7 @@ namespace tp_final.ViewModels
         }
 
         private async void SetUserListAsync() {
-            var users = await User.getAllUsersAsync();
+            var users = await User.GetAllUsersAsync();
             UserViewSource = CollectionViewSource.GetDefaultView(users);
         }
     }

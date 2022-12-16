@@ -98,7 +98,7 @@ namespace tp_final.Models
             await response;
             var Result = response.Result;
             if (!Result.Success) throw new Exception();
-            if (!Result.Data.Any()) throw new Exception();
+            //if (!Result.Data.Any()) return;
 
             tunes = new();
             Result.Data.ToList().ForEach(json =>
