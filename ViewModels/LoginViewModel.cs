@@ -53,6 +53,7 @@ namespace tp_final.ViewModels
             }
 
             Application.Current.Properties["CurrentUser"] = user;
+            Application.Current.Properties["CurrentUserAdmin"] = user.isAdmin;
             navigationStore.CurrentViewModel = new MainPlayerViewModel(navigationStore);
         }
     }
