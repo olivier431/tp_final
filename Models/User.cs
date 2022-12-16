@@ -100,6 +100,21 @@ namespace tp_final.Models
             return new(Result.Data.ToList().FirstOrDefault()!.ToString()!);
         }
 
+        public static async Task<ObservableCollection<User>?> getAllUsersAsync()
+        {
+            var Result = await Martha.ExecuteQueryAsync("select-users");
+
+            if (!Result.Success) throw new Exception();
+            if (!Result.Data.Any()) throw new Exception();
+
+            ObservableCollection<User> users = new();
+            Result.Data.ToList().ForEach(json =>
+                users.Add(new User(json.ToString()!))
+            );
+
+            return users;
+        }
+
         public override string ToString() =>
             JsonSerializer.Serialize(this, new JsonSerializerOptions { WriteIndented = true });
     }
