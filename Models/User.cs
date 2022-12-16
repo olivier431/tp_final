@@ -63,7 +63,7 @@ namespace tp_final.Models
             this.lastConnection = lastConnection;
 
             albums = new();
-            SetAlbumsAsync();
+            //SetAlbumsAsync();
         }
 
 
@@ -112,7 +112,10 @@ namespace tp_final.Models
 
             var Result = await Martha.ExecuteQueryAsync("select-user", jsonParams);
             if (!Result.Success || !Result.Data.Any()) return null; //erreur
-            return new(Result.Data.ToList().FirstOrDefault()!.ToString()!);
+
+            User user = new(Result.Data.ToList().FirstOrDefault()!.ToString()!);
+            user.SetAlbumsAsync();
+            return user;
         }
 
         public static async Task<User?> AddUserAsync(string username, string pwd, string email)

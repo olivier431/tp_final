@@ -167,7 +167,7 @@ namespace tp_final.ViewModels
         }
         private async void SetAlbumListAsync()
         {
-            var albums = await Playlist.getAllAlbumsAsync();
+            var albums = await Playlist.GetAllAlbumsAsync();
             AlbumlistViewSource = CollectionViewSource.GetDefaultView(albums);
         }
     }
