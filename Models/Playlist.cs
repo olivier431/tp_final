@@ -105,7 +105,7 @@ namespace tp_final.Models
                 tunes.Add(new Tune(json.ToString()!))
             );
         }
-        public static async Task<ObservableCollection<Playlist>?> getAllAlbumsAsync()
+        public static async Task<ObservableCollection<Playlist>?> GetAllAlbumsAsync()
         {
             var Result = await Martha.ExecuteQueryAsync("select-albums");
 
@@ -120,7 +120,7 @@ namespace tp_final.Models
             return albums;
         }
 
-        public static async Task<Playlist?> getPlaylistByIdAsync(int id)
+        public static async Task<Playlist?> GetPlaylistByIdAsync(int id)
         {
             JsonObject jsonParams = new()
             {{nameof(id),id}};

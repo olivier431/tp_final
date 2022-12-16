@@ -69,7 +69,7 @@ namespace tp_final.Models
 
 
         // --------------------- Methods ---------------------
-        //public static async Task<ObservableCollection<Tune>?> getAllTuneInAlbumsAsync()
+        //public static async Task<ObservableCollection<Tune>?> GetAllTuneInAlbumsAsync()
         //{
         //    var Result = await Martha.ExecuteQueryAsync("select-album-tunes");
 
@@ -84,7 +84,7 @@ namespace tp_final.Models
         //    return tunes;
         //}
 
-        public static async Task<Tune?> getTuneByIdAsync(int id)
+        public static async Task<Tune?> GetTuneByIdAsync(int id)
         {
             JsonObject jsonParams = new JsonObject
             {

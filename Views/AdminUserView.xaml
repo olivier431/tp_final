@@ -20,9 +20,8 @@
         </Grid.RowDefinitions>
         <Menu VerticalAlignment="Top" Height="20" Grid.Row="0">
             <Separator/>
-            <MenuItem Header="Playlist"/>
+            <MenuItem Header="MainPlayer" Command="{Binding GoToMainCommand}"/>
             <Separator/>
-            <MenuItem Header="Morceaux"/>
             <Separator/>
             <MenuItem Header="Album" Command="{Binding GoToAlbumCommand}"/>
             <Separator/>
