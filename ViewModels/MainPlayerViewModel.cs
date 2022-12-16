@@ -36,7 +36,14 @@ namespace tp_final.ViewModels
 
         public void GoToAdmin()
         {
-            navigationStore.CurrentViewModel = new AdminUserViewModel(navigationStore);
+            if (Application.Current.Properties["CurrentUserAdmin"].ToString() == "1")
+            {
+                navigationStore.CurrentViewModel = new AdminUserViewModel(navigationStore);
+            }
+            else
+            {
+                MessageBox.Show("you are not an admin!");
+            }
         }
 
         public void GoToAlbum()
