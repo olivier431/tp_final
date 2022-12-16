@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using tp_final.Commands;
+using tp_final.Models;
 using tp_final.Stores;
 
 namespace tp_final.ViewModels
@@ -46,8 +48,12 @@ namespace tp_final.ViewModels
             navigationStore.CurrentViewModel = new LoginViewModel(navigationStore);
         }
 
-        public void Register()
+        public async void Register()
         {
+            User user = await User.AddUserAsync(Username, Password, Email);
+
+            Application.Current.Properties["CurrentUserAdmin"] = user.isAdmin;
+            Application.Current.Properties["CurrentUserId"] = user.id;
             navigationStore.CurrentViewModel = new MainPlayerViewModel(navigationStore);
         }
     }

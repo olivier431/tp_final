@@ -39,8 +39,8 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding Username}" Margin="0,0,10,0"></TextBlock>
-                        <TextBlock Text="{Binding Email}"></TextBlock>
+                        <TextBlock Text="{Binding username}" Margin="0,0,10,0"></TextBlock>
+                        <TextBlock Text="{Binding email}"></TextBlock>
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
