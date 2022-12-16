@@ -131,13 +131,13 @@ namespace tp_final.ViewModels
         public void Like() { }
         public void GoToAdmin()
         {
-            //User user = new User();
-            //if(user.isAdmin)
-            //{
-            navigationStore.CurrentViewModel = new AdminUserViewModel(navigationStore);
-            //} else {
-
-            //}
+            
+            if(Application.Current.Properties["CurrentUserAdmin"].ToString() == "1")
+            {
+                navigationStore.CurrentViewModel = new AdminUserViewModel(navigationStore);
+            } else {
+                MessageBox.Show("you are not an admin!");
+            }
         }
         public void GoToMainPlayer()
         {
