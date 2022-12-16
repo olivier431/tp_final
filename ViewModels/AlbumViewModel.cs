@@ -37,18 +37,15 @@ namespace tp_final.ViewModels
       //  TestDataServices testDataServices = new TestDataServices();
         private readonly NavigationStore navigationStore;
 
-        public AlbumViewModel(NavigationStore _navigationStore) {
+        public AlbumViewModel(NavigationStore _navigationStore){
 
-
-            var temp = Application.Current.Properties["CurrentUser"];
-            MessageBox.Show(temp.ToString());
+            //var temp = Application.Current.Properties["CurrentUser"];
+            //MessageBox.Show(temp.ToString());
 
             //CollectionView
-            //SetTuneListAsync();
             SetAlbumListAsync();
-            //  TuneViewSource = CollectionViewSource.GetDefaultView(testDataServices.LesTunes);
-            //  PlaylistViewSource = CollectionViewSource.GetDefaultView(testDataServices.LesPlaylists);
-
+            SetTuneListAsync();
+            
             //Add
             AddAlbumCommand = new DelegateCommand(AddAlbum);
             AddTuneCommand = new DelegateCommand(AddTune);
@@ -71,7 +68,7 @@ namespace tp_final.ViewModels
             GoToMainPlayerCommand = new DelegateCommand(GoToMainPlayer);
             GoToLogoutCommand = new DelegateCommand(GoToLogout);
         }
-        //TODO: Ajouter la bd dans mes delegates
+
         public void AddAlbum()
         {
            // Playlist _newAlbum = new Playlist() { title = "Test" };
@@ -173,9 +170,12 @@ namespace tp_final.ViewModels
             AlbumlistViewSource = CollectionViewSource.GetDefaultView(albums);
         }
 
-        //private async void SetTuneListAsync()
-        //{
-           
-        //}
+        private async void SetTuneListAsync()
+        {
+           // int id = ;
+            //var tunes = await Playlist.getAllTuneAsync(id);
+           // TuneViewSource = CollectionViewSource.GetDefaultView(tunes);
+        }
+
     }
 }
