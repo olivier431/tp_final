@@ -136,12 +136,13 @@ namespace tp_final.Models
             return new(Result.Data.ToList().FirstOrDefault()!.ToString()!);
         }
 
-        public static async Task UpdateUserAsync(string username, string email, int id) {
+        public static async Task UpdateUserAsync(string username, string email, string pwd, int id ) {
             
             JsonObject jsonParams = new()
             {
                 { nameof(username), username },
                 { nameof(email), email },
+                { nameof(pwd), pwd },
                 { nameof(id), id }
             };
 

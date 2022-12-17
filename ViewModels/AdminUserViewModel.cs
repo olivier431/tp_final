@@ -77,7 +77,7 @@ namespace tp_final.ViewModels
         public async void UpdateUser()
         {
             User user = (User)userViewSource.CurrentItem;
-            await User.UpdateUserAsync(user.username, user.email, user.id);
+            await User.UpdateUserAsync(user.username, user.email, user.pwd, user.id);
             SetUserListAsync();
 
         }

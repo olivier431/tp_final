@@ -43,6 +43,7 @@
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="{Binding id}" Margin="0,0,10,0"></TextBlock>
                         <TextBlock Text="{Binding username}" Margin="0,0,10,0"></TextBlock>
+                        <TextBlock Text="{Binding pwd}" Margin="0,0,10,0"></TextBlock>
                         <TextBlock Text="{Binding email}"></TextBlock>
                     </StackPanel>
                 </DataTemplate>
@@ -50,11 +51,13 @@
         </ListBox>
         <Label Grid.Column="1" Grid.Row="0" Content=" Update Username : " HorizontalAlignment="Center" VerticalAlignment="center"></Label>
         <Label Grid.Column="1" Grid.Row="1" Content="Update Email : " HorizontalAlignment="Center" VerticalAlignment="center"></Label>
+        <Label Grid.Column="1" Grid.Row="2" Content="Update Password : " HorizontalAlignment="Center" VerticalAlignment="center"></Label>
         <Label Grid.Column="3" Grid.Row="0" Content="Add Username : " HorizontalAlignment="Center" VerticalAlignment="center"></Label>
         <Label Grid.Column="3" Grid.Row="1" Content="Add Email : " HorizontalAlignment="Center" VerticalAlignment="center"></Label>
         <Label Grid.Column="3" Grid.Row="2" Content="Add pwd : " HorizontalAlignment="Center" VerticalAlignment="center"></Label>
         <TextBox Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="105" Text="{Binding UserViewSource.CurrentItem.username}"/>
         <TextBox Grid.Column="2" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="105" Text="{Binding UserViewSource.CurrentItem.email}"></TextBox>
+        <TextBox Grid.Column="2" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="105" Text="{Binding UserViewSource.CurrentItem.pwd}"></TextBox>
         <TextBox Grid.Column="4" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="105" Text="{Binding Username}"></TextBox>
         <TextBox Grid.Column="4" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="105" Text="{Binding Email}"></TextBox>
         <TextBox Grid.Column="4" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="105" Text="{Binding Password}"></TextBox>
