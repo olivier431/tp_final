@@ -19,11 +19,14 @@ namespace tp_final.ViewModels
 
         public DelegateCommand GoToAlbumCommand { get; set; }
         public DelegateCommand GoToMainCommand { get; set; }
+        public DelegateCommand UpdateUserCommand { get; set; }
+
         public AdminUserViewModel(NavigationStore _navigationStore) {
             SetUserListAsync();
             navigationStore = _navigationStore;
             GoToAlbumCommand = new DelegateCommand(GoToAlbum);
             GoToMainCommand = new DelegateCommand(GoToMain);
+            UpdateUserCommand = new DelegateCommand(UpdateUser);
 
         }
 
@@ -45,6 +48,12 @@ namespace tp_final.ViewModels
         public void GoToMain()
         {
             navigationStore.CurrentViewModel = new MainPlayerViewModel(navigationStore);
+        }
+
+        public void UpdateUser()
+        {
+
+
         }
 
         private async void SetUserListAsync() {
