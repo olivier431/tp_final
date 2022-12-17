@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Data;
 using tp_final.Commands;
 using tp_final.Models;
@@ -50,8 +51,11 @@ namespace tp_final.ViewModels
             navigationStore.CurrentViewModel = new MainPlayerViewModel(navigationStore);
         }
 
-        public void UpdateUser()
+        public async void UpdateUser()
         {
+            User user = (User)userViewSource.CurrentItem;
+            await User.UpdateUserAsync(user.username, user.email, user.id);
+            SetUserListAsync();
 
 
         }

@@ -132,6 +132,22 @@ namespace tp_final.Models
             return new(Result.Data.ToList().FirstOrDefault()!.ToString()!);
         }
 
+        public static async Task UpdateUserAsync(string username, string email, int id) {
+            
+            JsonObject jsonParams = new()
+            {
+                { nameof(username), username },
+                { nameof(email), email },
+                { nameof(id), id }
+            };
+
+            var Result = await Martha.ExecuteQueryAsync($"update-user", jsonParams);
+            if (!Result.Success) {
+                MessageBox.Show("error, both fields must be filled !");
+                return;
+            } 
+        }
+
         public override string ToString() =>
             JsonSerializer.Serialize(this, new JsonSerializerOptions { WriteIndented = true });
     }
