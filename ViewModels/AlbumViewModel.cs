@@ -76,18 +76,40 @@ namespace tp_final.ViewModels
         }
         public void DeleteAlbum()
         {
-            //TODO: Prendre le bon album pour delete
             if (AlbumlistViewSource.CurrentItem != null)
             {
                 string messaBoxText = "Êtes-vous certain de vouloir supprimer cet album?";
-                string caption = "Vous êtes sur le point de détruire un album";
+                string caption = "Vous êtes sur le point de supprimer un album";
                 MessageBoxButton button = MessageBoxButton.OKCancel;
                 MessageBoxImage icon = MessageBoxImage.Warning;
                 MessageBoxResult result = MessageBox.Show(messaBoxText, caption, button, icon);
                 if (result == MessageBoxResult.OK)
                 {
-                  //  Playlists album = (Playlists)PlaylistViewSource.CurrentItem;
-                  //  testDataServices.LesPlaylists.Remove(album);
+                    messaBoxText = "Voulez-vous supprimer les morceaux?";
+                    caption = "Vous êtes sur le point de supprimer les morceaux de l'album";
+                    button = MessageBoxButton.OKCancel;
+                    icon = MessageBoxImage.Warning;
+                    result = MessageBox.Show(messaBoxText, caption, button, icon);
+                    if (result == MessageBoxResult.OK)
+                    {
+                        MessageBox.Show("supprimer");
+                        //foreach (morceau in album)
+                        //{
+                        //    if (morceau != currentUser)
+                        //    {
+                        //        MessageBox.Show("move to unknown");
+                        //    }
+                        //    else
+                        //    {
+                        //        MessageBox.Show("Delete");
+                        //    }
+                        //}
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("move to unknown");
+                    }
                 }
             }
             else
