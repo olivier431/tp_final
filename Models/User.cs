@@ -148,6 +148,21 @@ namespace tp_final.Models
             } 
         }
 
+        public static async Task DeleteUserAsync(int id)
+        {
+
+            JsonObject jsonParams = new()
+            {
+                { nameof(id), id }
+            };
+
+            var Result = await Martha.ExecuteQueryAsync($"delete-user", jsonParams);
+            if (!Result.Success)
+            {
+                return;
+            }
+        }
+
         public override string ToString() =>
             JsonSerializer.Serialize(this, new JsonSerializerOptions { WriteIndented = true });
     }

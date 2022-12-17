@@ -21,6 +21,7 @@ namespace tp_final.ViewModels
         public DelegateCommand GoToAlbumCommand { get; set; }
         public DelegateCommand GoToMainCommand { get; set; }
         public DelegateCommand UpdateUserCommand { get; set; }
+        public DelegateCommand DeleteUserCommand { get; set; }
 
         public AdminUserViewModel(NavigationStore _navigationStore) {
             SetUserListAsync();
@@ -28,6 +29,7 @@ namespace tp_final.ViewModels
             GoToAlbumCommand = new DelegateCommand(GoToAlbum);
             GoToMainCommand = new DelegateCommand(GoToMain);
             UpdateUserCommand = new DelegateCommand(UpdateUser);
+            DeleteUserCommand = new DelegateCommand(DeleteUser);
 
         }
 
@@ -57,6 +59,20 @@ namespace tp_final.ViewModels
             await User.UpdateUserAsync(user.username, user.email, user.id);
             SetUserListAsync();
 
+        }
+
+        public async void DeleteUser()
+        {
+            User user = (User)userViewSource.CurrentItem;
+            if (Application.Current.Properties["CurrentUserId"].ToString() != user.id.ToString())
+            {
+                await User.DeleteUserAsync(user.id);
+            }
+            else
+            {
+                MessageBox.Show("you can't delete the login user");
+            }
+            SetUserListAsync();
 
         }
 
