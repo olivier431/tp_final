@@ -11,6 +11,8 @@
             <ColumnDefinition Width="3*"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
@@ -46,12 +48,18 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Label Grid.Column="1" Grid.Row="0" Content="Username : " HorizontalAlignment="Center" VerticalAlignment="center"></Label>
-        <Label Grid.Column="1" Grid.Row="1" Content="Email : " HorizontalAlignment="Center" VerticalAlignment="center"></Label>
-        <TextBox Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Text="{Binding UserViewSource.CurrentItem.username}"/>
-        <TextBox Grid.Column="2" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Text="{Binding UserViewSource.CurrentItem.email}"></TextBox>
+        <Label Grid.Column="1" Grid.Row="0" Content=" Update Username : " HorizontalAlignment="Center" VerticalAlignment="center"></Label>
+        <Label Grid.Column="1" Grid.Row="1" Content="Update Email : " HorizontalAlignment="Center" VerticalAlignment="center"></Label>
+        <Label Grid.Column="3" Grid.Row="0" Content="Add Username : " HorizontalAlignment="Center" VerticalAlignment="center"></Label>
+        <Label Grid.Column="3" Grid.Row="1" Content="Add Email : " HorizontalAlignment="Center" VerticalAlignment="center"></Label>
+        <Label Grid.Column="3" Grid.Row="2" Content="Add pwd : " HorizontalAlignment="Center" VerticalAlignment="center"></Label>
+        <TextBox Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="105" Text="{Binding UserViewSource.CurrentItem.username}"/>
+        <TextBox Grid.Column="2" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="105" Text="{Binding UserViewSource.CurrentItem.email}"></TextBox>
+        <TextBox Grid.Column="4" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="105" Text="{Binding Username}"></TextBox>
+        <TextBox Grid.Column="4" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="105" Text="{Binding Email}"></TextBox>
+        <TextBox Grid.Column="4" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="105" Text="{Binding Password}"></TextBox>
         <Button Grid.Column="1" Grid.Row="3" Content="Update" HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding UpdateUserCommand}"></Button>
         <Button Grid.Column="2" Grid.Row="3" Content="Delete" HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding DeleteUserCommand}"></Button>
-
+        <Button Grid.Column="4" Grid.Row="3" Content="Add" HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding AddUserCommand}"></Button>
     </Grid>
 </UserControl>

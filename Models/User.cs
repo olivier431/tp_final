@@ -128,7 +128,11 @@ namespace tp_final.Models
             };
 
             var Result = await Martha.ExecuteQueryAsync($"insert-user", jsonParams);
-            if (!Result.Success || !Result.Data.Any()) return null; //erreur
+            if (!Result.Success || !Result.Data.Any()) {
+                MessageBox.Show("error while adding");
+                return null; //erreur
+            }
+            
             return new(Result.Data.ToList().FirstOrDefault()!.ToString()!);
         }
 
