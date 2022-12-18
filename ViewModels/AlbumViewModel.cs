@@ -15,30 +15,26 @@ namespace tp_final.ViewModels
 {
     public class AlbumViewModel : BaseViewModel
     {
-        ICollectionView tuneViewSource;
+        //CollectionView
         ICollectionView albumlistViewSource;
+        //Delegate Command
         public DelegateCommand GoToAdminCommand { get; set; }
         public DelegateCommand GoToMainPlayerCommand { get; set; }
         public DelegateCommand GoToLogoutCommand { get; set; }
-
         public DelegateCommand AddAlbumCommand { get; private set; }
         public DelegateCommand DeleteAlbumCommand { get; private set; }
-        public DelegateCommand AddTuneCommand { get; private set; }
-        public DelegateCommand DeleteTuneCommand { get; private set; }
         public DelegateCommand ShuffleCommand { get; private set; }
         public DelegateCommand PlayCommand { get; private set; }
         public DelegateCommand PauseCommand { get; private set; }
         public DelegateCommand NextCommand { get; private set; }
         public DelegateCommand PreviousCommand { get; private set; }
         public DelegateCommand LikeCommand { get; private set; }
-
-
-      //  TestDataServices testDataServices = new TestDataServices();
+        //Navigation
         private readonly NavigationStore navigationStore;
-
+       
         public AlbumViewModel(NavigationStore _navigationStore){
 
-            //var temp = Application.Current.Properties["CurrentUser"];
+            //var temp = Application.Current.Properties["CurrentUserId"];
             //MessageBox.Show(temp.ToString());
 
             //CollectionView
@@ -46,11 +42,9 @@ namespace tp_final.ViewModels
             
             //Add
             AddAlbumCommand = new DelegateCommand(AddAlbum);
-            AddTuneCommand = new DelegateCommand(AddTune);
 
             //Delete
             DeleteAlbumCommand = new DelegateCommand(DeleteAlbum);
-            DeleteTuneCommand = new DelegateCommand(DeleteTune);
 
             //CommandMusic
             ShuffleCommand = new DelegateCommand(Shuffle);
@@ -71,76 +65,58 @@ namespace tp_final.ViewModels
         {
             // Playlist _newAlbum = new Playlist() { title = "Test" };
             // testDataServices.LesPlaylists.Add(_newAlbum);
-            
-
         }
         public void DeleteAlbum()
         {
             if (AlbumlistViewSource.CurrentItem != null)
             {
-                string messaBoxText = "Êtes-vous certain de vouloir supprimer cet album?";
-                string caption = "Vous êtes sur le point de supprimer un album";
-                MessageBoxButton button = MessageBoxButton.OKCancel;
-                MessageBoxImage icon = MessageBoxImage.Warning;
-                MessageBoxResult result = MessageBox.Show(messaBoxText, caption, button, icon);
-                if (result == MessageBoxResult.OK)
+                MessageBox.Show($"{AlbumlistViewSource.CurrentItem}");
+                MessageBox.Show($"{ Application.Current.Properties["CurrentUserId"]}");
+                //TODO: Changer la comparaison pour qu'il soit fonctionnel
+                if(Application.Current.Properties["user_id"] == Application.Current.Properties["CurrentUserId"])
                 {
-                    messaBoxText = "Voulez-vous supprimer les morceaux?";
-                    caption = "Vous êtes sur le point de supprimer les morceaux de l'album";
-                    button = MessageBoxButton.OKCancel;
-                    icon = MessageBoxImage.Warning;
-                    result = MessageBox.Show(messaBoxText, caption, button, icon);
+                    string messaBoxText = "Êtes-vous certain de vouloir supprimer cet album?";
+                    string caption = "Vous êtes sur le point de supprimer un album";
+                    MessageBoxButton button = MessageBoxButton.OKCancel;
+                    MessageBoxImage icon = MessageBoxImage.Warning;
+                    MessageBoxResult result = MessageBox.Show(messaBoxText, caption, button, icon);
                     if (result == MessageBoxResult.OK)
                     {
-                        MessageBox.Show("supprimer");
-                        //foreach (morceau in album)
-                        //{
-                        //    if (morceau != currentUser)
-                        //    {
-                        //        MessageBox.Show("move to unknown");
-                        //    }
-                        //    else
-                        //    {
-                        //        MessageBox.Show("Delete");
-                        //    }
-                        //}
+                        messaBoxText = "Voulez-vous supprimer les morceaux?";
+                        caption = "Vous êtes sur le point de supprimer les morceaux de l'album";
+                        button = MessageBoxButton.OKCancel;
+                        icon = MessageBoxImage.Warning;
+                        result = MessageBox.Show(messaBoxText, caption, button, icon);
+                        if (result == MessageBoxResult.OK)
+                        {
+                            MessageBox.Show("supprimer");
+                            //foreach (morceau in album)
+                            //{
+                            //    if (morceau != currentUser)
+                            //    {
+                            //        MessageBox.Show("move to unknown");
+                            //    }
+                            //    else
+                            //    {
+                            //        MessageBox.Show("Delete");
+                            //    }
+                            //}
 
-                    }
-                    else
-                    {
-                        MessageBox.Show("move to unknown");
+                        }
+                        else
+                        {
+                            MessageBox.Show("move to unknown");
+                        }
                     }
                 }
-            }
-            else
-            {
-                MessageBox.Show("Voud devez sélectionner un album");
-            }
-        }
-        public void AddTune()
-        {
-           //  Tune _newTune = new Tune() { title = "Test" };
-           // testDataServices.LesTunes.Add(_newTune);
-        }
-        public void DeleteTune()
-        {
-            //TODO: Arranger le delete sur la bonne tune
-            if (TuneViewSource.CurrentItem != null)
-            {
-                string messaBoxText = "Êtes-vous certain de vouloir supprimer cette musique de l'album?";
-                string caption = "Vous êtes sur le point de détruire une musique de l'album";
-                MessageBoxButton button = MessageBoxButton.OKCancel;
-                MessageBoxImage icon = MessageBoxImage.Warning;
-                MessageBoxResult result = MessageBox.Show(messaBoxText, caption, button, icon);
-                if (result == MessageBoxResult.OK)
+                else
                 {
-                   // Tune tune = (Tune)TuneViewSource.CurrentItem;
-                    //testDataServices.LesTunes.Remove(tune);
+                    MessageBox.Show("Vous devez supprimer un album qui vous appartient");
                 }
             }
             else
             {
-                MessageBox.Show("Voud devez sélectionner une tune");
+                MessageBox.Show("Vous devez sélectionner un album");
             }
         }
         public void Shuffle() { }
@@ -166,15 +142,6 @@ namespace tp_final.ViewModels
         public void GoToLogout()
         {
             navigationStore.CurrentViewModel = new LoginViewModel(navigationStore);
-        }
-        public ICollectionView TuneViewSource
-        {
-            get => tuneViewSource;
-            set
-            {
-                tuneViewSource = value;
-                OnPropertyChanged();
-            }
         }
         public ICollectionView AlbumlistViewSource
         {
