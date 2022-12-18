@@ -63,6 +63,7 @@ namespace tp_final.ViewModels
 
         public void AddAlbum()
         {
+            AddAlbumListAsync();
             // Playlist _newAlbum = new Playlist() { title = "Test" };
             // testDataServices.LesPlaylists.Add(_newAlbum);
         }
@@ -70,10 +71,8 @@ namespace tp_final.ViewModels
         {
             if (AlbumlistViewSource.CurrentItem != null)
             {
-                MessageBox.Show($"{AlbumlistViewSource.CurrentItem}");
-                MessageBox.Show($"{ Application.Current.Properties["CurrentUserId"]}");
-                //TODO: Changer la comparaison pour qu'il soit fonctionnel
-                if(Application.Current.Properties["user_id"] == Application.Current.Properties["CurrentUserId"])
+                Playlist playlist = (Playlist)AlbumlistViewSource.CurrentItem;
+                if(playlist.user_id == (int)Application.Current.Properties["CurrentUserId"])
                 {
                     string messaBoxText = "Êtes-vous certain de vouloir supprimer cet album?";
                     string caption = "Vous êtes sur le point de supprimer un album";
@@ -90,18 +89,17 @@ namespace tp_final.ViewModels
                         if (result == MessageBoxResult.OK)
                         {
                             MessageBox.Show("supprimer");
-                            //foreach (morceau in album)
-                            //{
-                            //    if (morceau != currentUser)
-                            //    {
-                            //        MessageBox.Show("move to unknown");
-                            //    }
-                            //    else
-                            //    {
-                            //        MessageBox.Show("Delete");
-                            //    }
-                            //}
-
+                            foreach (var morceau in playlist.tunes)
+                            {
+                                if (morceau != Application.Current.Properties["CurrentUserId"])
+                                {
+                                    MessageBox.Show("move to unknown");
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Delete");
+                                }
+                            }
                         }
                         else
                         {
