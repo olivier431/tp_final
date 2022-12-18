@@ -69,9 +69,9 @@ namespace tp_final.ViewModels
         }
         public void DeleteAlbum()
         {
-            if (AlbumlistViewSource.CurrentItem != null)
+            Playlist playlist = (Playlist)AlbumlistViewSource.CurrentItem;
+            if (playlist != null)
             {
-                Playlist playlist = (Playlist)AlbumlistViewSource.CurrentItem;
                 if(playlist.user_id == (int)Application.Current.Properties["CurrentUserId"])
                 {
                     string messaBoxText = "Êtes-vous certain de vouloir supprimer cet album?";
@@ -88,22 +88,28 @@ namespace tp_final.ViewModels
                         result = MessageBox.Show(messaBoxText, caption, button, icon);
                         if (result == MessageBoxResult.OK)
                         {
-                            MessageBox.Show("supprimer");
+                            //MessageBox.Show("supprimer");
                             foreach (var morceau in playlist.tunes)
                             {
-                                if (morceau != Application.Current.Properties["CurrentUserId"])
+                                //MessageBox.Show(morceau.ToString());
+                                if (morceau.user_id != (int)Application.Current.Properties["CurrentUserId"])
                                 {
                                     MessageBox.Show("move to unknown");
+                                    //MessageBox.Show(morceau.ToString());
                                 }
                                 else
                                 {
+                                    //MessageBox.Show(morceau.ToString());
                                     MessageBox.Show("Delete");
                                 }
                             }
                         }
                         else
                         {
-                            MessageBox.Show("move to unknown");
+                            foreach (var morceau in playlist.tunes)
+                            {
+                                MessageBox.Show("move to unknown");
+                            }
                         }
                     }
                 }
