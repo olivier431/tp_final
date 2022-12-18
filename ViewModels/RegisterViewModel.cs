@@ -52,6 +52,12 @@ namespace tp_final.ViewModels
         {
             User user = await User.AddUserAsync(Username, Password, Email);
 
+            if (user == null)
+            {
+                MessageBox.Show("a box is empty");
+                return;
+            }
+
             Application.Current.Properties["CurrentUserAdmin"] = user.isAdmin;
             Application.Current.Properties["CurrentUserId"] = user.id;
             navigationStore.CurrentViewModel = new MainPlayerViewModel(navigationStore);

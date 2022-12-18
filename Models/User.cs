@@ -128,16 +128,21 @@ namespace tp_final.Models
             };
 
             var Result = await Martha.ExecuteQueryAsync($"insert-user", jsonParams);
-            if (!Result.Success || !Result.Data.Any()) return null; //erreur
+            if (!Result.Success || !Result.Data.Any()) {
+                MessageBox.Show("error while adding");
+                return null; //erreur
+            }
+            
             return new(Result.Data.ToList().FirstOrDefault()!.ToString()!);
         }
 
-        public static async Task UpdateUserAsync(string username, string email, int id) {
+        public static async Task UpdateUserAsync(string username, string email, string pwd, int id ) {
             
             JsonObject jsonParams = new()
             {
                 { nameof(username), username },
                 { nameof(email), email },
+                { nameof(pwd), pwd },
                 { nameof(id), id }
             };
 
