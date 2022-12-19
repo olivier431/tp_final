@@ -81,8 +81,9 @@ namespace tp_final.ViewModels
 
         public async void DeleteUser()
         {
+            User CurUser = (User)Application.Current.Properties["CurrentUser"];
             User user = (User)userViewSource.CurrentItem;
-            if (Application.Current.Properties["CurrentUserId"].ToString() != user.id.ToString())
+            if (CurUser.id != CurUser.id)
             {
                 await User.DeleteUserAsync(user.id);
             }

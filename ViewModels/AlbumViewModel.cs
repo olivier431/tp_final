@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 using System.Windows;
 using System.Windows.Data;
 using tp_final.Commands;
 using tp_final.Models;
-using tp_final.Services;
 using tp_final.Stores;
 
 namespace tp_final.ViewModels
@@ -72,12 +66,13 @@ namespace tp_final.ViewModels
         //TODO: Delete Fonctionnel reste juste à implémenter avec Martha
         public void DeleteAlbum()
         {
+            User CurUser = (User)Application.Current.Properties["CurrentUser"];
             Playlist playlist = (Playlist)AlbumlistViewSource.CurrentItem;
             if (playlist != null)
             {
                 if (playlist.title != "Unknown Album" && playlist.id != 1)
                 {
-                    if (playlist.user_id == (int)Application.Current.Properties["CurrentUserId"])
+                    if (playlist.user_id == CurUser.id)
                     {
                         string messaBoxText = "Êtes-vous certain de vouloir supprimer cet album?";
                         string caption = "Vous êtes sur le point de supprimer un album";
@@ -95,7 +90,7 @@ namespace tp_final.ViewModels
                             {
                                 foreach (var morceau in playlist.tunes)
                                 {
-                                    if (morceau.user_id != (int)Application.Current.Properties["CurrentUserId"])
+                                    if (morceau.user_id != CurUser.id)
                                     {
                                         //Move to unknown
                                     }
@@ -140,8 +135,8 @@ namespace tp_final.ViewModels
         }
         public void GoToAdmin()
         {
-
-            if (Application.Current.Properties["CurrentUserAdmin"].ToString() == "1")
+            User CurUser = (User)Application.Current.Properties["CurrentUser"];
+            if (CurUser.isAdmin == 1)
             {
                 navigationStore.CurrentViewModel = new AdminUserViewModel(navigationStore);
             }

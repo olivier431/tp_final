@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Data.OleDb;
 using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-using System.Windows;
 
 namespace tp_final.Models
 {
@@ -154,21 +152,6 @@ namespace tp_final.Models
 
 
 
-        public static async Task<Playlist?> GetPlaylistByIdAsync(int id)
-        {
-            JsonObject jsonParams = new()
-            {{nameof(id),id}};
-
-            var Result = await Martha.ExecuteQueryAsync("select-playlist", jsonParams);
-
-            if (!Result.Success) throw new Exception();
-            if (!Result.Data.Any()) throw new Exception();
-
-            return new(Result.Data.FirstOrDefault()!.ToString()!);
-        }
-
-
-
         // --------------------- Album Methods ---------------------
         public static async Task<ObservableCollection<Playlist>?> GetAllAlbumsAsync()
         {
@@ -205,6 +188,35 @@ namespace tp_final.Models
 
             var Result = await Martha.ExecuteQueryAsync($"insert-album", jsonParams);
             if (!Result.Success || !Result.Data.Any()) return null; //erreur // MessageBox.Show("error while adding");
+            return new(Result.Data.ToList().FirstOrDefault()!.ToString()!);
+        }
+
+
+
+        // --------------------- Playlist Methods ---------------------
+        public static async Task<Playlist?> GetPlaylistByIdAsync(int id)
+        {
+            JsonObject jsonParams = new()
+            {{nameof(id),id}};
+
+            var Result = await Martha.ExecuteQueryAsync("select-playlist", jsonParams);
+
+            if (!Result.Success) throw new Exception();
+            if (!Result.Data.Any()) throw new Exception();
+
+            return new(Result.Data.FirstOrDefault()!.ToString()!);
+        }
+
+        public static async Task<Playlist?> AddPlaylistAsync(int user_id, string title)
+        {
+            JsonObject jsonParams = new()
+            {
+                { nameof(user_id), user_id },
+                { nameof(title), title }
+            };
+
+            var Result = await Martha.ExecuteQueryAsync($"insert-playlist", jsonParams);
+            if (!Result.Success || !Result.Data.Any()) return null; //erreur
             return new(Result.Data.ToList().FirstOrDefault()!.ToString()!);
         }
     }

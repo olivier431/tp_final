@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Threading.Tasks;
-using System.Windows;
 
 namespace tp_final.Models
 {
@@ -122,6 +120,16 @@ namespace tp_final.Models
             Result.Data.ToList().ForEach(json =>
                 playlists.Add(new Playlist(json.ToString()!))
             );
+        }
+
+        public async Task<ObservableCollection<Playlist>> AddAlbumAsync(string title)
+        {
+            var playlist = await Playlist.AddPlaylistAsync(id, title);
+
+            if (playlist == null) return null;
+
+            playlists.Add(playlist);
+            return playlists;
         }
 
 
