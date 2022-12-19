@@ -157,9 +157,7 @@ namespace tp_final.ViewModels
         public void Logout()
         {
             navigationStore.CurrentViewModel = new LoginViewModel(navigationStore);
-            Application.Current.Properties["CurrentUserAdmin"] = null;
-            Application.Current.Properties["CurrentUserAdmin"] = null;
-
+            Application.Current.Properties["CurrentUser"] = null;
         }
         public void OrderAlbum() 
         {
@@ -176,11 +174,6 @@ namespace tp_final.ViewModels
         public void Next() { }
         public void Previous() { }
         public void Like() { }
-        private async void SetAlbumListAsync()
-        {
-            //var albums = await Playlist.GetAllAlbumsAsync();
-            //AlbumlistViewSource = CollectionViewSource.GetDefaultView(albums);
-        }
         private async void AddAlbumListAsync()
         {
             //var album = await Playlist.AddAlbumAsync();

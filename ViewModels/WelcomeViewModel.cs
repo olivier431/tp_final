@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using tp_final.Commands;
+﻿using tp_final.Commands;
 using tp_final.Stores;
 
 namespace tp_final.ViewModels
@@ -22,6 +16,5 @@ namespace tp_final.ViewModels
         public void GoToLogin() {
             navigationStore.CurrentViewModel = new LoginViewModel(navigationStore);
         }
-
     }
 }

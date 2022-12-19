@@ -105,6 +105,27 @@ namespace tp_final.Models
         }
 
 
+
+        public async void SetPlaylistsAsync()
+        {
+            string type = notAdmin ? "-user" : "";
+            JsonObject jsonParams = new() { { nameof(id), id } };
+
+            var response = Martha.ExecuteQueryAsync($"select{type}-playlists", jsonParams);
+
+            await response;
+            var Result = response.Result;
+            if (!Result.Success) throw new Exception();
+            //if (!Result.Data.Any()) return;
+
+            playlists = new();
+            Result.Data.ToList().ForEach(json =>
+                playlists.Add(new Playlist(json.ToString()!))
+            );
+        }
+
+
+
         public override string ToString() =>
             JsonSerializer.Serialize(this, new JsonSerializerOptions { WriteIndented = true });
 

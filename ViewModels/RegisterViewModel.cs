@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using tp_final.Commands;
 using tp_final.Models;
 using tp_final.Stores;
@@ -58,8 +53,6 @@ namespace tp_final.ViewModels
                 return;
             }
 
-            Application.Current.Properties["CurrentUserAdmin"] = user.isAdmin;
-            Application.Current.Properties["CurrentUserId"] = user.id;
             Application.Current.Properties["CurrentUser"] = user;
             navigationStore.CurrentViewModel = new MainPlayerViewModel(navigationStore);
         }
