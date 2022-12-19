@@ -90,21 +90,10 @@ namespace tp_final.ViewModels
                             {
                                 foreach (var morceau in playlist.tunes)
                                 {
-                                    if (morceau.user_id != CurUser.id)
-                                    {
-                                        //Move to unknown
-                                    }
-                                    else
+                                    if (morceau.user_id == CurUser.id)
                                     {
                                         //Delete Tune
                                     }
-                                }
-                            }
-                            else
-                            {
-                                foreach (var morceau in playlist.tunes)
-                                {
-                                    //Move to unknown
                                 }
                             }
                         }

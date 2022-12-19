@@ -108,5 +108,13 @@ namespace tp_final.Models
             if (!Result.Success || !Result.Data.Any()) return null; //erreur
             return new(Result.Data.ToList().FirstOrDefault()!.ToString()!);
         }
+
+        public static async void DeleteTuneAsync(int id)
+        {
+            JsonObject jsonParams = new() { { nameof(id), id } };
+
+            var Result = await Martha.ExecuteQueryAsync($"delete-tune", jsonParams);
+            if (!Result.Success) return;
+        }
     }
 }
