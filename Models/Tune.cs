@@ -72,21 +72,6 @@ namespace tp_final.Models
         public override string ToString() =>
             JsonSerializer.Serialize(this, new JsonSerializerOptions { WriteIndented = true });
 
-        //public static async Task<ObservableCollection<Tune>?> GetAllTuneInAlbumsAsync()
-        //{
-        //    var Result = await Martha.ExecuteQueryAsync("select-album-tunes");
-
-        //    if (!Result.Success) throw new Exception();
-        //    if (!Result.Data.Any()) throw new Exception();
-
-        //    ObservableCollection<Tune> tunes = new();
-        //    Result.Data.ToList().ForEach(json =>
-        //        tunes.Add(new Tune(json.ToString()!))
-        //    );
-
-        //    return tunes;
-        //}
-
         public static async Task<Tune?> GetTuneByIdAsync(int id)
         {
             JsonObject jsonParams = new JsonObject
@@ -105,6 +90,8 @@ namespace tp_final.Models
             string title,
             string artist,
             string? genre,
+            string? filepath,
+            int length,
             int? year)
         {
             JsonObject jsonParams = new()
@@ -114,6 +101,8 @@ namespace tp_final.Models
                 { nameof(title), title },
                 { nameof(artist), artist },
                 { nameof(genre), genre },
+                { nameof(filepath), filepath },
+                { nameof(length), length },
                 { nameof(year), year }
             };
 
