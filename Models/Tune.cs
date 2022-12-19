@@ -70,6 +70,9 @@ namespace tp_final.Models
         public override string ToString() =>
             JsonSerializer.Serialize(this, new JsonSerializerOptions { WriteIndented = true });
 
+
+
+        // --------------------- static Methods ---------------------
         public static async Task<Tune?> GetTuneByIdAsync(int id)
         {
             JsonObject jsonParams = new JsonObject

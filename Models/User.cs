@@ -137,6 +137,9 @@ namespace tp_final.Models
         public override string ToString() =>
             JsonSerializer.Serialize(this, new JsonSerializerOptions { WriteIndented = true });
 
+
+
+        // --------------------- static Methods ---------------------
         public static async Task<ObservableCollection<User>?> GetAllUsersAsync()
         {
             var Result = await Martha.ExecuteQueryAsync("select-users");

@@ -147,6 +147,12 @@ namespace tp_final.Models
             SetTunesAsync();
         }
 
+        public override string ToString() =>
+            JsonSerializer.Serialize(this, new JsonSerializerOptions { WriteIndented = true });
+
+
+
+        // --------------------- static Methods ---------------------
         public static async void DeleteAsync(int id)
         {
             JsonObject jsonParams = new() { { nameof(id), id } };
@@ -154,9 +160,6 @@ namespace tp_final.Models
             var Result = await Martha.ExecuteQueryAsync($"delete-playlist", jsonParams);
             if (!Result.Success) return;
         }
-
-        public override string ToString() =>
-            JsonSerializer.Serialize(this, new JsonSerializerOptions { WriteIndented = true });
 
 
 
