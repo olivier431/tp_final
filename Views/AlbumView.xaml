@@ -92,7 +92,7 @@
                     <TextBox Width="147" Margin="10,0,0,0"  Text=""></TextBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <Label>Durée</Label>
+                    <Label>Cover</Label>
                     <TextBox Width="147" Margin="2,0,0,0" Text=""></TextBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">

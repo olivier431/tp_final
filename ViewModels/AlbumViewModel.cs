@@ -64,8 +64,6 @@ namespace tp_final.ViewModels
         public void AddAlbum()
         {
             AddAlbumListAsync();
-            // Playlist _newAlbum = new Playlist() { title = "Test" };
-            // testDataServices.LesPlaylists.Add(_newAlbum);
         }
         //TODO: Delete Fonctionnel reste juste à implémenter avec Martha
         public void DeleteAlbum()
@@ -172,7 +170,8 @@ namespace tp_final.ViewModels
         }
         private async void AddAlbumListAsync()
         {
-           // var album = await Playlist.AddAlbumAsync();
+            //https://logos-marques.com/wp-content/uploads/2021/03/Pringles-Logo-1967-2048x1158.png
+            // var album = await Playlist.AddAlbumAsync();
         }
     }
 }
