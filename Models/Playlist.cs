@@ -108,9 +108,15 @@ namespace tp_final.Models
             );
         }
 
-        public async Task<ObservableCollection<Tune>?> AddTuneAsync(string title, string artist, string? genre, int? year)
+        public async Task<ObservableCollection<Tune>?> AddTuneAsync(
+            string title,
+            string artist,
+            string? genre,
+            string? filepath,
+            int length,
+            int? year)
         {
-            var tune = await Tune.AddTuneAsync(user_id, id, title, artist, genre, year);
+            var tune = await Tune.AddTuneAsync(user_id, id, title, artist, genre, filepath, length, year);
 
             if (tune == null) return null;
 
@@ -127,7 +133,7 @@ namespace tp_final.Models
                 { nameof(id), id }
             };
 
-            var Result = await Martha.ExecuteQueryAsync("update-playlist-ord-shuffle", jsonParams);
+            var Result = await Martha.ExecuteQueryAsync("update-playlist-ord", jsonParams);
             if (!Result.Success) throw new Exception();
 
             SetTunesAsync();
@@ -138,7 +144,7 @@ namespace tp_final.Models
             JsonObject jsonParams = new() { { nameof(id), id } };
 
             var Result = await Martha.ExecuteQueryAsync("update-playlist-ord-shuffle", jsonParams);
-            if (!Result.Success) throw new Exception();
+            if (!Result.Success || (int)Result.Data.First() == 0) throw new Exception();
 
             SetTunesAsync();
         }
@@ -184,7 +190,7 @@ namespace tp_final.Models
             string title,
             string artist,
             string genre,
-            string album_cover,
+            string? album_cover,
             int year)
         {
             JsonObject jsonParams = new()

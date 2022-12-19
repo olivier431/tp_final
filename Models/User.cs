@@ -92,7 +92,7 @@ namespace tp_final.Models
             string title,
             string artist,
             string genre,
-            string album_cover,
+            string? album_cover,
             int year)
         {
             var album = await Playlist.AddAlbumAsync(id, title, artist, genre, album_cover, year);
@@ -152,8 +152,8 @@ namespace tp_final.Models
             return new(Result.Data.ToList().FirstOrDefault()!.ToString()!);
         }
 
-        public static async Task<bool> UpdateUserAsync(string username, string email, string pwd, int id ) {
-            
+        public static async Task<bool> UpdateUserAsync(string username, string email, string pwd, int id)
+        {
             JsonObject jsonParams = new()
             {
                 { nameof(username), username },
@@ -168,17 +168,10 @@ namespace tp_final.Models
 
         public static async Task DeleteUserAsync(int id)
         {
-
-            JsonObject jsonParams = new()
-            {
-                { nameof(id), id }
-            };
+            JsonObject jsonParams = new() { { nameof(id), id } };
 
             var Result = await Martha.ExecuteQueryAsync($"delete-user", jsonParams);
-            if (!Result.Success)
-            {
-                return;
-            }
+            if (!Result.Success) return;
         }
     }
 }
