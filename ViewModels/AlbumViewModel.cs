@@ -163,6 +163,7 @@ namespace tp_final.ViewModels
         {
             Playlist playlist = (Playlist)AlbumlistViewSource.CurrentItem;
             playlist.EditOrderAsync(1, 5);
+            //TODO Arranger le pour choisir positon non hard coder
         }
         public void Shuffle() 
         {
