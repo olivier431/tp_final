@@ -48,7 +48,7 @@
                         <GridViewColumn Header="Artiste" Width="50" DisplayMemberBinding="{Binding artist}" />
                         <GridViewColumn Header="Title" Width="auto" DisplayMemberBinding="{Binding title}" />
                         <GridViewColumn Header="Length" Width="40" DisplayMemberBinding="{Binding length}" />
-                        <GridViewColumn Header="Genre" Width="50" DisplayMemberBinding="{Binding genre}" />
+                        <GridViewColumn Header="Genre" Width="auto" DisplayMemberBinding="{Binding genre}" />
                         <GridViewColumn Header="Year" Width="40" DisplayMemberBinding="{Binding year}" />
                     </GridView>
                 </ListView.View>

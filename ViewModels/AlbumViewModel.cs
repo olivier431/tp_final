@@ -76,7 +76,7 @@ namespace tp_final.ViewModels
                     {
                         string messaBoxText = "Êtes-vous certain de vouloir supprimer cet album?";
                         string caption = "Vous êtes sur le point de supprimer un album";
-                        MessageBoxButton button = MessageBoxButton.OKCancel;
+                        MessageBoxButton button = MessageBoxButton.OKNO;
                         MessageBoxImage icon = MessageBoxImage.Warning;
                         MessageBoxResult result = MessageBox.Show(messaBoxText, caption, button, icon);
                         if (result == MessageBoxResult.OK)
@@ -162,6 +162,7 @@ namespace tp_final.ViewModels
         }
         public void Shuffle() 
         {
+            //TODO: Mettre le play après le shuffle
             Playlist playlist = (Playlist)AlbumlistViewSource.CurrentItem;
             playlist.ShuffleOrderAsync();
         }
@@ -172,6 +173,12 @@ namespace tp_final.ViewModels
         public void Like() { }
         private async void AddAlbumListAsync()
         {
+            //TODO: Arranger le hard-Coder
+            User CurUser = (User)Application.Current.Properties["CurrentUser"];
+            CurUser.AddAlbumAsync("test", "test1", "test", "https://logos-world.net/wp-content/uploads/2020/11/MSI-Logo-2011-2019.png", 1999);
+
+
+
             //var album = await Playlist.AddAlbumAsync();
             //AlbumlistViewSource = CollectionViewSource.GetDefaultView(album);
         }
