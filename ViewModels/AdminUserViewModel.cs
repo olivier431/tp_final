@@ -25,6 +25,7 @@ namespace tp_final.ViewModels
         public DelegateCommand UpdateUserCommand { get; set; }
         public DelegateCommand DeleteUserCommand { get; set; }
         public DelegateCommand AddUserCommand { get; set; }
+        public DelegateCommand LogoutCommand { get; set; }
 
         public AdminUserViewModel(NavigationStore _navigationStore) {
             SetUserListAsync();
@@ -34,6 +35,7 @@ namespace tp_final.ViewModels
             UpdateUserCommand = new DelegateCommand(UpdateUser);
             DeleteUserCommand = new DelegateCommand(DeleteUser);
             AddUserCommand = new DelegateCommand(AddUser);
+            LogoutCommand = new DelegateCommand(Logout);
 
         }
 
@@ -110,6 +112,14 @@ namespace tp_final.ViewModels
                 MessageBox.Show("a box is empty !");
             }
             
+        }
+
+        public void Logout()
+        {
+            navigationStore.CurrentViewModel = new LoginViewModel(navigationStore);
+            Application.Current.Properties["CurrentUserAdmin"] = null;
+            Application.Current.Properties["CurrentUserAdmin"] = null;
+
         }
 
         private async void SetUserListAsync() {

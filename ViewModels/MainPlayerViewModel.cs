@@ -19,6 +19,8 @@ namespace tp_final.ViewModels
         private readonly NavigationStore navigationStore;
         public DelegateCommand GoToAdminCommand { get; set; }
         public DelegateCommand GoToAlbumCommand { get; set; }
+        public DelegateCommand LogoutCommand { get; set; }
+
 
         //TestDataServices testDataServices = new TestDataServices();
 
@@ -30,6 +32,7 @@ namespace tp_final.ViewModels
             navigationStore = _navigationStore;
             GoToAdminCommand = new DelegateCommand(GoToAdmin);
             GoToAlbumCommand = new DelegateCommand(GoToAlbum);
+            LogoutCommand = new DelegateCommand(Logout);
 
             //MessageBox.Show(Application.Current.Properties["CurrentUser"].ToString());
         }
@@ -49,6 +52,13 @@ namespace tp_final.ViewModels
         public void GoToAlbum()
         {
             navigationStore.CurrentViewModel = new AlbumViewModel(navigationStore);
+        }
+
+        public void Logout()
+        {
+            navigationStore.CurrentViewModel = new LoginViewModel(navigationStore);
+            Application.Current.Properties["CurrentUserAdmin"] = null;
+            Application.Current.Properties["CurrentUserAdmin"] = null;
         }
 
         public ICollectionView TuneViewSource
