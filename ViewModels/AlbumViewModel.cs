@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Data;
 using tp_final.Commands;
@@ -72,7 +73,7 @@ namespace tp_final.ViewModels
             {
                 if (playlist.title != "Unknown Album" && playlist.id != 1)
                 {
-                    if (playlist.user_id == CurUser.id)
+                    if (playlist.user_id == CurUser.id || CurUser.isAdmin == 1)
                     {
                         string messaBoxText = "Êtes-vous certain de vouloir supprimer cet album?";
                         string caption = "Vous êtes sur le point de supprimer un album";
@@ -87,26 +88,16 @@ namespace tp_final.ViewModels
                             icon = MessageBoxImage.Warning;
                             result = MessageBox.Show(messaBoxText, caption, button, icon);
                             if (result == MessageBoxResult.OK)
-                            {
                                 foreach (var morceau in playlist.tunes)
-                                {
-                                    if (morceau.user_id != CurUser.id)
-                                    {
-                                        //Move to unknown
-                                    }
-                                    else
-                                    {
-                                        //Delete Tune
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                foreach (var morceau in playlist.tunes)
-                                {
-                                    //Move to unknown
-                                }
-                            }
+                                    if (morceau.user_id == CurUser.id || CurUser.isAdmin == 1)
+                                        morceau.DeleteTune();
+                            CurUser.albums.Remove(playlist);
+
+                            playlist.DeleteAsync();
+                            Playlist Unknown = CurUser.albums.First(x => x.title.Equals("Unknown Album"));
+                            Unknown?.SetTunesAsync();
+
+                            albumlistViewSource.Refresh();
                         }
                     }
                     else

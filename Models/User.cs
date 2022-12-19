@@ -87,7 +87,7 @@ namespace tp_final.Models
             );
         }
 
-        public async Task<ObservableCollection<Playlist>> AddAlbumAsync(
+        public async Task<Playlist> AddAlbumAsync(
             string title,
             string artist,
             string genre,
@@ -99,7 +99,7 @@ namespace tp_final.Models
             if (album == null) return null;
 
             albums.Add(album);
-            return albums;
+            return album;
         }
 
 
@@ -122,14 +122,14 @@ namespace tp_final.Models
             );
         }
 
-        public async Task<ObservableCollection<Playlist>> AddAlbumAsync(string title)
+        public async Task<Playlist> AddAlbumAsync(string title)
         {
             var playlist = await Playlist.AddPlaylistAsync(id, title);
 
             if (playlist == null) return null;
 
             playlists.Add(playlist);
-            return playlists;
+            return playlist;
         }
 
 
@@ -137,6 +137,9 @@ namespace tp_final.Models
         public override string ToString() =>
             JsonSerializer.Serialize(this, new JsonSerializerOptions { WriteIndented = true });
 
+
+
+        // --------------------- static Methods ---------------------
         public static async Task<ObservableCollection<User>?> GetAllUsersAsync()
         {
             var Result = await Martha.ExecuteQueryAsync("select-users");
@@ -165,6 +168,7 @@ namespace tp_final.Models
 
             User user = new(Result.Data.ToList().FirstOrDefault()!.ToString()!);
             user.SetAlbumsAsync();
+            user.SetPlaylistsAsync();
             return user;
         }
 

@@ -67,9 +67,14 @@ namespace tp_final.Models
 
 
         // --------------------- Methods ---------------------
+        public void DeleteTune() => DeleteTuneAsync(id);
+
         public override string ToString() =>
             JsonSerializer.Serialize(this, new JsonSerializerOptions { WriteIndented = true });
 
+
+
+        // --------------------- static Methods ---------------------
         public static async Task<Tune?> GetTuneByIdAsync(int id)
         {
             JsonObject jsonParams = new JsonObject
@@ -107,6 +112,14 @@ namespace tp_final.Models
             var Result = await Martha.ExecuteQueryAsync($"insert-tune", jsonParams);
             if (!Result.Success || !Result.Data.Any()) return null; //erreur
             return new(Result.Data.ToList().FirstOrDefault()!.ToString()!);
+        }
+
+        public static async void DeleteTuneAsync(int id)
+        {
+            JsonObject jsonParams = new() { { nameof(id), id } };
+
+            var Result = await Martha.ExecuteQueryAsync($"delete-tune", jsonParams);
+            if (!Result.Success) return;
         }
     }
 }
