@@ -124,6 +124,7 @@
                     <StackPanel Orientation="Vertical">
                         <Button x:Name="AddAlbum" Content="Add Album" Height="40" Width="75" Margin="25,5,0,0"  Command="{Binding AddAlbumCommand}"></Button>
                         <Button x:Name="DeleteAlbum" Content="Delete Album" Height="40" Width="75" Margin="25,5,0,0" Command="{Binding DeleteAlbumCommand}"></Button>
+                        <Button x:Name="OrderAlbum" Content="Order Album" Height="40" Width="75" Margin="25,5,0,0" Command="{Binding OrderAlbumCommand}"></Button>
                     </StackPanel>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">

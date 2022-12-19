@@ -23,6 +23,7 @@ namespace tp_final.ViewModels
         public DelegateCommand LogoutCommand { get; set; }
         public DelegateCommand AddAlbumCommand { get; private set; }
         public DelegateCommand DeleteAlbumCommand { get; private set; }
+        public DelegateCommand OrderAlbumCommand { get; private set; }
         public DelegateCommand ShuffleCommand { get; private set; }
         public DelegateCommand PlayCommand { get; private set; }
         public DelegateCommand PauseCommand { get; private set; }
@@ -46,6 +47,7 @@ namespace tp_final.ViewModels
             //Delete
             DeleteAlbumCommand = new DelegateCommand(DeleteAlbum);
 
+            OrderAlbumCommand = new DelegateCommand(OrderAlbum);
             //CommandMusic
             ShuffleCommand = new DelegateCommand(Shuffle);
             PlayCommand = new DelegateCommand(Play);
@@ -157,6 +159,7 @@ namespace tp_final.ViewModels
             Application.Current.Properties["CurrentUserAdmin"] = null;
 
         }
+        public void OrderAlbum() { }
         public void Shuffle() { }
         public void Play() { }
         public void Pause() { }
