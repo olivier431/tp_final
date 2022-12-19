@@ -161,8 +161,16 @@ namespace tp_final.ViewModels
             Application.Current.Properties["CurrentUserAdmin"] = null;
 
         }
-        public void OrderAlbum() { }
-        public void Shuffle() { }
+        public void OrderAlbum() 
+        {
+            Playlist playlist = (Playlist)AlbumlistViewSource.CurrentItem;
+            playlist.EditOrderAsync(1, 5);
+        }
+        public void Shuffle() 
+        {
+            Playlist playlist = (Playlist)AlbumlistViewSource.CurrentItem;
+            playlist.ShuffleOrderAsync();
+        }
         public void Play() { }
         public void Pause() { }
         public void Next() { }
