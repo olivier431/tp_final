@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 using tp_final.Commands;
+using tp_final.Models;
 using tp_final.Services;
 using tp_final.Stores;
 
@@ -52,6 +53,10 @@ namespace tp_final.ViewModels
 
         public void GoToAdmin()
         {
+            User curUser = (User) Application.Current.Properties["CurrentUser"];
+
+            bool isAdmin = curUser.isAdmin == 1;
+            MessageBox.Show(isAdmin.ToString());
             if (Application.Current.Properties["CurrentUserAdmin"].ToString() == "1")
             {
                 navigationStore.CurrentViewModel = new AdminUserViewModel(navigationStore);

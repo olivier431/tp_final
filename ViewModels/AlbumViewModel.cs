@@ -33,14 +33,16 @@ namespace tp_final.ViewModels
         //Navigation
         private readonly NavigationStore navigationStore;
        
-        public AlbumViewModel(NavigationStore _navigationStore){
+        public AlbumViewModel(NavigationStore _navigationStore)
+        {
+            User CurUser = (User)Application.Current.Properties["CurrentUser"];
 
             //var temp = Application.Current.Properties["CurrentUserId"];
             //MessageBox.Show(temp.ToString());
 
             //CollectionView
-            SetAlbumListAsync();
-            
+            AlbumlistViewSource = CollectionViewSource.GetDefaultView(CurUser.albums);
+
             //Add
             AddAlbumCommand = new DelegateCommand(AddAlbum);
 
@@ -168,8 +170,8 @@ namespace tp_final.ViewModels
         public void Like() { }
         private async void SetAlbumListAsync()
         {
-            var albums = await Playlist.GetAllAlbumsAsync();
-            AlbumlistViewSource = CollectionViewSource.GetDefaultView(albums);
+            //var albums = await Playlist.GetAllAlbumsAsync();
+            //AlbumlistViewSource = CollectionViewSource.GetDefaultView(albums);
         }
         private async void AddAlbumListAsync()
         {

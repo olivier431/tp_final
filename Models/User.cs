@@ -26,6 +26,7 @@ namespace tp_final.Models
         public DateTime? lastConnection { get; set; }
 
         public ObservableCollection<Playlist> albums { get; private set; }
+        public ObservableCollection<Playlist> playlists { get; private set; }
 
 
 

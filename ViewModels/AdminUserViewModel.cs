@@ -97,7 +97,6 @@ namespace tp_final.ViewModels
                 MessageBox.Show("you can't delete the login user");
             }
             SetUserListAsync();
-
         }
 
         public async void AddUser()
