@@ -54,10 +54,7 @@ namespace tp_final.ViewModels
         public void GoToAdmin()
         {
             User curUser = (User) Application.Current.Properties["CurrentUser"];
-
-            bool isAdmin = curUser.isAdmin == 1;
-            MessageBox.Show(isAdmin.ToString());
-            if (Application.Current.Properties["CurrentUserAdmin"].ToString() == "1")
+            if (curUser.isAdmin == 1)
             {
                 navigationStore.CurrentViewModel = new AdminUserViewModel(navigationStore);
             }
