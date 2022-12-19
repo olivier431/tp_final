@@ -5,6 +5,7 @@ using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace tp_final.Models
 {
@@ -120,6 +121,27 @@ namespace tp_final.Models
 
             return albums;
         }
+        //public static async Task<ObservableCollection<Playlist>?> AddAlbumAsync(int userId, string title, string artist, string genre, string albumCover, int year)
+        //{
+        //    JsonObject jsonParams = new()
+        //    {
+        //        { nameof(user_id), userId },
+        //        { nameof(title), title },
+        //        { nameof(artist), artist },
+        //        { nameof(genre), genre },
+        //        { nameof(album_cover), albumCover },
+        //        { nameof(year), year }
+        //    };
+        //    //TODO make query
+        //    var Result = await Martha.ExecuteQueryAsync($"", jsonParams);
+        //    if (!Result.Success || !Result.Data.Any())
+        //    {
+        //        MessageBox.Show("error while adding");
+        //        return null; //erreur
+        //    }
+
+        //    //return ;
+        //}
 
         public static async Task<Playlist?> GetPlaylistByIdAsync(int id)
         {

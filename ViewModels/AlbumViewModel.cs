@@ -170,8 +170,8 @@ namespace tp_final.ViewModels
         }
         private async void AddAlbumListAsync()
         {
-            //https://logos-marques.com/wp-content/uploads/2021/03/Pringles-Logo-1967-2048x1158.png
-            // var album = await Playlist.AddAlbumAsync();
+            //var album = await Playlist.AddAlbumAsync();
+            //AlbumlistViewSource = CollectionViewSource.GetDefaultView(album);
         }
     }
 }
