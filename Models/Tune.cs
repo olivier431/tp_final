@@ -69,6 +69,9 @@ namespace tp_final.Models
 
 
         // --------------------- Methods ---------------------
+        public override string ToString() =>
+            JsonSerializer.Serialize(this, new JsonSerializerOptions { WriteIndented = true });
+
         //public static async Task<ObservableCollection<Tune>?> GetAllTuneInAlbumsAsync()
         //{
         //    var Result = await Martha.ExecuteQueryAsync("select-album-tunes");
@@ -96,7 +99,27 @@ namespace tp_final.Models
             return new(Result.Data.FirstOrDefault()!.ToString()!);
         }
 
-        public override string ToString() =>
-            JsonSerializer.Serialize(this, new JsonSerializerOptions { WriteIndented = true });
+        public static async Task<Tune?> AddTuneAsync(
+            int user_id,
+            int album_id,
+            string title,
+            string artist,
+            string? genre,
+            int? year)
+        {
+            JsonObject jsonParams = new()
+            {
+                { nameof(user_id), user_id },
+                { nameof(album_id), album_id },
+                { nameof(title), title },
+                { nameof(artist), artist },
+                { nameof(genre), genre },
+                { nameof(year), year }
+            };
+
+            var Result = await Martha.ExecuteQueryAsync($"insert-tune", jsonParams);
+            if (!Result.Success || !Result.Data.Any()) return null; //erreur
+            return new(Result.Data.ToList().FirstOrDefault()!.ToString()!);
+        }
     }
 }

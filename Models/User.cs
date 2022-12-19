@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Text;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Threading.Tasks;
@@ -87,6 +88,25 @@ namespace tp_final.Models
             );
         }
 
+        public async Task<ObservableCollection<Playlist>> AddAlbumAsync(
+            string title,
+            string artist,
+            string genre,
+            string album_cover,
+            int year)
+        {
+            var album = await Playlist.AddAlbumAsync(id, title, artist, genre, album_cover, year);
+
+            if (album == null) return null;
+
+            albums.Add(album);
+            return albums;
+        }
+
+
+        public override string ToString() =>
+            JsonSerializer.Serialize(this, new JsonSerializerOptions { WriteIndented = true });
+
         public static async Task<ObservableCollection<User>?> GetAllUsersAsync()
         {
             var Result = await Martha.ExecuteQueryAsync("select-users");
@@ -128,11 +148,7 @@ namespace tp_final.Models
             };
 
             var Result = await Martha.ExecuteQueryAsync($"insert-user", jsonParams);
-            if (!Result.Success || !Result.Data.Any()) {
-                MessageBox.Show("error while adding");
-                return null; //erreur
-            }
-            
+            if (!Result.Success || !Result.Data.Any()) return null; //erreur
             return new(Result.Data.ToList().FirstOrDefault()!.ToString()!);
         }
 
@@ -164,8 +180,5 @@ namespace tp_final.Models
                 return;
             }
         }
-
-        public override string ToString() =>
-            JsonSerializer.Serialize(this, new JsonSerializerOptions { WriteIndented = true });
     }
 }

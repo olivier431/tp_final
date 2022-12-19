@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Data.OleDb;
 using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Nodes;
@@ -107,41 +108,45 @@ namespace tp_final.Models
             );
         }
 
-        public static async Task<ObservableCollection<Playlist>?> GetAllAlbumsAsync()
+        public async Task<ObservableCollection<Tune>?> AddTuneAsync(string title, string artist, string? genre, int? year)
         {
-            var Result = await Martha.ExecuteQueryAsync("select-albums");
+            var tune = await Tune.AddTuneAsync(user_id, id, title, artist, genre, year);
 
-            if (!Result.Success) throw new Exception();
-            if (!Result.Data.Any()) throw new Exception();
+            if (tune == null) return null;
 
-            ObservableCollection<Playlist> albums = new();
-            Result.Data.ToList().ForEach(json =>
-                albums.Add(new Playlist(json.ToString()!))
-            );
-
-            return albums;
+            tunes.Add(tune);
+            return tunes;
         }
-        //public static async Task<ObservableCollection<Playlist>?> AddAlbumAsync(int userId, string title, string artist, string genre, string albumCover, int year)
-        //{
-        //    JsonObject jsonParams = new()
-        //    {
-        //        { nameof(user_id), userId },
-        //        { nameof(title), title },
-        //        { nameof(artist), artist },
-        //        { nameof(genre), genre },
-        //        { nameof(album_cover), albumCover },
-        //        { nameof(year), year }
-        //    };
-        //    //TODO make query
-        //    var Result = await Martha.ExecuteQueryAsync($"", jsonParams);
-        //    if (!Result.Success || !Result.Data.Any())
-        //    {
-        //        MessageBox.Show("error while adding");
-        //        return null; //erreur
-        //    }
 
-        //    //return ;
-        //}
+        public async void EditOrderAsync(int OLD_ord, int NEW_ord)
+        {
+            JsonObject jsonParams = new()
+            {
+                { nameof(OLD_ord), OLD_ord },
+                { nameof(NEW_ord), NEW_ord },
+                { nameof(id), id }
+            };
+
+            var Result = await Martha.ExecuteQueryAsync("update-playlist-ord-shuffle", jsonParams);
+            if (!Result.Success) throw new Exception();
+
+            SetTunesAsync();
+        }
+
+        public async void ShuffleOrderAsync()
+        {
+            JsonObject jsonParams = new() { { nameof(id), id } };
+
+            var Result = await Martha.ExecuteQueryAsync("update-playlist-ord-shuffle", jsonParams);
+            if (!Result.Success) throw new Exception();
+
+            SetTunesAsync();
+        }
+
+        public override string ToString() =>
+            JsonSerializer.Serialize(this, new JsonSerializerOptions { WriteIndented = true });
+
+
 
         public static async Task<Playlist?> GetPlaylistByIdAsync(int id)
         {
@@ -156,7 +161,45 @@ namespace tp_final.Models
             return new(Result.Data.FirstOrDefault()!.ToString()!);
         }
 
-        public override string ToString() =>
-            JsonSerializer.Serialize(this, new JsonSerializerOptions { WriteIndented = true });
+
+
+        // --------------------- Album Methods ---------------------
+        public static async Task<ObservableCollection<Playlist>?> GetAllAlbumsAsync()
+        {
+            var Result = await Martha.ExecuteQueryAsync("select-albums");
+
+            if (!Result.Success) throw new Exception();
+            if (!Result.Data.Any()) throw new Exception();
+
+            ObservableCollection<Playlist> albums = new();
+            Result.Data.ToList().ForEach(json =>
+                albums.Add(new Playlist(json.ToString()!))
+            );
+
+            return albums;
+        }
+
+        public static async Task<Playlist?> AddAlbumAsync(
+            int user_id,
+            string title,
+            string artist,
+            string genre,
+            string album_cover,
+            int year)
+        {
+            JsonObject jsonParams = new()
+            {
+                { nameof(user_id), user_id },
+                { nameof(title), title },
+                { nameof(artist), artist },
+                { nameof(genre), genre },
+                { nameof(album_cover), album_cover },
+                { nameof(year), year }
+            };
+
+            var Result = await Martha.ExecuteQueryAsync($"insert-album", jsonParams);
+            if (!Result.Success || !Result.Data.Any()) return null; //erreur // MessageBox.Show("error while adding");
+            return new(Result.Data.ToList().FirstOrDefault()!.ToString()!);
+        }
     }
 }

@@ -104,7 +104,13 @@ namespace tp_final.ViewModels
         {
             if ((Username != null) && (Password != null) && (Email != null))
             {
-                await User.AddUserAsync(Username, Password, Email);
+                User user = await User.AddUserAsync(Username, Password, Email);
+
+                /*if (user == null)
+                {
+                    MessageBox.Show("a box is empty");
+                    return;
+                }*/
 
                 SetUserListAsync();
             }
