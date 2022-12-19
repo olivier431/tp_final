@@ -134,7 +134,7 @@ namespace tp_final.Models
             var Result = await Martha.ExecuteQueryAsync("update-playlist-ord", jsonParams);
             if (!Result.Success) throw new Exception();
 
-            SetTunesAsync();
+            tunes.Move(OLD_ord, NEW_ord);
         }
 
         public async void ShuffleOrderAsync()
@@ -147,6 +147,8 @@ namespace tp_final.Models
             SetTunesAsync();
         }
 
+        public void DeleteAsync() => DeleteAsync(id);
+
         public override string ToString() =>
             JsonSerializer.Serialize(this, new JsonSerializerOptions { WriteIndented = true });
 
@@ -158,7 +160,7 @@ namespace tp_final.Models
             JsonObject jsonParams = new() { { nameof(id), id } };
 
             var Result = await Martha.ExecuteQueryAsync($"delete-playlist", jsonParams);
-            if (!Result.Success) return;
+            if (!Result.Success) throw new Exception();
         }
 
 
