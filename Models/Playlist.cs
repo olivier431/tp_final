@@ -88,23 +88,7 @@ namespace tp_final.Models
 
 
         // --------------------- Methods ---------------------
-        public async void SetTunesAsync()
-        {
-            string type = isPlaylist ? "playlist" : "album";
-            JsonObject jsonParams = new() { { nameof(id), id } };
-
-            var response = Martha.ExecuteQueryAsync($"select-{type}-tunes", jsonParams);
-
-            await response;
-            var Result = response.Result;
-            if (!Result.Success) throw new Exception();
-            //if (!Result.Data.Any()) return;
-
-            tunes = new();
-            Result.Data.ToList().ForEach(json =>
-                tunes.Add(new Tune(json.ToString()!))
-            );
-        }
+        public async void SetTunesAsync() => tunes = await SetTunesAsync(isPlaylist, id);
 
         public async Task<ObservableCollection<Tune>?> AddTuneAsync(
             string title,
@@ -155,6 +139,23 @@ namespace tp_final.Models
 
 
         // --------------------- static Methods ---------------------
+        public static async Task<ObservableCollection<Tune>> SetTunesAsync(bool isPlaylist, int id)
+        {
+            string type = isPlaylist ? "playlist" : "album";
+            JsonObject jsonParams = new() { { nameof(id), id } };
+
+            var Result = await Martha.ExecuteQueryAsync($"select-{type}-tunes", jsonParams);
+
+            if (!Result.Success) throw new Exception();
+            //if (!Result.Data.Any()) return;
+
+            ObservableCollection<Tune> tunes = new();
+            Result.Data.ToList().ForEach(json =>
+                tunes.Add(new Tune(json.ToString()!))
+            );
+            return tunes;
+        }
+
         public static async void DeleteAsync(int id)
         {
             JsonObject jsonParams = new() { { nameof(id), id } };
