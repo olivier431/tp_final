@@ -67,6 +67,8 @@ namespace tp_final.Models
 
 
         // --------------------- Methods ---------------------
+        public void DeleteTune() => DeleteTuneAsync(id);
+
         public override string ToString() =>
             JsonSerializer.Serialize(this, new JsonSerializerOptions { WriteIndented = true });
 
