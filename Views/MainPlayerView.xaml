@@ -30,7 +30,7 @@
             <Separator/>
             <Separator/>
             <Separator/>
-            <MenuItem Header="Logout" HorizontalAlignment="Right"/>
+            <MenuItem Header="Logout" HorizontalAlignment="Right" Command="{Binding LogoutCommand}"/>
         </Menu>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>

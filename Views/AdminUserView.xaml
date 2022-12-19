@@ -27,6 +27,7 @@
             <Separator/>
             <MenuItem Header="Album" Command="{Binding GoToAlbumCommand}"/>
             <Separator/>
+            <MenuItem Header="Logout" HorizontalAlignment="Right" Command="{Binding LogoutCommand}"/>
             <Separator/>
             <Separator/>
             <Separator/>
@@ -35,7 +36,6 @@
             <Separator/>
             <Separator/>
             <Separator/>
-            <MenuItem Header="Logout" HorizontalAlignment="Right"/>
         </Menu>
         <ListBox IsSynchronizedWithCurrentItem="True" ItemsSource="{Binding UserViewSource}" Margin="0,20,0,2" Grid.RowSpan="3">
             <ListBox.ItemTemplate>

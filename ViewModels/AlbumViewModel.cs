@@ -20,7 +20,7 @@ namespace tp_final.ViewModels
         //Delegate Command
         public DelegateCommand GoToAdminCommand { get; set; }
         public DelegateCommand GoToMainPlayerCommand { get; set; }
-        public DelegateCommand GoToLogoutCommand { get; set; }
+        public DelegateCommand LogoutCommand { get; set; }
         public DelegateCommand AddAlbumCommand { get; private set; }
         public DelegateCommand DeleteAlbumCommand { get; private set; }
         public DelegateCommand ShuffleCommand { get; private set; }
@@ -58,7 +58,7 @@ namespace tp_final.ViewModels
             navigationStore = _navigationStore;
             GoToAdminCommand = new DelegateCommand(GoToAdmin);
             GoToMainPlayerCommand = new DelegateCommand(GoToMainPlayer);
-            GoToLogoutCommand = new DelegateCommand(GoToLogout);
+            LogoutCommand = new DelegateCommand(Logout);
         }
 
         public void AddAlbum()
@@ -152,9 +152,12 @@ namespace tp_final.ViewModels
         {
             navigationStore.CurrentViewModel = new MainPlayerViewModel(navigationStore);
         }
-        public void GoToLogout()
+        public void Logout()
         {
             navigationStore.CurrentViewModel = new LoginViewModel(navigationStore);
+            Application.Current.Properties["CurrentUserAdmin"] = null;
+            Application.Current.Properties["CurrentUserAdmin"] = null;
+
         }
         public void Shuffle() { }
         public void Play() { }
