@@ -136,7 +136,7 @@ namespace tp_final.Models
             return new(Result.Data.ToList().FirstOrDefault()!.ToString()!);
         }
 
-        public static async Task UpdateUserAsync(string username, string email, string pwd, int id ) {
+        public static async Task<bool> UpdateUserAsync(string username, string email, string pwd, int id ) {
             
             JsonObject jsonParams = new()
             {
@@ -147,10 +147,7 @@ namespace tp_final.Models
             };
 
             var Result = await Martha.ExecuteQueryAsync($"update-user", jsonParams);
-            if (!Result.Success) {
-                MessageBox.Show("error, both fields must be filled !");
-                return;
-            } 
+            return Result.Success;
         }
 
         public static async Task DeleteUserAsync(int id)
