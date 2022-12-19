@@ -34,8 +34,8 @@ namespace tp_final.ViewModels
 
         public string Email
         {
-            get => password;
-            set => password = value;
+            get => email;
+            set => email = value;
         }
 
         public void BackToLogin()
