@@ -14,12 +14,25 @@ namespace tp_final.ViewModels
 {
     class MainPlayerViewModel : BaseViewModel
     {
+        //ICollectionView
         ICollectionView tuneViewSource;
         ICollectionView playlistViewSource;
+
+        //NavigationStore
         private readonly NavigationStore navigationStore;
+
+        //Nav Bar DelegateCommands
         public DelegateCommand GoToAdminCommand { get; set; }
         public DelegateCommand GoToAlbumCommand { get; set; }
         public DelegateCommand LogoutCommand { get; set; }
+
+        //Button Bar DelegateCommands
+        public DelegateCommand ShuffleCommand { get; private set; }
+        public DelegateCommand PlayCommand { get; private set; }
+        public DelegateCommand PauseCommand { get; private set; }
+        public DelegateCommand NextCommand { get; private set; }
+        public DelegateCommand PreviousCommand { get; private set; }
+        public DelegateCommand LikeCommand { get; private set; }
 
 
         //TestDataServices testDataServices = new TestDataServices();
