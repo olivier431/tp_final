@@ -67,55 +67,59 @@ namespace tp_final.ViewModels
             // Playlist _newAlbum = new Playlist() { title = "Test" };
             // testDataServices.LesPlaylists.Add(_newAlbum);
         }
+        //TODO: Delete Fonctionnel reste juste à implémenter avec Martha
         public void DeleteAlbum()
         {
             Playlist playlist = (Playlist)AlbumlistViewSource.CurrentItem;
             if (playlist != null)
             {
-                if(playlist.user_id == (int)Application.Current.Properties["CurrentUserId"])
+                if (playlist.title != "Unknown Album" && playlist.id != 1)
                 {
-                    string messaBoxText = "Êtes-vous certain de vouloir supprimer cet album?";
-                    string caption = "Vous êtes sur le point de supprimer un album";
-                    MessageBoxButton button = MessageBoxButton.OKCancel;
-                    MessageBoxImage icon = MessageBoxImage.Warning;
-                    MessageBoxResult result = MessageBox.Show(messaBoxText, caption, button, icon);
-                    if (result == MessageBoxResult.OK)
+                    if (playlist.user_id == (int)Application.Current.Properties["CurrentUserId"])
                     {
-                        messaBoxText = "Voulez-vous supprimer les morceaux?";
-                        caption = "Vous êtes sur le point de supprimer les morceaux de l'album";
-                        button = MessageBoxButton.OKCancel;
-                        icon = MessageBoxImage.Warning;
-                        result = MessageBox.Show(messaBoxText, caption, button, icon);
+                        string messaBoxText = "Êtes-vous certain de vouloir supprimer cet album?";
+                        string caption = "Vous êtes sur le point de supprimer un album";
+                        MessageBoxButton button = MessageBoxButton.OKCancel;
+                        MessageBoxImage icon = MessageBoxImage.Warning;
+                        MessageBoxResult result = MessageBox.Show(messaBoxText, caption, button, icon);
                         if (result == MessageBoxResult.OK)
                         {
-                            //MessageBox.Show("supprimer");
-                            foreach (var morceau in playlist.tunes)
+                            messaBoxText = "Voulez-vous supprimer les morceaux?";
+                            caption = "Vous êtes sur le point de supprimer les morceaux de l'album";
+                            button = MessageBoxButton.OKCancel;
+                            icon = MessageBoxImage.Warning;
+                            result = MessageBox.Show(messaBoxText, caption, button, icon);
+                            if (result == MessageBoxResult.OK)
                             {
-                                //MessageBox.Show(morceau.ToString());
-                                if (morceau.user_id != (int)Application.Current.Properties["CurrentUserId"])
+                                foreach (var morceau in playlist.tunes)
                                 {
-                                    MessageBox.Show("move to unknown");
-                                    //MessageBox.Show(morceau.ToString());
+                                    if (morceau.user_id != (int)Application.Current.Properties["CurrentUserId"])
+                                    {
+                                        //Move to unknown
+                                    }
+                                    else
+                                    {
+                                        //Delete Tune
+                                    }
                                 }
-                                else
+                            }
+                            else
+                            {
+                                foreach (var morceau in playlist.tunes)
                                 {
-                                    //MessageBox.Show(morceau.ToString());
-                                    MessageBox.Show("Delete");
+                                    //Move to unknown
                                 }
                             }
                         }
-                        else
-                        {
-                            foreach (var morceau in playlist.tunes)
-                            {
-                                MessageBox.Show("move to unknown");
-                            }
-                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Vous devez supprimer un album qui vous appartient");
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Vous devez supprimer un album qui vous appartient");
+                    MessageBox.Show("Vous ne pouvez pas supprimer cet album");
                 }
             }
             else
@@ -123,19 +127,24 @@ namespace tp_final.ViewModels
                 MessageBox.Show("Vous devez sélectionner un album");
             }
         }
-        public void Shuffle() { }
-        public void Play() { }
-        public void Pause() { }
-        public void Next() { }
-        public void Previous() { }
-        public void Like() { }
+        public ICollectionView AlbumlistViewSource
+        {
+            get => albumlistViewSource;
+            set
+            {
+                albumlistViewSource = value;
+                OnPropertyChanged();
+            }
+        }
         public void GoToAdmin()
         {
-            
-            if(Application.Current.Properties["CurrentUserAdmin"].ToString() == "1")
+
+            if (Application.Current.Properties["CurrentUserAdmin"].ToString() == "1")
             {
                 navigationStore.CurrentViewModel = new AdminUserViewModel(navigationStore);
-            } else {
+            }
+            else
+            {
                 MessageBox.Show("you are not an admin!");
             }
         }
@@ -147,15 +156,12 @@ namespace tp_final.ViewModels
         {
             navigationStore.CurrentViewModel = new LoginViewModel(navigationStore);
         }
-        public ICollectionView AlbumlistViewSource
-        {
-            get => albumlistViewSource;
-            set
-            {
-                albumlistViewSource = value;
-                OnPropertyChanged();
-            }
-        }
+        public void Shuffle() { }
+        public void Play() { }
+        public void Pause() { }
+        public void Next() { }
+        public void Previous() { }
+        public void Like() { }
         private async void SetAlbumListAsync()
         {
             var albums = await Playlist.GetAllAlbumsAsync();
