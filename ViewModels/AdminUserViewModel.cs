@@ -73,9 +73,16 @@ namespace tp_final.ViewModels
         public async void UpdateUser()
         {
             User user = (User)userViewSource.CurrentItem;
-            var Success = await User.UpdateUserAsync(user.username, user.email, user.pwd, user.id);
-
-            if (!Success) MessageBox.Show("error, both fields must be filled !");
+            
+            if (user.username == "" || user.pwd == "" || user.email == "")
+            {
+                MessageBox.Show("error, all fields must be filled !");
+            }
+            else
+            {
+                await User.UpdateUserAsync(user.username, user.email, user.pwd, user.id);
+            }
+            
             SetUserListAsync();
         }
 
@@ -83,7 +90,7 @@ namespace tp_final.ViewModels
         {
             User CurUser = (User)Application.Current.Properties["CurrentUser"];
             User user = (User)userViewSource.CurrentItem;
-            if (CurUser.id != CurUser.id)
+            if (CurUser.id != user.id)
             {
                 await User.DeleteUserAsync(user.id);
             }
