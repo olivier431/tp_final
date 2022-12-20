@@ -77,17 +77,17 @@ namespace tp_final.ViewModels
                     {
                         string messaBoxText = "Êtes-vous certain de vouloir supprimer cet album?";
                         string caption = "Vous êtes sur le point de supprimer un album";
-                        MessageBoxButton button = MessageBoxButton.OKNO;
+                        MessageBoxButton button = MessageBoxButton.YesNo;
                         MessageBoxImage icon = MessageBoxImage.Warning;
                         MessageBoxResult result = MessageBox.Show(messaBoxText, caption, button, icon);
-                        if (result == MessageBoxResult.OK)
+                        if (result == MessageBoxResult.Yes)
                         {
                             messaBoxText = "Voulez-vous supprimer les morceaux?";
                             caption = "Vous êtes sur le point de supprimer les morceaux de l'album";
-                            button = MessageBoxButton.OKCancel;
+                            button = MessageBoxButton.YesNo;
                             icon = MessageBoxImage.Warning;
                             result = MessageBox.Show(messaBoxText, caption, button, icon);
-                            if (result == MessageBoxResult.OK)
+                            if (result == MessageBoxResult.Yes)
                                 foreach (var morceau in playlist.tunes)
                                     if (morceau.user_id == CurUser.id || CurUser.isAdmin == 1)
                                         morceau.DeleteTune();
