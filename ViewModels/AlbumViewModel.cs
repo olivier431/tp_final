@@ -68,11 +68,83 @@ namespace tp_final.ViewModels
             LogoutCommand = new DelegateCommand(Logout);
         }
 
+        
+        public string Title
+        {
+            get => title;
+            set => title = value;
+        }
+        public string Artist
+        {
+            get => artist;
+            set => artist = value;
+        }
+        public string Genre
+        {
+            get => genre;
+            set => genre = value;
+        }
+        public string AlbumCover
+        {
+            get => albumCover;
+            set => albumCover = value;
+        }
+        public int Year
+        {
+            get => year;
+            set => year = value;
+        }
+        public ICollectionView AlbumlistViewSource
+        {
+            get => albumlistViewSource;
+            set
+            {
+                albumlistViewSource = value;
+                OnPropertyChanged();
+            }
+        }
+        public void GoToAdmin()
+        {
+            User CurUser = (User)Application.Current.Properties["CurrentUser"];
+            if (CurUser.isAdmin == 1)
+            {
+                navigationStore.CurrentViewModel = new AdminUserViewModel(navigationStore);
+            }
+            else
+            {
+                MessageBox.Show("you are not an admin!");
+            }
+        }
+        public void GoToMainPlayer()
+        {
+            navigationStore.CurrentViewModel = new MainPlayerViewModel(navigationStore);
+        }
+        public void Logout()
+        {
+            navigationStore.CurrentViewModel = new LoginViewModel(navigationStore);
+            Application.Current.Properties["CurrentUser"] = null;
+        }
+        public void OrderAlbum() 
+        {
+            Playlist playlist = (Playlist)AlbumlistViewSource.CurrentItem;
+            Random rand = new Random();
+            playlist.EditOrderAsync(playlist.id, rand.Next(0, playlist.tunes.Count()));
+        }
+        public void Shuffle() 
+        {
+            //TODO: Mettre le play après le shuffle
+            Playlist playlist = (Playlist)AlbumlistViewSource.CurrentItem;
+            playlist.ShuffleOrderAsync();
+        }
+        public void Play() { }
+        public void Pause() { }
+        public void Next() { }
+        public void Previous() { }
+        public void Like() { }
         public void AddAlbum()
         {
             AddAlbumListAsync();
         }
-        //TODO: Delete Fonctionnel reste juste à implémenter avec Martha
         public void DeleteAlbum()
         {
             User CurUser = (User)Application.Current.Properties["CurrentUser"];
@@ -123,82 +195,6 @@ namespace tp_final.ViewModels
                 MessageBox.Show("Vous devez sélectionner un album");
             }
         }
-
-        public string Title
-        {
-            get => title;
-            set => title = value;
-        }
-
-        public string Artist
-        {
-            get => artist;
-            set => artist = value;
-        }
-        public string Genre
-        {
-            get => genre;
-            set => genre = value;
-        }
-
-        public string AlbumCover
-        {
-            get => albumCover;
-            set => albumCover = value;
-        }
-        public int Year
-        {
-            get => year;
-            set => year = value;
-        }
-        public ICollectionView AlbumlistViewSource
-        {
-            get => albumlistViewSource;
-            set
-            {
-                albumlistViewSource = value;
-                OnPropertyChanged();
-            }
-        }
-        public void GoToAdmin()
-        {
-            User CurUser = (User)Application.Current.Properties["CurrentUser"];
-            if (CurUser.isAdmin == 1)
-            {
-                navigationStore.CurrentViewModel = new AdminUserViewModel(navigationStore);
-            }
-            else
-            {
-                MessageBox.Show("you are not an admin!");
-            }
-        }
-        public void GoToMainPlayer()
-        {
-            navigationStore.CurrentViewModel = new MainPlayerViewModel(navigationStore);
-        }
-        public void Logout()
-        {
-            navigationStore.CurrentViewModel = new LoginViewModel(navigationStore);
-            Application.Current.Properties["CurrentUser"] = null;
-        }
-        public void OrderAlbum() 
-        {
-            Playlist playlist = (Playlist)AlbumlistViewSource.CurrentItem;
-            MessageBox.Show(playlist.tunes.Count().ToString());
-            Random rand = new Random();
-            playlist.EditOrderAsync(playlist.id, rand.Next(0, playlist.tunes.Count()));
-        }
-        public void Shuffle() 
-        {
-            //TODO: Mettre le play après le shuffle
-            Playlist playlist = (Playlist)AlbumlistViewSource.CurrentItem;
-            playlist.ShuffleOrderAsync();
-        }
-        public void Play() { }
-        public void Pause() { }
-        public void Next() { }
-        public void Previous() { }
-        public void Like() { }
         private async void AddAlbumListAsync()
         {
             User CurUser = (User)Application.Current.Properties["CurrentUser"];
