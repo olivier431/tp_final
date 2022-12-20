@@ -85,23 +85,23 @@
             <StackPanel Grid.Column="1" Width="150">
                 <StackPanel Orientation="Horizontal">
                     <Label>Artist</Label>
-                    <TextBox Width="105" Margin="5,0,0,0" Text=""></TextBox>
+                    <TextBox Width="105" Margin="5,0,0,0" Text="{Binding Artist}"></TextBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label>Titre</Label>
-                    <TextBox Width="105" Margin="10,0,0,0"  Text=""></TextBox>
+                    <TextBox Width="105" Margin="10,0,0,0"  Text="{Binding Title}"></TextBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label>Cover</Label>
-                    <TextBox Width="105" Margin="2,0,0,0" Text=""></TextBox>
+                    <TextBox Width="105" Margin="2,0,0,0" Text="{Binding AlbumCover}"></TextBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label>Année</Label>
-                    <TextBox Width="105" Text=""></TextBox>
+                    <TextBox Width="105" Text="{Binding Year}"></TextBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label>Genre</Label>
-                    <TextBox Width="105" Margin="2,0,0,0" Text=""></TextBox>
+                    <TextBox Width="105" Margin="2,0,0,0" Text="{Binding Genre}"></TextBox>
                 </StackPanel>
 
                 <ListBox ItemsSource="{Binding AlbumlistViewSource.CurrentItem.tunes}" Margin="10,10,10,10" Height="250" Width="Auto" HorizontalAlignment="Stretch" IsSynchronizedWithCurrentItem="True">

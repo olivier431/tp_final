@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Data;
@@ -10,8 +11,15 @@ namespace tp_final.ViewModels
 {
     public class AlbumViewModel : BaseViewModel
     {
+        private string title;
+        private string artist;
+        private string genre;
+        private string albumCover;
+        private int year;
+
         //CollectionView
         ICollectionView albumlistViewSource;
+
         //Delegate Command
         public DelegateCommand GoToAdminCommand { get; set; }
         public DelegateCommand GoToMainPlayerCommand { get; set; }
@@ -115,6 +123,34 @@ namespace tp_final.ViewModels
                 MessageBox.Show("Vous devez sélectionner un album");
             }
         }
+
+        public string Title
+        {
+            get => title;
+            set => title = value;
+        }
+
+        public string Artist
+        {
+            get => artist;
+            set => artist = value;
+        }
+        public string Genre
+        {
+            get => genre;
+            set => genre = value;
+        }
+
+        public string AlbumCover
+        {
+            get => albumCover;
+            set => albumCover = value;
+        }
+        public int Year
+        {
+            get => year;
+            set => year = value;
+        }
         public ICollectionView AlbumlistViewSource
         {
             get => albumlistViewSource;
@@ -148,8 +184,9 @@ namespace tp_final.ViewModels
         public void OrderAlbum() 
         {
             Playlist playlist = (Playlist)AlbumlistViewSource.CurrentItem;
-            playlist.EditOrderAsync(1, 5);
-            //TODO Arranger le pour choisir positon non hard coder
+            MessageBox.Show(playlist.tunes.Count().ToString());
+            Random rand = new Random();
+            playlist.EditOrderAsync(playlist.id, rand.Next(0, playlist.tunes.Count()));
         }
         public void Shuffle() 
         {
@@ -164,14 +201,8 @@ namespace tp_final.ViewModels
         public void Like() { }
         private async void AddAlbumListAsync()
         {
-            //TODO: Arranger le hard-Coder
             User CurUser = (User)Application.Current.Properties["CurrentUser"];
-            CurUser.AddAlbumAsync("test", "test1", "test", "https://logos-world.net/wp-content/uploads/2020/11/MSI-Logo-2011-2019.png", 1999);
-
-
-
-            //var album = await Playlist.AddAlbumAsync();
-            //AlbumlistViewSource = CollectionViewSource.GetDefaultView(album);
+            await CurUser.AddAlbumAsync(Title, Artist, Genre, AlbumCover, Year);
         }
     }
 }
