@@ -45,16 +45,18 @@ namespace tp_final.ViewModels
 
         public async void Register()
         {
-            User user = await User.AddUserAsync(Username, Password, Email);
-
-            if (user == null)
+            if (Username != null && Password != null && Email != null)
+            {
+                User user = await User.AddUserAsync(Username, Password, Email);
+                Application.Current.Properties["CurrentUser"] = user;
+                navigationStore.CurrentViewModel = new MainPlayerViewModel(navigationStore);
+            }
+            else
             {
                 MessageBox.Show("a box is empty");
                 return;
             }
-
-            Application.Current.Properties["CurrentUser"] = user;
-            navigationStore.CurrentViewModel = new MainPlayerViewModel(navigationStore);
+            
         }
     }
 }

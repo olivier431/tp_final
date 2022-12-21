@@ -38,7 +38,7 @@ namespace tp_final.ViewModels
 
         public async void Login()
         {
-            if ((Username != "") && (Password != "")) {
+            if (Username != null && Password != null) {
 
                 User user = await User.GetUserAsync(Username, Password);
 
