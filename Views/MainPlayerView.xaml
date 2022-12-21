@@ -34,11 +34,22 @@
         </Menu>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="1.25*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <ListBox ItemsSource="{Binding PlaylistViewSource}" Grid.Column="0" Margin="10,10,10,10" Height="Auto" Width="Auto">
+            <ListView Name="DisplayList" ItemsSource="{Binding AlbumlistViewSource}" IsSynchronizedWithCurrentItem="True" Margin="5,5,5,5">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Artist" Width="Auto" DisplayMemberBinding="{Binding artist}" />
+                        <GridViewColumn Header="Title" Width="Auto" DisplayMemberBinding="{Binding title}" />
+                        <GridViewColumn Header="Genre" Width="Auto" DisplayMemberBinding="{Binding genre}" />
+                        <GridViewColumn Header="Length" Width="Auto" DisplayMemberBinding="{Binding length}" />
+                        <GridViewColumn Header="Year" Width="Auto" DisplayMemberBinding="{Binding year}" />
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <!--<ListBox ItemsSource="{Binding PlaylistViewSource}" Grid.Column="0" Margin="10,10,10,10">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
@@ -46,18 +57,21 @@
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
-            </ListBox>
-            <Button Grid.Column="0" Margin="10,10,10,10" Height="30" VerticalAlignment="Bottom" Content="Go" HorizontalAlignment="Stretch"/>
-            <ListBox ItemsSource="{Binding TuneViewSource}" Grid.Column="1" Margin="10,10,10,10" Height="Auto" Width="Auto">
+            </ListBox>-->
+            <Button Grid.Column="1" Margin="5,5,5,0" Height="30" VerticalAlignment="Top" Content="Create a playlist"/>
+            <Button Grid.Column="1" Margin="5,35,5,0" Height="30" VerticalAlignment="Top" Content="Add a song to a playlist"/>
+            <Button Grid.Column="1" Margin="5,65,5,0" Height="30" VerticalAlignment="Top" Content="Delete a song of a playlist"/>
+            <Button Grid.Column="1" Margin="5,95,5,0" Height="30" VerticalAlignment="Top" Content="Research a playlist"/>
+            <Button Grid.Column="1" Margin="5,125,5,0" Height="30" VerticalAlignment="Top" Content="Delete a playlist"/>
+            <ListBox ItemsSource="{Binding TuneViewSource}" Grid.Column="1" Margin="5,160,5,5" Height="Auto" Width="Auto">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
-                            
+
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-            <Button Grid.Column="1" Margin="10,10,10,10" Height="30" VerticalAlignment="Bottom" Content="Add a song"/>
             <StackPanel Grid.Column="2">
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" >
                     <Image Source="https://images.alphacoders.com/100/thumb-1920-1008709.jpg" Width="200" Stretch="Fill" Margin="5,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
@@ -69,6 +83,10 @@
                 <StackPanel Orientation="Horizontal">
                     <Label x:Name="SongGroup" Content="Group" Foreground="Black" Margin="150,0,0,0"/>
                     <Label x:Name="SongGroupLabel" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Content="Song Group" Foreground="Black" Margin="0,0,150,0"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label x:Name="SongGenre" Content="Genre" Foreground="Black" Margin="150,0,0,0"/>
+                    <Label x:Name="SongGenreLabel" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Content="Song Duration" Foreground="Black" Margin="0,0,150,0"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label x:Name="SongDuration" Content="Duration" Foreground="Black" Margin="150,0,0,0"/>
