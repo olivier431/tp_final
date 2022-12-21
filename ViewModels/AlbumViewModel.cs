@@ -143,7 +143,16 @@ namespace tp_final.ViewModels
         public void Like() { }
         public void AddAlbum()
         {
-            AddAlbumListAsync();
+            //Pourrait regarder si AlbumCover est un lien url
+            //Pourrait mettre autre validation 
+            if (Title == "" || Artist == "" || Genre == "" || AlbumCover == "" || Year <= 1600)
+            {
+                MessageBox.Show("Invalid input");
+            }
+            else
+            {
+                AddAlbumListAsync();
+            }
         }
         public void DeleteAlbum()
         {
