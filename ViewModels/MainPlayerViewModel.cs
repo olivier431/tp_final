@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Windows;
+using System.Windows.Data;
 using tp_final.Commands;
 using tp_final.Models;
 using tp_final.Stores;
@@ -11,6 +12,9 @@ namespace tp_final.ViewModels
         //ICollectionView
         ICollectionView tuneViewSource;
         ICollectionView playlistViewSource;
+
+        private string title, artist, genre, albumCover;
+        private int year;
 
         //NavigationStore
         private readonly NavigationStore navigationStore;
@@ -33,9 +37,12 @@ namespace tp_final.ViewModels
 
         public MainPlayerViewModel(NavigationStore _navigationStore)
         {
+            User currentUser = (User)Application.Current.Properties["CurrentUser"];
             //TuneViewSource = CollectionViewSource.GetDefaultView(testDataServices.LesTunes);
-            //PlaylistViewSource = CollectionViewSource.GetDefaultView(testDataServices.LesPlaylists);
+            //CollectionView
+            PlaylistViewSource = CollectionViewSource.GetDefaultView(currentUser.playlists);
 
+            //Navigation
             navigationStore = _navigationStore;
             GoToAdminCommand = new DelegateCommand(GoToAdmin);
             GoToAlbumCommand = new DelegateCommand(GoToAlbum);
@@ -46,8 +53,8 @@ namespace tp_final.ViewModels
 
         public void GoToAdmin()
         {
-            User curUser = (User)Application.Current.Properties["CurrentUser"];
-            if (curUser.isAdmin == 1)
+            User currentUser = (User)Application.Current.Properties["CurrentUser"];
+            if (currentUser.isAdmin == 1)
             {
                 navigationStore.CurrentViewModel = new AdminUserViewModel(navigationStore);
             }
@@ -66,6 +73,32 @@ namespace tp_final.ViewModels
         {
             navigationStore.CurrentViewModel = new LoginViewModel(navigationStore);
             Application.Current.Properties["CurrentUser"] = null;
+        }
+
+        public string Title
+        {
+            get => title;
+            set => title = value;
+        }
+        public string Artist
+        {
+            get => artist;
+            set => artist = value;
+        }
+        public string Genre
+        {
+            get => genre;
+            set => genre = value;
+        }
+        public string AlbumCover
+        {
+            get => albumCover;
+            set => albumCover = value;
+        }
+        public int Year
+        {
+            get => year;
+            set => year = value;
         }
 
         public ICollectionView TuneViewSource
