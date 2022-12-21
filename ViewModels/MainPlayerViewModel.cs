@@ -9,20 +9,29 @@ namespace tp_final.ViewModels
 {
     class MainPlayerViewModel : BaseViewModel
     {
-        //ICollectionView
-        ICollectionView tuneViewSource;
+        //public int id { get; set; }
+        //public int user_id { get; set; }
+        //public int isPublic { get; set; }
+        //public string title { get; set; }
+        //public int count { get; set; }
+        //public int length { get; set; }
+
+        //ICollectionView & Variables
         ICollectionView playlistViewSource;
 
-        private string title, artist, genre, albumCover;
-        private int year;
+        private string title;
+        private int length, isPublic, count;
 
-        //NavigationStore
+        //Navigation
         private readonly NavigationStore navigationStore;
 
         //Nav Bar DelegateCommands
         public DelegateCommand GoToAdminCommand { get; set; }
         public DelegateCommand GoToAlbumCommand { get; set; }
         public DelegateCommand LogoutCommand { get; set; }
+
+        //Playlist Button Bar DelegateCommands
+        public DelegateCommand AddPlaylistCommand { get; private set; }
 
         //Button Bar DelegateCommands
         public DelegateCommand ShuffleCommand { get; private set; }
@@ -32,23 +41,24 @@ namespace tp_final.ViewModels
         public DelegateCommand PreviousCommand { get; private set; }
         public DelegateCommand LikeCommand { get; private set; }
 
-
-        //TestDataServices testDataServices = new TestDataServices();
-
         public MainPlayerViewModel(NavigationStore _navigationStore)
         {
             User currentUser = (User)Application.Current.Properties["CurrentUser"];
-            //TuneViewSource = CollectionViewSource.GetDefaultView(testDataServices.LesTunes);
+
             //CollectionView
             PlaylistViewSource = CollectionViewSource.GetDefaultView(currentUser.playlists);
 
-            //Navigation
+            //Nav Bar DelegateCommands
             navigationStore = _navigationStore;
             GoToAdminCommand = new DelegateCommand(GoToAdmin);
             GoToAlbumCommand = new DelegateCommand(GoToAlbum);
             LogoutCommand = new DelegateCommand(Logout);
 
-            //MessageBox.Show(Application.Current.Properties["CurrentUser"].ToString());
+            //Playlist Button Bar DelegateCommands
+            AddPlaylistCommand = new DelegateCommand(AddPlaylist);
+
+            //Button Bar DelegateCommands
+
         }
 
         public void GoToAdmin()
@@ -75,41 +85,32 @@ namespace tp_final.ViewModels
             Application.Current.Properties["CurrentUser"] = null;
         }
 
+        public void AddPlaylist()
+        {
+
+        }
+
         public string Title
         {
             get => title;
             set => title = value;
         }
-        public string Artist
+        public int IsPublic
         {
-            get => artist;
-            set => artist = value;
+            get => isPublic;
+            set => isPublic = value;
         }
-        public string Genre
+        public int Count
         {
-            get => genre;
-            set => genre = value;
+            get => count;
+            set => count = value;
         }
-        public string AlbumCover
+        public int Length
         {
-            get => albumCover;
-            set => albumCover = value;
-        }
-        public int Year
-        {
-            get => year;
-            set => year = value;
+            get => length;
+            set => length = value;
         }
 
-        public ICollectionView TuneViewSource
-        {
-            get => tuneViewSource;
-            set
-            {
-                tuneViewSource = value;
-                OnPropertyChanged();
-            }
-        }
         public ICollectionView PlaylistViewSource
         {
             get => playlistViewSource;
