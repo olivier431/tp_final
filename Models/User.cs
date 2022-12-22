@@ -103,9 +103,9 @@ namespace tp_final.Models
         }
 
         //PLAYLIST METHODS
-        public async Task<Playlist> AddPlaylistAsync(string title)
+        public async Task<Playlist> AddPlaylistAsync(string title, int isPublic, int count, int length)
         {
-            var playlist = await Playlist.AddPlaylistAsync(id, title);
+            var playlist = await Playlist.AddPlaylistAsync2(id, title, isPublic, count, length);
 
             if (playlist == null) return null;
 

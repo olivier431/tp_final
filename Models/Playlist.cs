@@ -249,5 +249,22 @@ namespace tp_final.Models
             if (!Result.Success || !Result.Data.Any()) return null; //erreur
             return new(Result.Data.ToList().FirstOrDefault()!.ToString()!);
         }
+
+        public static async Task<Playlist?> AddPlaylistAsync2(int user_id, string title, int isPublic, int count, int length)
+        {
+            JsonObject jsonParams = new()
+            {
+                { nameof(user_id), user_id },
+                { nameof(title), title },
+                { nameof(isPublic), isPublic },
+                { nameof(count), count },
+                { nameof(length), length }
+
+            };
+
+            var Result = await Martha.ExecuteQueryAsync($"insert-playlist", jsonParams);
+            if (!Result.Success || !Result.Data.Any()) return null; //erreur
+            return new(Result.Data.ToList().FirstOrDefault()!.ToString()!);
+        }
     }
 }

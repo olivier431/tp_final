@@ -213,8 +213,8 @@ namespace tp_final.ViewModels
         }
         private async void SetUnknownListAsync()
         {
-            var albums = await Playlist.GetTuneAlbumsUnknownAsync();
-            TunelistViewSource = CollectionViewSource.GetDefaultView(albums);
+            //var albums = await Playlist.GetTuneAlbumsUnknownAsync();
+            //TunelistViewSource = CollectionViewSource.GetDefaultView(albums);
         }
     }
 }

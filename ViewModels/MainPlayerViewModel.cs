@@ -125,7 +125,7 @@ namespace tp_final.ViewModels
         {
             Playlist playlist = (Playlist)PlaylistViewSource.CurrentItem;
             User currentUser = (User)Application.Current.Properties["CurrentUser"];
-            await currentUser.AddPlaylistAsync(playlist.title);
+            await currentUser.AddPlaylistAsync(playlist.title, playlist.isPublic, playlist.count, playlist.length);
         }
     }
 }
