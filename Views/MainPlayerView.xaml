@@ -50,19 +50,19 @@
             <StackPanel Grid.Column="1" Width="Auto">
                 <StackPanel Orientation="Horizontal">
                     <Label>Title</Label>
-                    <TextBox Width="105" Margin="5,5,5,5" Text="{Binding Title}"></TextBox>
+                    <TextBox Width="105" Margin="5,5,5,5" Text="{Binding PlaylistViewSource.CurrentItem.title}"></TextBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label>Public</Label>
-                    <TextBox Width="105" Margin="5,5,5,5"  Text="{Binding isPublic}"></TextBox>
+                    <TextBox Width="105" Margin="5,5,5,5"  Text="{Binding PlaylistViewSource.CurrentItem.isPublic}"></TextBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label>Count</Label>
-                    <TextBox Width="105" Margin="5,5,5,5" Text="{Binding Count}"></TextBox>
+                    <TextBox Width="105" Margin="5,5,5,5" Text="{Binding PlaylistViewSource.CurrentItem.count}"></TextBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label>Length</Label>
-                    <TextBox Width="105" Margin="5,5,5,5" Text="{Binding Length}"></TextBox>
+                    <TextBox Width="105" Margin="5,5,5,5" Text="{Binding PlaylistViewSource.CurrentItem.length}"></TextBox>
                 </StackPanel>
             </StackPanel>
             <ListBox ItemsSource="{Binding PlaylistViewSource.CurrentItem.tunes}" Grid.Column="1" Margin="5,115,5,5" Height="Auto" Width="Auto">

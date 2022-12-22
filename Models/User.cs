@@ -102,6 +102,16 @@ namespace tp_final.Models
             return album;
         }
 
+        //PLAYLIST METHODS
+        public async Task<Playlist> AddPlaylistAsync(string title)
+        {
+            var playlist = await Playlist.AddPlaylistAsync(id, title);
+
+            if (playlist == null) return null;
+
+            playlists.Add(playlist);
+            return playlist;
+        }
 
 
         public async void SetPlaylistsAsync()

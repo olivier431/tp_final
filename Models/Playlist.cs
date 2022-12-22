@@ -241,7 +241,8 @@ namespace tp_final.Models
             JsonObject jsonParams = new()
             {
                 { nameof(user_id), user_id },
-                { nameof(title), title }
+                { nameof(title), title }    
+
             };
 
             var Result = await Martha.ExecuteQueryAsync($"insert-playlist", jsonParams);

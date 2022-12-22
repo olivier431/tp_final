@@ -87,7 +87,7 @@ namespace tp_final.ViewModels
 
         public void AddPlaylist()
         {
-
+            AddPlaylistAsync();
         }
 
         public string Title
@@ -119,6 +119,13 @@ namespace tp_final.ViewModels
                 playlistViewSource = value;
                 OnPropertyChanged();
             }
+        }
+
+        private async void AddPlaylistAsync()
+        {
+            Playlist playlist = (Playlist)PlaylistViewSource.CurrentItem;
+            User currentUser = (User)Application.Current.Properties["CurrentUser"];
+            await currentUser.AddPlaylistAsync(playlist.title);
         }
     }
 }
