@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Data;
 using tp_final.Commands;
@@ -32,6 +33,7 @@ namespace tp_final.ViewModels
 
         //Playlist Button Bar DelegateCommands
         public DelegateCommand AddPlaylistCommand { get; private set; }
+        public DelegateCommand DeletePlaylistCommand { get; private set; }
 
         //Button Bar DelegateCommands
         public DelegateCommand ShuffleCommand { get; private set; }
@@ -56,6 +58,7 @@ namespace tp_final.ViewModels
 
             //Playlist Button Bar DelegateCommands
             AddPlaylistCommand = new DelegateCommand(AddPlaylist);
+            DeletePlaylistCommand = new DelegateCommand(DeletePlaylist);
 
             //Button Bar DelegateCommands
 
@@ -88,6 +91,44 @@ namespace tp_final.ViewModels
         public void AddPlaylist()
         {
             AddPlaylistAsync();
+        }
+
+        public void DeletePlaylist()
+        {
+            User currentUser = (User)Application.Current.Properties["CurrentUser"];
+            Playlist playlist = (Playlist)PlaylistViewSource.CurrentItem;
+            if (playlist != null)
+            {
+                if (playlist.title != "PlaylistTest1" && playlist.id != 1)
+                {
+                    if (playlist.user_id == currentUser.id || currentUser.isAdmin == 1)
+                    {
+                        string messaBoxText = "Do you really wish to delete this playlist ?";
+                        string caption = "You are about to delete a playlist";
+                        MessageBoxButton button = MessageBoxButton.YesNo;
+                        MessageBoxImage icon = MessageBoxImage.Warning;
+                        MessageBoxResult result = MessageBox.Show(messaBoxText, caption, button, icon);
+                        if (result == MessageBoxResult.Yes)
+                        {
+                            currentUser.playlists.Remove(playlist);
+                            playlist.DeleteAsync();
+                            playlistViewSource.Refresh();
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("You can only delete a playlist that you own");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("You cannot delete this playlist");
+                }
+            }
+            else
+            {
+                MessageBox.Show("You need to select a playlist");
+            }
         }
 
         public string Title

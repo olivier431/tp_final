@@ -79,7 +79,7 @@
                 <Button x:Name="AddSongToPlaylist" Content="Add a song to a playlist" Margin="5,5,5,5" Height="30" VerticalAlignment="Top"/>
                 <Button x:Name="DeleteSongOfPlaylist" Content="Delete a song of a playlist" Margin="5,5,5,5" Height="30" VerticalAlignment="Top"/>
                 <Button x:Name="ResearchPlaylist" Content="Research a playlist" Margin="5,5,5,5" Height="30" VerticalAlignment="Top"/>
-                <Button x:Name="DeletePlaylist" Content="Delete a playlist" Margin="5,5,5,5" Height="30" VerticalAlignment="Top"/>
+                <Button x:Name="DeletePlaylist" Command="{Binding DeletePlaylistCommand}" Content="Delete a playlist" Margin="5,5,5,5" Height="30" VerticalAlignment="Top"/>
 
                 <ProgressBar x:Name="SongProgress" Margin="5,25,5,5" Height="15" IsIndeterminate="False"/>
                 <Menu x:Name="SongButtonsMenu">
