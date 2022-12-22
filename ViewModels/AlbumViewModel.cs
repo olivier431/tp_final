@@ -19,6 +19,7 @@ namespace tp_final.ViewModels
 
         //CollectionView
         ICollectionView albumlistViewSource;
+        ICollectionView tunelistViewSource;
 
         //Delegate Command
         public DelegateCommand GoToAdminCommand { get; set; }
@@ -45,7 +46,7 @@ namespace tp_final.ViewModels
 
             //CollectionView
             AlbumlistViewSource = CollectionViewSource.GetDefaultView(CurUser.albums);
-
+            SetUnknownListAsync();
             //Add
             AddAlbumCommand = new DelegateCommand(AddAlbum);
 
@@ -103,6 +104,15 @@ namespace tp_final.ViewModels
                 OnPropertyChanged();
             }
         }
+        public ICollectionView TunelistViewSource
+        {
+            get => tunelistViewSource;
+            set
+            {
+                tunelistViewSource = value;
+                OnPropertyChanged();
+            }
+        }
         public void GoToAdmin()
         {
             User CurUser = (User)Application.Current.Properties["CurrentUser"];
@@ -143,16 +153,7 @@ namespace tp_final.ViewModels
         public void Like() { }
         public void AddAlbum()
         {
-            //Pourrait regarder si AlbumCover est un lien url
-            //Pourrait mettre autre validation 
-            if (Title == "" || Artist == "" || Genre == "" || AlbumCover == "" || Year <= 1600)
-            {
-                MessageBox.Show("Invalid input");
-            }
-            else
-            {
                 AddAlbumListAsync();
-            }
         }
         public void DeleteAlbum()
         {
@@ -206,8 +207,14 @@ namespace tp_final.ViewModels
         }
         private async void AddAlbumListAsync()
         {
+            Playlist playlist = (Playlist)AlbumlistViewSource.CurrentItem;
             User CurUser = (User)Application.Current.Properties["CurrentUser"];
-            await CurUser.AddAlbumAsync(Title, Artist, Genre, AlbumCover, Year);
+            await CurUser.AddAlbumAsync(playlist.title, playlist.artist, playlist.genre, playlist.album_cover, playlist.year.Value);
+        }
+        private async void SetUnknownListAsync()
+        {
+            var albums = await Playlist.GetTuneAlbumsUnknownAsync();
+            TunelistViewSource = CollectionViewSource.GetDefaultView(albums);
         }
     }
 }

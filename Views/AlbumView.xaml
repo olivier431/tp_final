@@ -42,89 +42,89 @@
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">-->
-            <ListView Name="DisplayList" ItemsSource="{Binding AlbumlistViewSource}" IsSynchronizedWithCurrentItem="True">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="Artiste" Width="50" DisplayMemberBinding="{Binding artist}" />
-                        <GridViewColumn Header="Title" Width="auto" DisplayMemberBinding="{Binding title}" />
-                        <GridViewColumn Header="Length" Width="40" DisplayMemberBinding="{Binding length}" />
-                        <GridViewColumn Header="Genre" Width="auto" DisplayMemberBinding="{Binding genre}" />
-                        <GridViewColumn Header="Year" Width="40" DisplayMemberBinding="{Binding year}" />
-                    </GridView>
-                </ListView.View>
-                <!--<ListView.GroupStyle>
-                                    <GroupStyle>
-                                        <GroupStyle.ContainerStyle>
-                                            <Style TargetType="{x:Type GroupItem}">
-                                                <Setter Property="Template">
-                                                    <Setter.Value>
-                                                        <ControlTemplate>
-                                                            <Expander IsExpanded="True">
-                                                                <Expander.Header>
-                                                                    <StackPanel Orientation="Horizontal">
-                                                                        <TextBlock Text="{Binding title}" FontWeight="Bold" Foreground="Gray" FontSize="22" VerticalAlignment="Bottom" />
-                                                                        <TextBlock Text="{Binding id}" FontSize="22" Foreground="Green" FontWeight="Bold" FontStyle="Italic" Margin="10,0,0,0" VerticalAlignment="Bottom" />
-                                                                        <TextBlock Text=" item(s)" FontSize="22" Foreground="Silver" FontStyle="Italic" VerticalAlignment="Bottom" />
-                                                                    </StackPanel>
-                                                                </Expander.Header>
-                                                                <ItemsPresenter />
-                                                            </Expander>
-                                                        </ControlTemplate>
-                                                    </Setter.Value>
-                                                </Setter>
-                                            </Style>
-                                        </GroupStyle.ContainerStyle>
-                                    </GroupStyle>
-                                </ListView.GroupStyle>-->
-                            </ListView>
-                            <!--<TextBlock Text="{Binding Title}"></TextBlock>-->
-                        <!--</StackPanel>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>-->
+            <StackPanel>
+                <TextBlock HorizontalAlignment="Center" FontSize="15">Album</TextBlock>
+                <ListView Name="DisplayListAlbum" ItemsSource="{Binding AlbumlistViewSource}" IsSynchronizedWithCurrentItem="True" Height="180">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Artiste" Width="50" DisplayMemberBinding="{Binding artist}" />
+                            <GridViewColumn Header="Title" Width="auto" DisplayMemberBinding="{Binding title}" />
+                            <GridViewColumn Header="Length" Width="40" DisplayMemberBinding="{Binding length}" />
+                            <GridViewColumn Header="Genre" Width="auto" DisplayMemberBinding="{Binding genre}" />
+                            <GridViewColumn Header="Year" Width="40" DisplayMemberBinding="{Binding year}" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+                <TextBlock HorizontalAlignment="Center" FontSize="15">Tune without album</TextBlock>
+                <ListView Name="DisplaylistTuneNoneAlbum" ItemsSource="{Binding TunelistViewSource}" IsSynchronizedWithCurrentItem="True" Height="165">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Artiste" Width="50" DisplayMemberBinding="{Binding artist}" />
+                            <GridViewColumn Header="Title" Width="auto" DisplayMemberBinding="{Binding title}" />
+                            <GridViewColumn Header="Length" Width="40" DisplayMemberBinding="{Binding length}" />
+                            <GridViewColumn Header="Genre" Width="auto" DisplayMemberBinding="{Binding genre}" />
+                            <GridViewColumn Header="Year" Width="40" DisplayMemberBinding="{Binding year}" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </StackPanel>
             <StackPanel Grid.Column="1" Width="150">
                 <StackPanel Orientation="Horizontal">
                     <Label>Artist</Label>
-                    <TextBox Width="105" Margin="5,0,0,0" Text="{Binding Artist}"></TextBox>
+                    <TextBox Width="105" Margin="5,0,0,0" Text="{Binding AlbumlistViewSource.CurrentItem.artist}"></TextBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label>Titre</Label>
-                    <TextBox Width="105" Margin="10,0,0,0"  Text="{Binding Title}"></TextBox>
+                    <TextBox Width="105" Margin="10,0,0,0"  Text="{Binding AlbumlistViewSource.CurrentItem.title}"></TextBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label>Cover</Label>
-                    <TextBox Width="105" Margin="2,0,0,0" Text="{Binding AlbumCover}"></TextBox>
+                    <TextBox Width="105" Margin="2,0,0,0" Text="{Binding AlbumlistViewSource.CurrentItem.album_cover}"></TextBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label>Année</Label>
-                    <TextBox Width="105" Text="{Binding Year}"></TextBox>
+                    <TextBox Width="105" Text="{Binding AlbumlistViewSource.CurrentItem.year}"></TextBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label>Genre</Label>
-                    <TextBox Width="105" Margin="2,0,0,0" Text="{Binding Genre}"></TextBox>
+                    <TextBox Width="105" Margin="2,0,0,0" Text="{Binding AlbumlistViewSource.CurrentItem.genre}"></TextBox>
                 </StackPanel>
-
-                <ListBox ItemsSource="{Binding AlbumlistViewSource.CurrentItem.tunes}" Margin="10,10,10,10" Height="250" Width="Auto" HorizontalAlignment="Stretch" IsSynchronizedWithCurrentItem="True">
+                <TextBlock HorizontalAlignment="Center" FontSize="12">Tune in the current album</TextBlock>
+                <ListView Name="DisplaylistTuneAlbum" ItemsSource="{Binding AlbumlistViewSource.CurrentItem.tunes}" IsSynchronizedWithCurrentItem="True" Height="238">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Artiste" Width="auto" DisplayMemberBinding="{Binding title}"/>
+                            <GridViewColumn Header="Title" Width="auto"  DisplayMemberBinding="{Binding artist}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+                <!--<ListBox ItemsSource="{Binding AlbumlistViewSource.CurrentItem.tunes}" Margin="10,10,10,10" Height="250" Width="Auto" HorizontalAlignment="Stretch" IsSynchronizedWithCurrentItem="True">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="{Binding title}"></TextBlock>
-                                <!--<TextBlock Text="{Binding artist}" Margin="10,0,0,0"></TextBlock>
+                                <TextBlock Text="{Binding artist}" Margin="10,0,0,0"></TextBlock>
+                                --><!--
                                 <TextBlock Text="{Binding genre}" Margin="10,0,0,0"></TextBlock>
                                 <TextBlock Text="{Binding length}" Margin="10,0,0,0"></TextBlock>
-                                <TextBlock Text="{Binding year}" Margin="10,0,0,0"></TextBlock>-->
+                                <TextBlock Text="{Binding year}" Margin="10,0,0,0"></TextBlock>--><!--
                             </StackPanel>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
-                </ListBox>
+                </ListBox>-->
             </StackPanel>
             <StackPanel Grid.Column="3" Grid.Row="1">
                 <StackPanel Orientation="Horizontal" >
-                    <Image Source="{Binding AlbumlistViewSource.CurrentItem.album_cover}" Width="210" Height="210" Stretch="Fill" Margin="5,0,0,0"></Image>
+                    <Image Source="{Binding AlbumlistViewSource.CurrentItem.album_cover}" Width="170" Height="210" Stretch="Fill" Margin="5,0,0,0"></Image>
                     <StackPanel Orientation="Vertical">
-                        <Button x:Name="AddAlbum" Content="Add Album" Height="40" Width="75" Margin="25,5,0,0"  Command="{Binding AddAlbumCommand}"></Button>
-                        <Button x:Name="DeleteAlbum" Content="Delete Album" Height="40" Width="75" Margin="25,5,0,0" Command="{Binding DeleteAlbumCommand}"></Button>
-                        <Button x:Name="OrderAlbum" Content="Order Album" Height="40" Width="75" Margin="25,5,0,0" Command="{Binding OrderAlbumCommand}"></Button>
+                        <StackPanel Orientation="Horizontal">
+                            <Button x:Name="AddAlbum" Content="Create Album" Height="40" Width="80" Margin="0,5,0,0"  Command="{Binding AddAlbumCommand}"></Button>
+                            <Button x:Name="DeleteAlbum" Content="Delete Album" Height="40" Width="80" Margin="5,5,0,0" Command="{Binding DeleteAlbumCommand}"></Button>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Button x:Name="OrderAlbum" Content="Order Album" Height="40" Width="80" Margin="0,5,0,0" Command="{Binding OrderAlbumCommand}"></Button>
+                            <Button x:Name="UpdateAlbum" Content="Update Album" Height="40" Width="80" Margin="5,5,0,0" Command="{Binding UpdateAlbumCommand}"></Button>
+                        </StackPanel>
                     </StackPanel>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">

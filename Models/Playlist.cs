@@ -182,6 +182,21 @@ namespace tp_final.Models
             return albums;
         }
 
+        public static async Task<ObservableCollection<Playlist>?> GetTuneAlbumsUnknownAsync()
+        {
+            var Result = await Martha.ExecuteQueryAsync("select-albums-unknown");
+
+            if (!Result.Success) throw new Exception();
+            if (!Result.Data.Any()) throw new Exception();
+
+            ObservableCollection<Playlist> albums = new();
+            Result.Data.ToList().ForEach(json =>
+                albums.Add(new Playlist(json.ToString()!))
+            );
+
+            return albums;
+        }
+
         public static async Task<Playlist?> AddAlbumAsync(
             int user_id,
             string title,
