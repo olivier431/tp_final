@@ -89,6 +89,7 @@ namespace tp_final.Models
 
         // --------------------- Methods ---------------------
         public async void SetTunesAsync() => tunes = await SetTunesAsync(isPlaylist, id);
+        public void UpdateUnknown() => UpdateTuneAsync(id);
 
         public async Task<ObservableCollection<Tune>?> AddTuneAsync(
             string title,
@@ -139,6 +140,33 @@ namespace tp_final.Models
 
 
         // --------------------- static Methods ---------------------
+        public static async void UpdateTuneAsync(int id)
+        {
+            JsonObject jsonParams = new()
+            {
+                { nameof(id), id }
+            };
+
+            var Result = await Martha.ExecuteQueryAsync($"update-tune-unknown", jsonParams);
+            if (!Result.Success) return;
+        }
+        public async void UpdateAlbumAsync(string title, string artist, string genre, string album_cover, int year, int id)
+        {
+            JsonObject jsonParams = new()
+            {
+                { nameof(title), title },
+                { nameof(artist), artist },
+                { nameof(genre), genre },
+                { nameof(album_cover), album_cover },
+                { nameof(year), year },
+                { nameof(id), id }
+            };
+
+            var Result = await Martha.ExecuteQueryAsync($"update-album", jsonParams);
+            if (!Result.Success) throw new Exception();
+
+            await GetAllAlbumsAsync();
+        }
         public static async Task<ObservableCollection<Tune>> SetTunesAsync(bool isPlaylist, int id)
         {
             string type = isPlaylist ? "playlist" : "album";
@@ -163,9 +191,7 @@ namespace tp_final.Models
             var Result = await Martha.ExecuteQueryAsync($"delete-playlist", jsonParams);
             if (!Result.Success) throw new Exception();
         }
-
-
-
+       
         // --------------------- Album Methods ---------------------
         public static async Task<ObservableCollection<Playlist>?> GetAllAlbumsAsync()
         {
@@ -182,16 +208,16 @@ namespace tp_final.Models
             return albums;
         }
 
-        public static async Task<ObservableCollection<Playlist>?> GetTuneAlbumsUnknownAsync()
+        public static async Task<ObservableCollection<Tune>?> GetTuneAlbumsUnknownAsync()
         {
             var Result = await Martha.ExecuteQueryAsync("select-albums-unknown");
 
             if (!Result.Success) throw new Exception();
-            if (!Result.Data.Any()) throw new Exception();
+            //if (!Result.Data.Any());
 
-            ObservableCollection<Playlist> albums = new();
+            ObservableCollection<Tune> albums = new();
             Result.Data.ToList().ForEach(json =>
-                albums.Add(new Playlist(json.ToString()!))
+                albums.Add(new Tune(json.ToString()!))
             );
 
             return albums;
@@ -219,9 +245,6 @@ namespace tp_final.Models
             if (!Result.Success || !Result.Data.Any()) return null; //erreur // MessageBox.Show("error while adding");
             return new(Result.Data.ToList().FirstOrDefault()!.ToString()!);
         }
-
-
-
         // --------------------- Playlist Methods ---------------------
         public static async Task<Playlist?> GetPlaylistByIdAsync(int id)
         {

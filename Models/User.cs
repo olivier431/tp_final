@@ -101,9 +101,6 @@ namespace tp_final.Models
             albums.Add(album);
             return album;
         }
-
-
-
         public async void SetPlaylistsAsync()
         {
             string type = notAdmin ? "-user" : "";

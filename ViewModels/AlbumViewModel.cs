@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
@@ -11,15 +12,10 @@ namespace tp_final.ViewModels
 {
     public class AlbumViewModel : BaseViewModel
     {
-        private string title;
-        private string artist;
-        private string genre;
-        private string albumCover;
-        private int year;
-
         //CollectionView
         ICollectionView albumlistViewSource;
         ICollectionView tunelistViewSource;
+        private ObservableCollection<Tune> tunesunknown;
 
         //Delegate Command
         public DelegateCommand GoToAdminCommand { get; set; }
@@ -27,6 +23,7 @@ namespace tp_final.ViewModels
         public DelegateCommand LogoutCommand { get; set; }
         public DelegateCommand AddAlbumCommand { get; private set; }
         public DelegateCommand DeleteAlbumCommand { get; private set; }
+        public DelegateCommand UpdateAlbumCommand { get; private set; }
         public DelegateCommand OrderAlbumCommand { get; private set; }
         public DelegateCommand ShuffleCommand { get; private set; }
         public DelegateCommand PlayCommand { get; private set; }
@@ -34,6 +31,8 @@ namespace tp_final.ViewModels
         public DelegateCommand NextCommand { get; private set; }
         public DelegateCommand PreviousCommand { get; private set; }
         public DelegateCommand LikeCommand { get; private set; }
+        public DelegateCommand AddTuneCommand { get; private set; }
+        public DelegateCommand RemoveTuneCommand { get; private set; }
         //Navigation
         private readonly NavigationStore navigationStore;
        
@@ -46,6 +45,7 @@ namespace tp_final.ViewModels
 
             //CollectionView
             AlbumlistViewSource = CollectionViewSource.GetDefaultView(CurUser.albums);
+            TunelistViewSource = CollectionViewSource.GetDefaultView(CurUser.albums);
             SetUnknownListAsync();
             //Add
             AddAlbumCommand = new DelegateCommand(AddAlbum);
@@ -54,6 +54,11 @@ namespace tp_final.ViewModels
             DeleteAlbumCommand = new DelegateCommand(DeleteAlbum);
 
             OrderAlbumCommand = new DelegateCommand(OrderAlbum);
+
+            UpdateAlbumCommand = new DelegateCommand(UpdateAlbum);
+            AddTuneCommand = new DelegateCommand(AddTune);
+            RemoveTuneCommand = new DelegateCommand(RemoveTune);
+
             //CommandMusic
             ShuffleCommand = new DelegateCommand(Shuffle);
             PlayCommand = new DelegateCommand(Play);
@@ -67,33 +72,6 @@ namespace tp_final.ViewModels
             GoToAdminCommand = new DelegateCommand(GoToAdmin);
             GoToMainPlayerCommand = new DelegateCommand(GoToMainPlayer);
             LogoutCommand = new DelegateCommand(Logout);
-        }
-
-        
-        public string Title
-        {
-            get => title;
-            set => title = value;
-        }
-        public string Artist
-        {
-            get => artist;
-            set => artist = value;
-        }
-        public string Genre
-        {
-            get => genre;
-            set => genre = value;
-        }
-        public string AlbumCover
-        {
-            get => albumCover;
-            set => albumCover = value;
-        }
-        public int Year
-        {
-            get => year;
-            set => year = value;
         }
         public ICollectionView AlbumlistViewSource
         {
@@ -151,14 +129,20 @@ namespace tp_final.ViewModels
         public void Next() { }
         public void Previous() { }
         public void Like() { }
+
+        public void UpdateAlbum() 
+        {
+            UpdateAlbumListAsync();
+        }
         public void AddAlbum()
         {
-                AddAlbumListAsync();
+            AddAlbumListAsync();
         }
         public void DeleteAlbum()
         {
             User CurUser = (User)Application.Current.Properties["CurrentUser"];
             Playlist playlist = (Playlist)AlbumlistViewSource.CurrentItem;
+            //Tune tunes = (Tune)TunelistViewSource.CurrentItem;
             if (playlist != null)
             {
                 if (playlist.title != "Unknown Album" && playlist.id != 1)
@@ -178,15 +162,29 @@ namespace tp_final.ViewModels
                             icon = MessageBoxImage.Warning;
                             result = MessageBox.Show(messaBoxText, caption, button, icon);
                             if (result == MessageBoxResult.Yes)
+                            {
                                 foreach (var morceau in playlist.tunes)
                                     if (morceau.user_id == CurUser.id || CurUser.isAdmin == 1)
+                                    {
                                         morceau.DeleteTune();
+                                    }
+                                    else
+                                    {
+                                        morceau.UpdateUnknown();
+                                        tunesunknown.Add(morceau);
+                                    }
+                            }
+                            else
+                            {
+                                foreach(var morceau in playlist.tunes)
+                                {
+                                    tunesunknown.Add(morceau);
+                                }
+                            }
                             CurUser.albums.Remove(playlist);
-
                             playlist.DeleteAsync();
                             Playlist Unknown = CurUser.albums.First(x => x.title.Equals("Unknown Album"));
                             Unknown?.SetTunesAsync();
-
                             albumlistViewSource.Refresh();
                         }
                     }
@@ -205,16 +203,64 @@ namespace tp_final.ViewModels
                 MessageBox.Show("Vous devez sélectionner un album");
             }
         }
-        private async void AddAlbumListAsync()
+        public void AddTune()
         {
             Playlist playlist = (Playlist)AlbumlistViewSource.CurrentItem;
+            Tune tunes = (Tune)TunelistViewSource.CurrentItem;
+            if (AlbumlistViewSource.CurrentItem != null)
+            {
+                if (TunelistViewSource.CurrentItem != null)
+                {
+                    tunes.album_id = playlist.id;
+                    AlbumlistViewSource.MoveCurrentToLast();
+                    tunes.UpdateTune();
+                    playlist.length += tunes.length;
+                    playlist.tunes.Add(tunes);
+                    tunesunknown.Remove(tunes);
+                    albumlistViewSource.Refresh();
+                    albumlistViewSource.Refresh();
+                }
+            }
+        }
+        public void RemoveTune() 
+        {
+            //Playlist playlist = (Playlist)AlbumlistViewSource.CurrentItem;
+            //Tune tunes = (Tune)AlbumlistViewSource.CurrentItem;
+            //if (AlbumlistViewSource.CurrentItem != null)
+            //{
+            //        tunes.album_id = playlist.id;
+            //        playlist.UpdateUnknown();
+            //        playlist.length -= tunes.length;
+            //        playlist.tunes.Remove(tunes);
+            //        tunesunknown.Add(tunes);
+            //        albumlistViewSource.Refresh();
+            //        albumlistViewSource.Refresh();
+            //}
+        }
+
+        public void UpdateAlbumListAsync() 
+        {
+            Playlist playlist = (Playlist)AlbumlistViewSource.CurrentItem;
+            playlist.UpdateAlbumAsync(playlist.title, playlist.artist, playlist.genre, playlist.album_cover, playlist.year.Value, playlist.id);
+            playlist.isAlbum = 1;
+        }
+        private async void AddAlbumListAsync()
+        {
+            
             User CurUser = (User)Application.Current.Properties["CurrentUser"];
-            await CurUser.AddAlbumAsync(playlist.title, playlist.artist, playlist.genre, playlist.album_cover, playlist.year.Value);
+            await CurUser.AddAlbumAsync("", "", "", "", 0);
         }
         private async void SetUnknownListAsync()
         {
-            var albums = await Playlist.GetTuneAlbumsUnknownAsync();
-            TunelistViewSource = CollectionViewSource.GetDefaultView(albums);
+            tunesunknown = await Playlist.GetTuneAlbumsUnknownAsync();
+            if (tunesunknown == null)
+            {
+
+            }
+            else
+            {
+                TunelistViewSource = CollectionViewSource.GetDefaultView(tunesunknown);
+            }
         }
     }
 }

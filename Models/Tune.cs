@@ -69,6 +69,10 @@ namespace tp_final.Models
         // --------------------- Methods ---------------------
         public void DeleteTune() => DeleteTuneAsync(id);
 
+        public void UpdateTune() => UpdateTuneAsync(album_id, id);
+
+        public void UpdateUnknown() => UpdateUnknownAsync(id);
+
         public override string ToString() =>
             JsonSerializer.Serialize(this, new JsonSerializerOptions { WriteIndented = true });
 
@@ -121,5 +125,30 @@ namespace tp_final.Models
             var Result = await Martha.ExecuteQueryAsync($"delete-tune", jsonParams);
             if (!Result.Success) return;
         }
+
+        public static async void UpdateTuneAsync(int album_id, int id)
+        {
+            JsonObject jsonParams = new()
+            {
+                { nameof(album_id), album_id },
+                { nameof(id), id }
+            };
+
+            var Result = await Martha.ExecuteQueryAsync($"update-tune-album", jsonParams);
+            if (!Result.Success) return;
+        }
+
+        public static async void UpdateUnknownAsync( int id)
+        {
+            JsonObject jsonParams = new()
+            {
+                { nameof(id), id }
+            };
+
+            var Result = await Martha.ExecuteQueryAsync($"update-tune-unknown", jsonParams);
+            if (!Result.Success) return;
+        }
+
+
     }
 }

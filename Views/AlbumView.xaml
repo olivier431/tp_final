@@ -125,6 +125,10 @@
                             <Button x:Name="OrderAlbum" Content="Order Album" Height="40" Width="80" Margin="0,5,0,0" Command="{Binding OrderAlbumCommand}"></Button>
                             <Button x:Name="UpdateAlbum" Content="Update Album" Height="40" Width="80" Margin="5,5,0,0" Command="{Binding UpdateAlbumCommand}"></Button>
                         </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Button x:Name="AddTune" Content="Add Tune" Height="40" Width="80" Margin="0,5,0,0" Command="{Binding AddTuneCommand}"></Button>
+                            <Button x:Name="Removetune" Content="Remove Tune" Height="40" Width="80" Margin="5,5,0,0" Command="{Binding RemoveTuneCommand}"></Button>
+                        </StackPanel>
                     </StackPanel>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
