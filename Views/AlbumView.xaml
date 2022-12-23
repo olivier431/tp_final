@@ -90,7 +90,7 @@
                     <TextBox Width="105" Margin="2,0,0,0" Text="{Binding AlbumlistViewSource.CurrentItem.genre}"></TextBox>
                 </StackPanel>
                 <TextBlock HorizontalAlignment="Center" FontSize="12">Tune in the current album</TextBlock>
-                <ListView Name="DisplaylistTuneAlbum" ItemsSource="{Binding AlbumlistViewSource.CurrentItem.tunes}" IsSynchronizedWithCurrentItem="True" Height="238">
+                <ListView Name="DisplaylistTuneAlbum" ItemsSource="{Binding AlbumlistViewSource.CurrentItem.tunes}" SelectedItem="{Binding Selectedtune}" IsSynchronizedWithCurrentItem="True" Height="238">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Artiste" Width="auto" DisplayMemberBinding="{Binding title}"/>
@@ -127,13 +127,13 @@
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
                             <Button x:Name="AddTune" Content="Add Tune" Height="40" Width="80" Margin="0,5,0,0" Command="{Binding AddTuneCommand}"></Button>
-                            <Button x:Name="Removetune" Content="Remove Tune" Height="40" Width="80" Margin="5,5,0,0" Command="{Binding RemoveTuneCommand}"></Button>
+                            <Button x:Name="Removetune" Content="Remove Tune" Height="40" Width="80" Margin="5,5,0,0" Command="{Binding RemoveTuneCommand}" CommandParameter="{Binding ElementName=DisplaylistTuneAlbum, Path=SelectedItem}"></Button>
                         </StackPanel>
                     </StackPanel>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label x:Name="SongTitle" Content="Title: " Foreground="Black" Margin="100,0,0,0"/>
-                    <Label x:Name="SongTitleLabel" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Content="{Binding AlbumlistViewSource.CurrentItem.tunes.CurrentItem.title, UpdateSourceTrigger=PropertyChanged}" Foreground="Black"/>
+                    <Label x:Name="SongTitleLabel" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Content="{Binding Selectedtune.title, UpdateSourceTrigger=PropertyChanged}" Foreground="Black"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label x:Name="SongGroup" Content="Group: " Foreground="Black" Margin="100,0,0,0"/>

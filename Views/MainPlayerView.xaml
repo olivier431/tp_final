@@ -81,7 +81,7 @@
                 <Button x:Name="SearchPlaylist" Content="Search a playlist" Margin="5,5,5,5" Height="30" VerticalAlignment="Top"/>
                 <Button x:Name="DeletePlaylist" Command="{Binding DeletePlaylistCommand}" Content="Delete a playlist" Margin="5,5,5,5" Height="30" VerticalAlignment="Top"/>
 
-                <ProgressBar x:Name="SongProgress" ItemsSource="{Binding PlaylistViewSource}" Margin="5,25,5,5" Height="15" IsIndeterminate="False"/>
+                <ProgressBar x:Name="SongProgress" Margin="5,25,5,5" Height="15" IsIndeterminate="False"/> <!--ItemsSource="{Binding PlaylistViewSource}" Fait planter mon VS-->
                 <Menu x:Name="SongButtonsMenu">
                     <Button x:Name="ShuffleButton" Command="{Binding ShuffleCommand}" Content="Shuffle" Height="40" Width="45" Margin="0,5,5,0"/>
                     <Button x:Name="PlayButton" Command="{Binding PlayCommand}" Content="Play" Height="40" Width="45" Margin="0,5,5,0"/>

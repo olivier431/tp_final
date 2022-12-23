@@ -16,7 +16,7 @@ namespace tp_final.ViewModels
         ICollectionView albumlistViewSource;
         ICollectionView tunelistViewSource;
         private ObservableCollection<Tune> tunesunknown;
-
+        public Tune Selectedtune { get; set; }
         //Delegate Command
         public DelegateCommand GoToAdminCommand { get; set; }
         public DelegateCommand GoToMainPlayerCommand { get; set; }
@@ -42,10 +42,10 @@ namespace tp_final.ViewModels
 
             //var temp = Application.Current.Properties["CurrentUserId"];
             //MessageBox.Show(temp.ToString());
-
+            
             //CollectionView
             AlbumlistViewSource = CollectionViewSource.GetDefaultView(CurUser.albums);
-            TunelistViewSource = CollectionViewSource.GetDefaultView(CurUser.albums);
+           // TunelistViewSource = CollectionViewSource.GetDefaultView(CurUser.albums);
             SetUnknownListAsync();
             //Add
             AddAlbumCommand = new DelegateCommand(AddAlbum);
@@ -209,33 +209,45 @@ namespace tp_final.ViewModels
             Tune tunes = (Tune)TunelistViewSource.CurrentItem;
             if (AlbumlistViewSource.CurrentItem != null)
             {
-                if (TunelistViewSource.CurrentItem != null)
-                {
-                    tunes.album_id = playlist.id;
-                    AlbumlistViewSource.MoveCurrentToLast();
-                    tunes.UpdateTune();
-                    playlist.length += tunes.length;
-                    playlist.tunes.Add(tunes);
-                    tunesunknown.Remove(tunes);
-                    albumlistViewSource.Refresh();
-                    albumlistViewSource.Refresh();
-                }
+                tunes.album_id = playlist.id;
+                tunes.UpdateTune();
+                playlist.length += tunes.length;
+                playlist.tunes.Add(tunes);
+                tunesunknown.Remove(tunes);
+                albumlistViewSource.Refresh();
+                TunelistViewSource.Refresh();
             }
         }
         public void RemoveTune() 
         {
-            //Playlist playlist = (Playlist)AlbumlistViewSource.CurrentItem;
-            //Tune tunes = (Tune)AlbumlistViewSource.CurrentItem;
-            //if (AlbumlistViewSource.CurrentItem != null)
-            //{
-            //        tunes.album_id = playlist.id;
-            //        playlist.UpdateUnknown();
-            //        playlist.length -= tunes.length;
-            //        playlist.tunes.Remove(tunes);
-            //        tunesunknown.Add(tunes);
-            //        albumlistViewSource.Refresh();
-            //        albumlistViewSource.Refresh();
-            //}
+            Playlist playlist = (Playlist)AlbumlistViewSource.CurrentItem;
+            // if (obj is Tune)
+            // {
+            //  Tune tune = (Tune)obj;
+            Selectedtune.UpdateUnknown();
+            playlist.tunes.Remove(Selectedtune);
+            playlist.length -= Selectedtune.length;
+            tunesunknown.Add(Selectedtune);
+            albumlistViewSource.Refresh();
+            // }
+
+            // Tune tunes = (Tune)AlbumlistViewSource.CurrentItem;
+            // if (AlbumlistViewSource.CurrentItem != null)
+            // {
+            // if (obj is tunes)
+            // {
+
+            // }
+            //MessageBox.Show(tunes.ToString)
+            //  Tune tune = (Tune)playlist.tunes;
+            //  playlist.id = 1;
+            //  tunes.UpdateUnknown();
+            ////  playlist.length -= playlist.tunes;
+            //  playlist.tunes.Remove(tunes);
+            //  tunesunknown.Add(tunes);
+            //  albumlistViewSource.Refresh();
+            //  albumlistViewSource.Refresh();
+            // }
         }
 
         public void UpdateAlbumListAsync() 

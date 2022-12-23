@@ -89,7 +89,7 @@ namespace tp_final.Models
 
         // --------------------- Methods ---------------------
         public async void SetTunesAsync() => tunes = await SetTunesAsync(isPlaylist, id);
-        public void UpdateUnknown() => UpdateTuneAsync(id);
+        public void UpdateUnknown() => UpdateTuneAsync(this.id);
 
         public async Task<ObservableCollection<Tune>?> AddTuneAsync(
             string title,
@@ -288,6 +288,17 @@ namespace tp_final.Models
             var Result = await Martha.ExecuteQueryAsync($"insert-playlist", jsonParams);
             if (!Result.Success || !Result.Data.Any()) return null; //erreur
             return new(Result.Data.ToList().FirstOrDefault()!.ToString()!);
+        }
+
+        public static async void UpdateUnknownAsync(int id)
+        {
+            JsonObject jsonParams = new()
+            {
+                { nameof(id), id }
+            };
+
+            var Result = await Martha.ExecuteQueryAsync($"update-tune-unknown", jsonParams);
+            if (!Result.Success) return;
         }
     }
 }
