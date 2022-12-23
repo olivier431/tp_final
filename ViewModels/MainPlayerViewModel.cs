@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Data;
 using tp_final.Commands;
@@ -32,6 +33,8 @@ namespace tp_final.ViewModels
 
         //Playlist Button Bar DelegateCommands
         public DelegateCommand AddPlaylistCommand { get; private set; }
+        public DelegateCommand RemoveSongCommand { get; private set; }
+        public DelegateCommand DeletePlaylistCommand { get; private set; }
 
         //Button Bar DelegateCommands
         public DelegateCommand ShuffleCommand { get; private set; }
@@ -56,9 +59,16 @@ namespace tp_final.ViewModels
 
             //Playlist Button Bar DelegateCommands
             AddPlaylistCommand = new DelegateCommand(AddPlaylist);
+            RemoveSongCommand = new DelegateCommand(RemoveSong);
+            DeletePlaylistCommand = new DelegateCommand(DeletePlaylist);
 
             //Button Bar DelegateCommands
-
+            ShuffleCommand = new DelegateCommand(Shuffle);
+            PlayCommand = new DelegateCommand(Play);
+            PauseCommand = new DelegateCommand(Pause);
+            NextCommand = new DelegateCommand(Next);
+            PreviousCommand = new DelegateCommand(Previous);
+            LikeCommand = new DelegateCommand(Like);
         }
 
         public void GoToAdmin()
@@ -87,8 +97,96 @@ namespace tp_final.ViewModels
 
         public void AddPlaylist()
         {
+            AddPlaylistAsync();
+        }
+
+        public void RemoveSong()
+        {
+            User currentUser = (User)Application.Current.Properties["CurrentUser"];
+            Playlist playlist = (Playlist)PlaylistViewSource.CurrentItem;
+            
+            if (playlist != null)
+            {
+                if (playlist.id != 1)
+                {
+                    if (playlist.user_id == currentUser.id || currentUser.isAdmin == 1)
+                    {
+                        string messaBoxText = "Voulez-vous supprimer les morceaux?";
+                        string caption = "Vous êtes sur le point de supprimer les morceaux de la playlist";
+                        MessageBoxButton button = MessageBoxButton.YesNo;
+                        MessageBoxImage icon = MessageBoxImage.Warning;
+                        MessageBoxResult result = MessageBox.Show(messaBoxText, caption, button, icon);
+                        if (result == MessageBoxResult.Yes)
+                            foreach (var morceau in playlist.tunes)
+                                if (morceau.user_id == currentUser.id || currentUser.isAdmin == 1)
+                                    morceau.DeleteTune();
+                        
+                        playlistViewSource.Refresh();   
+                    }
+                    else
+                    {
+                        MessageBox.Show("You can only delete a playlist that you own");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("You cannot delete this playlist");
+                }
+            }
+            else
+            {
+                MessageBox.Show("You need to select a playlist");
+            }
+        }
+
+        public void DeletePlaylist()
+        {
+            User currentUser = (User)Application.Current.Properties["CurrentUser"];
+            Playlist playlist = (Playlist)PlaylistViewSource.CurrentItem;
+            if (playlist != null)
+            {
+                if (playlist.id != 1)
+                {
+                    if (playlist.user_id == currentUser.id || currentUser.isAdmin == 1)
+                    {
+                        string messaBoxText = "Do you really wish to delete this playlist ?";
+                        string caption = "You are about to delete a playlist";
+                        MessageBoxButton button = MessageBoxButton.YesNo;
+                        MessageBoxImage icon = MessageBoxImage.Warning;
+                        MessageBoxResult result = MessageBox.Show(messaBoxText, caption, button, icon);
+                        if (result == MessageBoxResult.Yes)
+                        {
+                            currentUser.playlists.Remove(playlist);
+                            playlist.DeleteAsync();
+                            playlistViewSource.Refresh();
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("You can only delete a playlist that you own");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("You cannot delete this playlist");
+                }
+            }
+            else
+            {
+                MessageBox.Show("You need to select a playlist");
+            }
+        }
+
+        public void Shuffle() { }
+        public void Play() 
+        {
+            Playlist playlist = (Playlist)PlaylistViewSource.CurrentItem;
 
         }
+        public void Pause() { }
+        public void Next() { }
+        public void Previous() { }
+        public void Like() { }
 
         public string Title
         {
@@ -119,6 +217,13 @@ namespace tp_final.ViewModels
                 playlistViewSource = value;
                 OnPropertyChanged();
             }
+        }
+
+        private async void AddPlaylistAsync()
+        {
+            Playlist playlist = (Playlist)PlaylistViewSource.CurrentItem;
+            User currentUser = (User)Application.Current.Properties["CurrentUser"];
+            await currentUser.AddPlaylistAsync(playlist.title, playlist.isPublic, playlist.count, playlist.length);
         }
     }
 }

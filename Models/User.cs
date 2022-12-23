@@ -101,6 +101,22 @@ namespace tp_final.Models
             albums.Add(album);
             return album;
         }
+<<<<<<< HEAD
+=======
+
+        //PLAYLIST METHODS
+        public async Task<Playlist> AddPlaylistAsync(string title, int isPublic, int count, int length)
+        {
+            var playlist = await Playlist.AddPlaylistAsync2(id, title, isPublic, count, length);
+
+            if (playlist == null) return null;
+
+            playlists.Add(playlist);
+            return playlist;
+        }
+
+
+>>>>>>> 52868e5a760c5f7365727d4c2db91d0072d080a9
         public async void SetPlaylistsAsync()
         {
             string type = notAdmin ? "-user" : "";
