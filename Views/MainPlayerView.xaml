@@ -78,7 +78,8 @@
                     <TextBox Width="105" Margin="5,5,5,5" Text="{Binding PlaylistViewSource.CurrentItem.length}"></TextBox>
                 </StackPanel>
             </StackPanel>
-            <ListBox ItemsSource="{Binding PlaylistViewSource.CurrentItem.tunes}" Grid.Column="1" Margin="5,115,5,5" Height="Auto" Width="Auto">
+            <TextBlock Grid.Column="1" HorizontalAlignment="Center" FontSize="12" Margin="0,110,0,-110">Tunes in the playlist</TextBlock>
+            <ListBox ItemsSource="{Binding PlaylistViewSource.CurrentItem.tunes}" Grid.Column="1" Margin="5,130,5,5" Height="Auto" Width="Auto">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
@@ -90,9 +91,9 @@
             <StackPanel Grid.Column="2">
                 <Button x:Name="AddPlaylist" Command="{Binding AddPlaylistCommand}" Content="Create a playlist" Margin="5,5,5,5" Height="30" VerticalAlignment="Top"/>
                 <Button x:Name="UpdatePlaylist" Command="{Binding UpdatePlaylistCommand}" Content="Update a playlist" Margin="5,5,5,5" Height="30" VerticalAlignment="Top"/>
-                <Button x:Name="AddSongToPlaylist" Content="Add a song to a playlist" Margin="5,5,5,5" Height="30" VerticalAlignment="Top"/>
+                <Button x:Name="AddSongToPlaylist" Command="{Binding AddSongCommand}" Content="Add a song to a playlist" Margin="5,5,5,5" Height="30" VerticalAlignment="Top"/>
                 <Button x:Name="DeleteSongOfPlaylist" Command="{Binding RemoveSongCommand}" Content="Delete a song of a playlist" Margin="5,5,5,5" Height="30" VerticalAlignment="Top"/>
-                <Button x:Name="SearchPlaylist" Content="Search a playlist" Margin="5,5,5,5" Height="30" VerticalAlignment="Top"/>
+                <Button x:Name="SearchPlaylist" Command="{Binding SearchPlaylistCommand}" Content="Search a playlist" Margin="5,5,5,5" Height="30" VerticalAlignment="Top"/>
                 <Button x:Name="DeletePlaylist" Command="{Binding DeletePlaylistCommand}" Content="Delete a playlist" Margin="5,5,5,5" Height="30" VerticalAlignment="Top"/>
 
                 <ProgressBar x:Name="SongProgress" Margin="5,25,5,5" Height="15" IsIndeterminate="False"/>

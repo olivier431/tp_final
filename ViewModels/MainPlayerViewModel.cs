@@ -31,7 +31,9 @@ namespace tp_final.ViewModels
         //Playlist Button Bar DelegateCommands
         public DelegateCommand AddPlaylistCommand { get; private set; }
         public DelegateCommand UpdatePlaylistCommand { get; private set; }
+        public DelegateCommand AddSongCommand { get; private set; }
         public DelegateCommand RemoveSongCommand { get; private set; }
+        public DelegateCommand SearchPlaylistCommand { get; private set; }
         public DelegateCommand DeletePlaylistCommand { get; private set; }
 
         //Button Bar DelegateCommands
@@ -59,7 +61,9 @@ namespace tp_final.ViewModels
             //Playlist Button Bar DelegateCommands
             AddPlaylistCommand = new DelegateCommand(AddPlaylist);
             UpdatePlaylistCommand = new DelegateCommand(UpdatePlaylist);
+            AddSongCommand = new DelegateCommand(AddSong);
             RemoveSongCommand = new DelegateCommand(RemoveSong);
+            SearchPlaylistCommand = new DelegateCommand(SearchPlaylist);
             DeletePlaylistCommand = new DelegateCommand(DeletePlaylist);
 
             //Button Bar DelegateCommands
@@ -105,6 +109,24 @@ namespace tp_final.ViewModels
             UpdatePlaylistAsync();
         }
 
+        public void AddSong()
+        {
+            Playlist playlist = (Playlist)PlaylistViewSource.CurrentItem;
+            Tune tunes = (Tune)TunelistViewSource.CurrentItem;
+            int tunesnumber = 0;
+            if (PlaylistViewSource.CurrentItem != null)
+            {
+                tunes.UpdateTune();
+                tunesnumber++;
+                playlist.count += tunesnumber;
+                playlist.length += tunes.length;
+                playlist.tunes.Add(tunes);
+                unknownTunes.Remove(tunes);
+                playlistViewSource.Refresh();
+                TunelistViewSource.Refresh();
+            }
+        }
+
         public void RemoveSong()
         {
             User currentUser = (User)Application.Current.Properties["CurrentUser"];
@@ -142,6 +164,11 @@ namespace tp_final.ViewModels
             {
                 MessageBox.Show("You need to select a playlist");
             }
+        }
+
+        public void SearchPlaylist()
+        {
+
         }
 
         public void DeletePlaylist()
@@ -250,14 +277,7 @@ namespace tp_final.ViewModels
         private async void SetUnknownListAsync()
         {
             unknownTunes = await Playlist.GetTunesUnknownAsync();
-            if (unknownTunes == null)
-            {
-
-            }
-            else
-            {
-                TunelistViewSource = CollectionViewSource.GetDefaultView(unknownTunes);
-            }
+            if (unknownTunes != null) TunelistViewSource = CollectionViewSource.GetDefaultView(unknownTunes);
         }
     }
 }
