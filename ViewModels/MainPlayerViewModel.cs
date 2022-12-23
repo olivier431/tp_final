@@ -33,6 +33,7 @@ namespace tp_final.ViewModels
 
         //Playlist Button Bar DelegateCommands
         public DelegateCommand AddPlaylistCommand { get; private set; }
+        public DelegateCommand UpdatePlaylistCommand { get; private set; }
         public DelegateCommand RemoveSongCommand { get; private set; }
         public DelegateCommand DeletePlaylistCommand { get; private set; }
 
@@ -59,6 +60,7 @@ namespace tp_final.ViewModels
 
             //Playlist Button Bar DelegateCommands
             AddPlaylistCommand = new DelegateCommand(AddPlaylist);
+            UpdatePlaylistCommand = new DelegateCommand(UpdatePlaylist);
             RemoveSongCommand = new DelegateCommand(RemoveSong);
             DeletePlaylistCommand = new DelegateCommand(DeletePlaylist);
 
@@ -98,6 +100,11 @@ namespace tp_final.ViewModels
         public void AddPlaylist()
         {
             AddPlaylistAsync();
+        }
+
+        public void UpdatePlaylist()
+        {
+            UpdatePlaylistAsync();
         }
 
         public void RemoveSong()
@@ -221,9 +228,15 @@ namespace tp_final.ViewModels
 
         private async void AddPlaylistAsync()
         {
-            Playlist playlist = (Playlist)PlaylistViewSource.CurrentItem;
             User currentUser = (User)Application.Current.Properties["CurrentUser"];
-            await currentUser.AddPlaylistAsync(playlist.title, playlist.isPublic, playlist.count, playlist.length);
+            await currentUser.AddPlaylistAsync("", 0, 0, 0);
+        }
+
+        private async void UpdatePlaylistAsync()
+        {
+            Playlist playlist = (Playlist)PlaylistViewSource.CurrentItem;
+            playlist.UpdatePlaylistAsync(playlist.title, playlist.isPublic, playlist.count, playlist.length, playlist.id);
+            playlist.isAlbum = 0;
         }
     }
 }

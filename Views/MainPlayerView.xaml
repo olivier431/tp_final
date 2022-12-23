@@ -76,6 +76,7 @@
             </ListBox>
             <StackPanel Grid.Column="2">
                 <Button x:Name="AddPlaylist" Command="{Binding AddPlaylistCommand}" Content="Create a playlist" Margin="5,5,5,5" Height="30" VerticalAlignment="Top"/>
+                <Button x:Name="UpdatePlaylist" Command="{Binding UpdatePlaylistCommand}" Content="Update a playlist" Margin="5,5,5,5" Height="30" VerticalAlignment="Top"/>
                 <Button x:Name="AddSongToPlaylist" Content="Add a song to a playlist" Margin="5,5,5,5" Height="30" VerticalAlignment="Top"/>
                 <Button x:Name="DeleteSongOfPlaylist" Command="{Binding RemoveSongCommand}" Content="Delete a song of a playlist" Margin="5,5,5,5" Height="30" VerticalAlignment="Top"/>
                 <Button x:Name="SearchPlaylist" Content="Search a playlist" Margin="5,5,5,5" Height="30" VerticalAlignment="Top"/>

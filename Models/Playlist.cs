@@ -259,6 +259,21 @@ namespace tp_final.Models
             return new(Result.Data.FirstOrDefault()!.ToString()!);
         }
 
+        public static async Task<ObservableCollection<Playlist>?> GetAllPlaylistsAsync()
+        {
+            var Result = await Martha.ExecuteQueryAsync("select-playlists");
+
+            if (!Result.Success) throw new Exception();
+            if (!Result.Data.Any()) throw new Exception();
+
+            ObservableCollection<Playlist> playlists = new();
+            Result.Data.ToList().ForEach(json =>
+                playlists.Add(new Playlist(json.ToString()!))
+            );
+
+            return playlists;
+        }
+
         public static async Task<Playlist?> AddPlaylistAsync(int user_id, string title)
         {
             JsonObject jsonParams = new()
@@ -271,6 +286,31 @@ namespace tp_final.Models
             var Result = await Martha.ExecuteQueryAsync($"insert-playlist", jsonParams);
             if (!Result.Success || !Result.Data.Any()) return null; //erreur
             return new(Result.Data.ToList().FirstOrDefault()!.ToString()!);
+        }
+
+        public async void UpdatePlaylistAsync(string title, int isPublic, int count, int length, int id)
+        {
+            JsonObject jsonParams = new()
+            {
+                { nameof(title), title },
+                { nameof(isPublic), isPublic },
+                { nameof(id), id }
+            };
+            JsonObject jsonParams2 = new()
+            {
+                { nameof(count), count },
+                { nameof(length), length },
+                { nameof(id), id }
+            };
+
+            var Result = await Martha.ExecuteQueryAsync($"update-playlist", jsonParams);
+            var Result2 = await Martha.ExecuteQueryAsync($"update-statsplaylist", jsonParams2);
+            if (!Result.Success)
+                throw new Exception();
+            if (!Result2.Success)
+                throw new Exception();
+
+            await GetAllPlaylistsAsync();
         }
 
         public static async Task<Playlist?> AddPlaylistAsync2(int user_id, string title, int isPublic, int count, int length)
