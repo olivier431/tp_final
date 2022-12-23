@@ -38,12 +38,25 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <ListView Name="DisplayPlaylist" ItemsSource="{Binding PlaylistViewSource}" IsSynchronizedWithCurrentItem="True" Margin="5,5,5,5">
+            <TextBlock HorizontalAlignment="Center" FontSize="15">Playlist</TextBlock>
+            <ListView Name="DisplayPlaylist" ItemsSource="{Binding PlaylistViewSource}" IsSynchronizedWithCurrentItem="True" Margin="5,20,5,170" Height="Auto">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Title" Width="Auto" DisplayMemberBinding="{Binding title}"/>
                         <GridViewColumn Header="Count" Width="Auto" DisplayMemberBinding="{Binding count}"/>
                         <GridViewColumn Header="Length" Width="Auto" DisplayMemberBinding="{Binding length}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <TextBlock HorizontalAlignment="Center" FontSize="15" Margin="0,242,0,-242">List of Tunes</TextBlock>
+            <ListView Name="DisplaylistTune" ItemsSource="{Binding TunelistViewSource}" IsSynchronizedWithCurrentItem="True" Margin="5,265,5,5" Height="Auto">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Artiste" Width="50" DisplayMemberBinding="{Binding artist}" />
+                        <GridViewColumn Header="Title" Width="auto" DisplayMemberBinding="{Binding title}" />
+                        <GridViewColumn Header="Length" Width="40" DisplayMemberBinding="{Binding length}" />
+                        <GridViewColumn Header="Genre" Width="auto" DisplayMemberBinding="{Binding genre}" />
+                        <GridViewColumn Header="Year" Width="40" DisplayMemberBinding="{Binding year}" />
                     </GridView>
                 </ListView.View>
             </ListView>
@@ -82,7 +95,8 @@
                 <Button x:Name="SearchPlaylist" Content="Search a playlist" Margin="5,5,5,5" Height="30" VerticalAlignment="Top"/>
                 <Button x:Name="DeletePlaylist" Command="{Binding DeletePlaylistCommand}" Content="Delete a playlist" Margin="5,5,5,5" Height="30" VerticalAlignment="Top"/>
 
-                <ProgressBar x:Name="SongProgress" Margin="5,25,5,5" Height="15" IsIndeterminate="False"/> <!--ItemsSource="{Binding PlaylistViewSource}" Fait planter mon VS-->
+                <ProgressBar x:Name="SongProgress" Margin="5,25,5,5" Height="15" IsIndeterminate="False"/>
+                <!--ItemsSource="{Binding PlaylistViewSource}" Fait planter mon VS-->
                 <Menu x:Name="SongButtonsMenu">
                     <Button x:Name="ShuffleButton" Command="{Binding ShuffleCommand}" Content="Shuffle" Height="40" Width="45" Margin="0,5,5,0"/>
                     <Button x:Name="PlayButton" Command="{Binding PlayCommand}" Content="Play" Height="40" Width="45" Margin="0,5,5,0"/>

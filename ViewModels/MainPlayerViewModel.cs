@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Data;
@@ -10,15 +11,11 @@ namespace tp_final.ViewModels
 {
     class MainPlayerViewModel : BaseViewModel
     {
-        //public int id { get; set; }
-        //public int user_id { get; set; }
-        //public int isPublic { get; set; }
-        //public string title { get; set; }
-        //public int count { get; set; }
-        //public int length { get; set; }
-
         //ICollectionView & Variables
         ICollectionView playlistViewSource;
+        ICollectionView tunelistViewSource;
+        private ObservableCollection<Tune> unknownTunes;
+        public Tune selectedTune { get; set; }
 
         private string title;
         private int length, isPublic, count;
@@ -51,6 +48,7 @@ namespace tp_final.ViewModels
 
             //CollectionView
             PlaylistViewSource = CollectionViewSource.GetDefaultView(currentUser.playlists);
+            SetUnknownListAsync();
 
             //Nav Bar DelegateCommands
             navigationStore = _navigationStore;
@@ -226,6 +224,16 @@ namespace tp_final.ViewModels
             }
         }
 
+        public ICollectionView TunelistViewSource
+        {
+            get => tunelistViewSource;
+            set
+            {
+                tunelistViewSource = value;
+                OnPropertyChanged();
+            }
+        }
+
         private async void AddPlaylistAsync()
         {
             User currentUser = (User)Application.Current.Properties["CurrentUser"];
@@ -237,6 +245,19 @@ namespace tp_final.ViewModels
             Playlist playlist = (Playlist)PlaylistViewSource.CurrentItem;
             playlist.UpdatePlaylistAsync(playlist.title, playlist.isPublic, playlist.count, playlist.length, playlist.id);
             playlist.isAlbum = 0;
+        }
+
+        private async void SetUnknownListAsync()
+        {
+            unknownTunes = await Playlist.GetTunesUnknownAsync();
+            if (unknownTunes == null)
+            {
+
+            }
+            else
+            {
+                TunelistViewSource = CollectionViewSource.GetDefaultView(unknownTunes);
+            }
         }
     }
 }

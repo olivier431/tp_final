@@ -246,6 +246,21 @@ namespace tp_final.Models
             return new(Result.Data.ToList().FirstOrDefault()!.ToString()!);
         }
         // --------------------- Playlist Methods ---------------------
+
+        public static async Task<ObservableCollection<Tune>?> GetTunesUnknownAsync()
+        {
+            var Result = await Martha.ExecuteQueryAsync("select-tunes");
+
+            if (!Result.Success) throw new Exception();
+            
+            ObservableCollection<Tune> playlists = new();
+            Result.Data.ToList().ForEach(json =>
+                playlists.Add(new Tune(json.ToString()!))
+            );
+
+            return playlists;
+        }
+
         public static async Task<Playlist?> GetPlaylistByIdAsync(int id)
         {
             JsonObject jsonParams = new()
