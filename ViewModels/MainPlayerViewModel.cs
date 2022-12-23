@@ -116,7 +116,6 @@ namespace tp_final.ViewModels
             int tunesnumber = 0;
             if (PlaylistViewSource.CurrentItem != null)
             {
-                tunes.UpdateTune();
                 tunesnumber++;
                 playlist.count += tunesnumber;
                 playlist.length += tunes.length;

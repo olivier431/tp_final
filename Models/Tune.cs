@@ -138,6 +138,18 @@ namespace tp_final.Models
             if (!Result.Success) return;
         }
 
+        public static async void UpdateTunePlaylistAsync(int tune_id, int playlist_id)
+        {
+            JsonObject jsonParams = new()
+            {
+                { nameof(tune_id), tune_id },
+                { nameof(playlist_id), playlist_id }
+            };
+
+            var Result = await Martha.ExecuteQueryAsync($"update-tune-playlist", jsonParams);
+            if (!Result.Success) return;
+        }
+
         public static async void UpdateUnknownAsync(int id)
         {
             JsonObject jsonParams = new()
