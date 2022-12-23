@@ -133,7 +133,7 @@
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label x:Name="SongTitle" Content="Title: " Foreground="Black" Margin="100,0,0,0"/>
-                    <Label x:Name="SongTitleLabel" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Content="{Binding Selectedtune.title, UpdateSourceTrigger=PropertyChanged}" Foreground="Black"/>
+                    <Label x:Name="SongTitleLabel" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Content="{Binding AlbumlistViewSource.CurrentItem.tunes.CurrentItem.title, UpdateSourceTrigger=PropertyChanged}" Foreground="Black"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label x:Name="SongGroup" Content="Group: " Foreground="Black" Margin="100,0,0,0"/>
